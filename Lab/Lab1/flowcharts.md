@@ -2,27 +2,27 @@
 
 ## Lab1a_L432KC.s — Hex ASCII to Value Converter
 
-Converts hex ASCII characters (0–9, A–F, a–f) from source memory to 4-byte values in destination memory. Enter (0x0D) ends the loop.
+Converts hex characters (0–9, A–F, a–f) from source to numeric values in destination. Enter ends the loop.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> Init["R0 = 0x20001000 (source)<br/>R1 = 0x20002000 (dest)"]
+    Start([Start]) --> Init["Set source and destination pointers"]
     Init --> Loop
-    Loop["Load R2 = [R0]"]
-    Loop --> CheckEnter{"R2 == 0x0D<br/>(Enter)?"}
+    Loop["Read next character from source"]
+    Loop --> CheckEnter{"Character is Enter?"}
     CheckEnter -->|Yes| Exit([Exit])
-    CheckEnter -->|No| CheckDigit{"R2 >= 0x30<br/>and R2 <= 0x39?"}
-    CheckDigit -->|Yes| Digit["R3 = R2 - 0x30<br/>(digit 0-9)"]
-    CheckDigit -->|No| CheckUpper{"R2 >= 0x41<br/>and R2 <= 0x46?"}
-    CheckUpper -->|Yes| Upper["R3 = R2 - 0x37<br/>(A-F)"]
-    CheckUpper -->|No| CheckLower{"R2 >= 0x61<br/>and R2 <= 0x66?"}
-    CheckLower -->|Yes| Lower["R3 = R2 - 0x57<br/>(a-f)"]
-    CheckLower -->|No| Invalid["R3 = 0xFFFFFFFF<br/>(invalid)"]
+    CheckEnter -->|No| CheckDigit{"Character is digit '0'-'9'?"}
+    CheckDigit -->|Yes| Digit["Result = numeric value of digit"]
+    CheckDigit -->|No| CheckUpper{"Character is 'A'-'F'?"}
+    CheckUpper -->|Yes| Upper["Result = hex value 10-15"]
+    CheckUpper -->|No| CheckLower{"Character is 'a'-'f'?"}
+    CheckLower -->|Yes| Lower["Result = hex value 10-15"]
+    CheckLower -->|No| Invalid["Result = invalid marker"]
     Digit --> Store
     Upper --> Store
     Lower --> Store
     Invalid --> Store
-    Store["[R1] = R3<br/>R0 += 4, R1 += 4"]
+    Store["Write result to destination<br/>Advance both pointers"]
     Store --> Loop
 ```
 
@@ -30,23 +30,23 @@ flowchart TD
 
 ## Lab1b_L432KC.s — Case Converter (Upper ↔ Lower)
 
-Reads ASCII letters from source, converts uppercase→lowercase and lowercase→uppercase, writes to destination. Enter (0x0D) ends the loop. Non-letters become '*' (0x2A).
+Reads letters from source, converts uppercase→lowercase and lowercase→uppercase, writes to destination. Enter ends the loop. Non-letters become '*'.
 
 ```mermaid
 flowchart TD
-    Start([Start]) --> Init["R0 = 0x20001000 (source)<br/>R1 = 0x20003000 (dest)"]
+    Start([Start]) --> Init["Set source and destination pointers"]
     Init --> Loop
-    Loop["Load R2 = [R0]"]
-    Loop --> CheckEnter{"R2 == 0x0D<br/>(Enter)?"}
+    Loop["Read next character from source"]
+    Loop --> CheckEnter{"Character is Enter?"}
     CheckEnter -->|Yes| Exit([Exit])
-    CheckEnter -->|No| CheckUpper{"R2 >= 0x41<br/>and R2 <= 0x5A?"}
-    CheckUpper -->|Yes| ToLower["R3 = R2 + 0x20<br/>(uppercase → lowercase)"]
-    CheckUpper -->|No| CheckLower{"R2 >= 0x61<br/>and R2 <= 0x7A?"}
-    CheckLower -->|Yes| ToUpper["R3 = R2 - 0x20<br/>(lowercase → uppercase)"]
-    CheckLower -->|No| Invalid["R3 = 0x2A<br/>('*' invalid)"]
+    CheckEnter -->|No| CheckUpper{"Character is uppercase A-Z?"}
+    CheckUpper -->|Yes| ToLower["Result = lowercase version"]
+    CheckUpper -->|No| CheckLower{"Character is lowercase a-z?"}
+    CheckLower -->|Yes| ToUpper["Result = uppercase version"]
+    CheckLower -->|No| Invalid["Result = '*'"]
     ToLower --> Store
     ToUpper --> Store
     Invalid --> Store
-    Store["[R1] = R3<br/>R0 += 4, R1 += 4"]
+    Store["Write result to destination<br/>Advance both pointers"]
     Store --> Loop
 ```
