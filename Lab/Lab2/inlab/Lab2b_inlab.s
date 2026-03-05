@@ -53,6 +53,15 @@ b mul_loop
 mul_done:
 add r10, r10, r1
 
+/* Load y[i], y[i+1], compute (y[i] + y[i+1]) */
+ldr r2, [r7, r1]       /* y[i] */
+ldr r3, [r7, r3]       /* y[i+1] */
+add r2, r2, r3         /* ysum */
+
+/* Add dx * ysum into accumulator */
+mul r2, r2, r12
+add r10, r10, r2
+
 add r11, r11, #1
 b main_loop
 
