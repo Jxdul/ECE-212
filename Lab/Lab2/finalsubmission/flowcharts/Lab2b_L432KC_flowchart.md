@@ -9,8 +9,8 @@ flowchart TD
 
     E --> F{More segments to process?}
     F -->|Yes| G[Compute byte offset for current point]
-    G --> H[Load x at i and x at i plus 1<br/>Compute delta x]
-    H --> I[Load y at i and y at i plus 1<br/>Compute y sum]
+    G --> H[Load x at i and x at i plus 1, then compute delta x]
+    H --> I[Load y at i and y at i plus 1, then compute y sum]
     I --> J{Is delta x equal to 1?}
     J -->|Yes| K[Use y sum directly]
     J -->|No| L[Shift y sum left to multiply by delta x]
