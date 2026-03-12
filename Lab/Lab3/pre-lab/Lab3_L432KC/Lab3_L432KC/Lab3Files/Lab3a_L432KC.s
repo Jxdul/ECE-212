@@ -101,7 +101,7 @@ POP {r4-r8,pc}
 /*-----------------Add your strings here in the data section--------*/
 .data
 PromptEntryCount:
-.string "Please enter the number(3min-10max) of entries"
+.string "Please enter the number(3min-10max) of entries followed by 'enter'"
 PromptLower:
 .string "Please enter the lower limit"
 PromptUpper:
