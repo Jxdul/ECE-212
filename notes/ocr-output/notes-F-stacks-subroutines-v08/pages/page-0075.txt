@@ -1,0 +1,17 @@
+Some key points for PDL:
+• shorthand notation for the description of algorithms using plain English to sub-
+stitute for entire expressions
+• compromise between high-level language and an assembly language program
+• supports good programming principles (top-down design, modularity, struc-
+tured programming)
+• can be extended to deal with specific tasks
+• try to use only English-like statements that precisely describe specific operations
+• describe the meaning rather than how the approach will be implemented
+• explicitly define control constructs (loops and decision mechanisms) - IF,
+FOR, CASE, etc.
+• design at a higher level than the target code (avoid syntactic elements from the
+target assembly language)
+• write at low enough level that coding from it will be nearly automatic
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - F (Stacks / subroutines) - F-75

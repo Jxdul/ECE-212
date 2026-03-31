@@ -1,0 +1,7 @@
+Example #1 — What will be the address and control signals to write a byte to ad-
+dress 0x1234 of a 32-bit port memory?
+Address = 0x 0000 1234
+= 0b 0000 0000 00000000
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+S AL
+Notes - G (Interacing/ decoding) - G-21

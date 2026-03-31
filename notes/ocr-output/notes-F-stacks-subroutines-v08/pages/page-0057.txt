@@ -1,0 +1,8 @@
+Example #2 — Passing parameters via the stack
+Write a subroutine to add two 64-bit integers P and Q. The numbers are to be
+passed by reference via the stack and the result returned on the top of the stack.
+As before, P = PH: PL and Q = QH: QL. Assume P and Q are defined labels point-
+ing to the memory location of the two numbers, each stored as two consecutive
+words
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-57

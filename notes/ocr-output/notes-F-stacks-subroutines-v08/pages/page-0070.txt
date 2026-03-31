@@ -1,0 +1,21 @@
+F.6.2 Modular design
+A module concerned with a single, logically coherent task
+that can be:
+Single entry point
+• designed and tested independently
+Module
+Module code
+replaced by another module that is functionally equiv-
+(i.e. program)
+lent and has a compatible interface
+• described using
+Module data
+(cannot be accessed
+• coupling (how many connections/ dependencies
+outisde the module)
+between modules)
+• modularity or strength (how specific is function-
+Single exit point
+ality of a module)
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-70

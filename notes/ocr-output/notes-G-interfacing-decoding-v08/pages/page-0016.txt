@@ -1,0 +1,4 @@
+• 16-bit port — the memory can be accessed either one or two bytes at a time
+• 32-bit port — the memory can be accessed one, two, or four bytes at a time
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-16

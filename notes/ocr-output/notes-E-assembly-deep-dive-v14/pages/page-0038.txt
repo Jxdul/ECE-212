@@ -1,0 +1,17 @@
+E.4.1 Basic arithmetic operations
+• ADD —add
+• ADC — add with carry
+takes carry-out from a previous addition (the C flag) as its carry-in, enabling
+extended-range operation
+• SUB — subtract
+e.g., SUB Rd, Rn, Rm
+Rd -
+e.g., SUB Rn, Rm
+• SBC — subtract with carry (a.k.a.
+e.g., SBC Rd, Rn, Rm
+Rd -
+• RSB — reverse subtract
+e.g., RSB Rd, Rn, Rm
+Rd -
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+Notes - E (Assembly deep dive) - E-38

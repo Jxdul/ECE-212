@@ -1,0 +1,20 @@
+F.2 Learning objectives
+By the end of this section of the course, you should be able to:
+• Describe the stack as a data structure, its basic operation (push, pop), and ap-
+plications; discuss its advantages and disadvantages; contrast the stack with a
+queue.
+• Define and correctly apply terminology related to stacks: push, pop, top, grow,
+shrink, stack origin, stack pointer.
+• Explain how stacks are implemented at the CPU level in the ARMv7 archi-
+tecture; describe push and pop operations and how these relate to addressing
+modes.
+• Explain the motivations for using subroutines; describe how the CPU makes
+use of the link register and stack to keep track of calling and returning from
+subroutines; describe in plain language what BL, BLX, and BX instructions do.
+• Define transparency, re-entrancy; explain what position-independent code is
+and how subroutines support this.
+• Explain how to save and restore register values using the stack, how to use LDM,
+STM
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - F (Stacks/ subroutines) - F-4

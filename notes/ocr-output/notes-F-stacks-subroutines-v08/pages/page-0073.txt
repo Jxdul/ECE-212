@@ -1,0 +1,16 @@
+As discussed before, assembler language does not have an ELSE clause, so state-
+ments like "IF (condition) GOTO (label)" are necessary. As an exercise,
+how are the following implemented in assembly?
+• IF (condition) THEN (action)
+• IF (condition) THEN (action)
+ELSE (other action)
+• FOR (variable = limit1 TO limit2) DO (action)
+• SELECT (variable)
+CASE (case1): (action1)
+CASE (case2): (action2)
+•..
+CASE ELSE: (default action)
+• WHILE (condition) DO (action)
+• DO (action) WHILE (condition)
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-73

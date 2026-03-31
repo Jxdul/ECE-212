@@ -1,0 +1,11 @@
+Addr: A23
+A19
+A15
+A11
+A7
+A3
+AO
+ROM1:
+ROM2 :
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-51

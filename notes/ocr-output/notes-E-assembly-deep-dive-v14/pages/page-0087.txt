@@ -1,0 +1,35 @@
+ORR — bitwise, Boolean OR
+mnemonic
+S
+<c> <W> operands
+ext description (RTL)
+#
+IT
+ORR
+{S} <c>
+|LET imm32 = ThumbExpImm(i :imm3:1mm8)
+Rd, Rn, #immed
+Rd - Rn OR imm32
+ORR
+{S}
+Rd - Rd OR Rm
+<c>
+Rd, Rm
+T1 out
+in
+ORR
+{S} <c>
+• W
+Rd, Rn, Rm{, < shift>}
+Rd - Rn OR Rm(shifted)
+T2
+• Given:
+x OR 1 =
+X OR 0 =
+• To set selected bits in a register:
+ORR{S}
+Rd, Rn, #bitmask
+• any 1s in bitmask →
+• any Øs in bitmask →
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit • AI
+Notes - E (Assembly deep dive) - E-87

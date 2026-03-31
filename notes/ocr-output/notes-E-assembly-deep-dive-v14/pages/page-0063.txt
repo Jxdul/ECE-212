@@ -1,0 +1,20 @@
+E.5.5 The conditional IT (if-then) block
+IT{x{y{z}}}
+CC
+Makes the (1 to 4) following instructions conditional, based on the specified cc. The
+conditions may all be the same, or some may be the logical inverse of cc.
+• X, y, z specify conditions for the 2nd /3rd / 4th instructions in the IT block; each
+is:
+• T (then) = the base condition is applied
+• E (else) = the inverse of the base condition is applied
+e.g., ITTE GT
+• The IT block gives us a way to implement simple IF-THEN-ELSE structures
+without requiring as many conditional and unconditional branching instruc-
+tions.
+• A BKPT (breakpoint) in an IT block always executes regardless of its condition.
+• Exceptions can occur within the IT block.
+• Can use AL (always) as base condition, but then may not use any E (else) con-
+ditions.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-63

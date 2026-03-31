@@ -1,0 +1,11 @@
+• RRX
+— rotate right with extend
+• move all bits of destination register Rd to the right
+• bit "falling out" from the right copied to C flag, which in turn is copied
+into msb
+b31 b30
+...
+bI bo
+Rd
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-47

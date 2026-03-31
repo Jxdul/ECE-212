@@ -1,0 +1,9 @@
+Address decoding - Example #1
+A 64 kB ROM is to be interfaced to a CPU with an 8-bit data bus and a 24-bit
+address bus such that the base address of the ROM is at 0x48 0000.
+• What is the full range of addresses used by the ROM?
+• Design a full address decoder assuming that the ROM is on a single 64 kB
+chip.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - G (Interacing/ decoding) - G-46

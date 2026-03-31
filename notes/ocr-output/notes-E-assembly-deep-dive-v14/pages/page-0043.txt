@@ -1,0 +1,22 @@
+E.4.4 Shifting and bit manipulation
+• LSL
+— logical shift left, equivalent to arithmetic shift left
+• move all bits of destination register Rd to the left
+• a O is shifted in from the right
+• bit "falling out" from the left goes to C flag
+• repeat the above k times
+• k specified as an immediate value or in a register
+• LSL by k bits is equivalent to
+Rd by
+...
+/31 |30
+by bo
+Rd
+before
+Rd
+after
+...
+B31 b30
+bI bo
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-43

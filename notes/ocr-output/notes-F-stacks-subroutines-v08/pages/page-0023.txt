@@ -1,0 +1,10 @@
+• move (register)
+MOV PC, LR
+• this also works, with some restrictions
+• may not set flags
+• must be outside of IT block or the last instruction within IT block
+copies link register to program counter
+PC < LR[31:11:0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks / subroutines) - F-23

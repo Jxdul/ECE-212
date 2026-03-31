@@ -1,0 +1,19 @@
+• encoding T3
+MOVW Rd, #imm16
+• a 32-bit encoding
+• Rd = any register except
+• use any 16-bit immediate value; gets put into
+of Rd, while
+• move with bitwise NOT
+MVN{S) Rd, #immed
+• works similarly to MOV encoding T2 above, except that:
+• a bitwise NOT is done on the calculated imm32 value before it gets put into
+Rd
+• move top
+MOVT
+Rd, #imm16
+• similar to MOVW encoding T3 above
+• use any 16-bit immediate value; gets put into
+of Rd, while
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-11

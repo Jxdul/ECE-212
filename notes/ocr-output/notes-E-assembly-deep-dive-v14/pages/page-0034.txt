@@ -1,0 +1,59 @@
+Example - STx + addressing modes
+address
+content
+0x11223308
+0x44
+Given the memory map and:
+0x11223307
+0x55
+R6 = 0x 11223300
+0x11223306
+0x66
+R1 = 0x 1123 58D0
+R2 = 0x ABCD EF01
+0x11223305
+0x77
+R3 = 0x AABB CCDD
+R4 = 0x ABCD EDCB
+0x11223304
+0x88
+what happens after each instruction?
+0x11223303
+0x99
+0x11223302
+0xAA
+STR
+R1, [R6]
+0x11223301
+0хBB
+STRH
+R2, [R6, #4]
+0x11223300
+0xCC
+;
+0x112232FF
+0xDD
+STRH
+R3, [R6, #-6]
+0x112232FE
+0xEE
+,
+0x1122 32FD
+0хAB
+STRB
+R4, [R6, #-6]!
+0x112232FC
+0хBC
+;
+0x112232FB
+0XCD
+LDRSH
+R5, [R6]
+0x112232FA
+0xDE
+;
+0x1122 32F9
+0x01
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-34

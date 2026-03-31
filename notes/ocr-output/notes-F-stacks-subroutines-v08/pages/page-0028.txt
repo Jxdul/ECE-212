@@ -1,0 +1,47 @@
+• push multiple registers onto the stack
+PUSH <registers>
+PUSH .W <registers>
+where < registers> = list of one or more registers to be stored, written as
+comma/hyphen-separated list, surrounded by { }. Lowest-numbered regis-
+ter is stored to lowest memory address.
+encoding
+APSR
+mnemonic
+<> «W> operands
+ext description (RTL)
+IT FEDC BA98 7654 3210 N Z C V Q GE
+. notes
+LET registers = 0:M:000000:xxxxxxxx
+<c>
+< registers>
+FOR i = 14 TO 0
+registers|i]
+1011 010M XXXX XXXX
+SP - SP
+- 4
+T1
+[SP] - Ri
+PUSH
+LET registers = 0:M:0:xxxxxxxxxxxxx
+<C>
+FOR i = 14 TO 0
+•W <registers>
+IF registers[il
+1110 1001 0010 1101
+At least two registers must be specified.
+SP -
+- 4
+0M0x xxxx xxxx xxxx
+Equivalent to STMDB SP!, < registers›
+SP and PC cannot be in the list
+[SP] - Ri
+<c>
+" (Rt)
+SP - SP - 4
+[SP] - RI
+T3
+out 1111 1000 0100 1101
+last tttt 1011 0000 0100
+Do not use Rn = SP or PC.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-28

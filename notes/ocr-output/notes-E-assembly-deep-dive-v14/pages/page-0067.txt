@@ -1,0 +1,81 @@
+Encoding of IT instruction
+• low order byte of the instruction word corresponds exactly to initial state of ITSTATE:
+7
+6
+5
+4
+3
+2
+1
+0
+IT[7:0]
+C
+C
+C
+M
+M
+M
+M
+T
+base condition
+condition of the 1st instr in the IT block
+Let D = the Isb of this condition code
+1 instruction in IT block
+IT
+1
+0
+For the 2nd, 3rd, and 4th
+ITT
+D
+1
+0
+instructions in the IT block,
+2 instructions in IT block
+• a T (then) means that D is
+ITE
+D'
+1
+placed in the corresponding
+ITTT
+D
+D
+1
+position in the mask field
+ITET
+D'
+D
+1
+• an E (else) means that D' is
+3 instructions in IT block
+ITTER
+D
+D'
+1
+placed in the corresponding
+position in the mask field.
+ITEE
+D'
+D'
+1
+ITTTT
+D
+D
+D
+1
+Following the D or D' entries,
+the rest of the mask field is a 1
+ITETT
+D'
+D
+D
+1
+and then all Øs.
+ITTET
+D
+D'
+D
+1
+D'
+D
+1
+Notes - E (Assembly deep dive) -E-67

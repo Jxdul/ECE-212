@@ -1,0 +1,23 @@
+Branch with link and exchange
+BLX{cc} Rm
+= Branch to an address held in register Rm, return address saved in LR
+• Like BX, allows for change of instruction set, but not in ARMv7-M (since M
+profile supports Thumb instruction set only).
+• Like BL, also writes the address of the subsequent instruction to LR.
+mnemonic
+encoding
+APSR
+S <c> <W> operands
+ext description (RTL)
+| # IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+BLX
+<c>
+Rm
+T1 last 0188 0111 1mmmmeee
+- - - -
+Rm cannot be PC.
+PC - Rm[31:1]:0
+UsageFault
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-60

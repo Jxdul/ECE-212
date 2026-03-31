@@ -1,0 +1,17 @@
+STM32L432xx microcontroller: So many features! *°
+Includes:
+• ARM Cortex-M4 core with FPU, DSP, MPU
+• 256 kB Flash memory, 64 kB SRAM
+• ADC, 2x comparators, op amp, 2x DAC
+• RTC, 32-bit timer, PWM timer, 4x 16-bit timer, 2x low-power timer
+• 3x capacitive sensing channels
+• 2x DMA
+• 2x I2C
+• 2x SPI
+• 2x USART, low-power UART
+• CAN
+• USB
+• SWPMI
+Ref: STM microcontroller datasheet
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-9

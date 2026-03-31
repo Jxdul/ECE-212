@@ -1,0 +1,23 @@
+LDR (literal)
+Ref: PQR / Opcode reference / rows 103-105
+• encoding T1
+LDR
+Rt, < Label>
+LDR
+Rt, [PC, #immed]
+• a 16-bit encoding — 0100 Ittt iiii iiii
+• Rt must be
+• Because of word-alignment, offset has form Ob ii iiii ii00, giving us a
+ange of offsets 0, 4, 8,..., 1020.
+• Offset may only be +ve, so < label> must
+• encoding T2
+LDR .W
+Rt, < label>
+LDR
+Rt, [PC, #timm12]
+ー
+• a 32-bit encoding
+• offset range is - 4095 ... + 4095 encoded as 12 bits, with a separate sign bit
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+SAA
+Notes - E (Assembly deep dive) - E-23

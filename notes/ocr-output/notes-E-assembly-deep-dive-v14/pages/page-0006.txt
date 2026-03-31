@@ -1,0 +1,11 @@
+Itinerary for our tour
+• data movement operations
+• arithmetic operations
+• logical operations
+• comparison and sequence control operations
+• individual bit operations
+• miscellaneous operations
+Note that this is not an exhaustive list!
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+= AL
+Notes - E (Assembly deep dive) - E-6

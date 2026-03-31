@@ -1,0 +1,12 @@
+E.4 Data processing operations I
+• basic arithmetic
+- ADD, ADC, RSB, SUB, SBC
+• basic logical
+— AND, BIC, EOR, MVN, ORR, ORN
+• comparison and test
+- CMN, CMP, TEQ, TST
+• shifting and bit manipulation
+— ASR, LSL, LSR, ROR, RRX
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-37

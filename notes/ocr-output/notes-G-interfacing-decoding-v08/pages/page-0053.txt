@@ -1,0 +1,6 @@
+A rule for partial address decoding: For any given pair of devices, there should
+be a common address line used to generate chip select signals, and whose value
+is 0 for one of the devices and 1 for the other device.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - G (Interacing/decoding) - G-53

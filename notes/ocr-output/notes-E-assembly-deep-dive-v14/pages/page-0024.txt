@@ -1,0 +1,21 @@
+LDR (register)
+Ref: PQR / Opcode reference / rows 106-107
+• encoding T1
+LDR
+Rt, [Rn, Rm]
+-
+• a 16-bit encoding - 0101 100m mmnn nttt
+• All three registers must be
+• EA =
+• RTL: Rt +
+• encoding T2
+LDR.W Rt, [Rn, Rm {, LSL
+#imm2}]
+-
+• a 32-bit encoding
+• LSL (shift left) of Rm by up to
+bits, equivalent to multiplying
+Rm by
+• • EA =
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-24

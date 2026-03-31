@@ -1,0 +1,20 @@
+How does the memory port size map to the data bus?
+• 8-bit port
+• connected to e.g.,
+• word-size load / store would take
+transfers
+• 16-bit port
+• connected to e.g.,
+• word-size load / store would take
+transfers
+• 32-bit port
+• connected to
+• word-size load / store would take
+transfer
+If memory is measured in bytes and the smallest accessible unit is a byte, how is this
+done when the memory has a wide (e.g., 32-bit) port?
+• The CPU has four byte select (or byte enable) lines that specify which byte(s)
+of the data bus is (are) actively mapped to the memory port.
+• Active-low signals BS3 to BS indicate
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-17

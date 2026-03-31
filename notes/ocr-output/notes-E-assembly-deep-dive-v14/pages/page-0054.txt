@@ -1,0 +1,73 @@
+E.5.2
+E.5.2 Condition codes
+Condition codes and definitions
+mnemonic
+- definition -
+condition test
+condition
+integer arithmetic
+encoding
+boolean
+EQ
+equal
+0000
+Z
+NE
+not equal
+0001
+Z'
+CS (HS)
+carry set (unsigned higher or same)
+0010
+C
+CC (LO)
+carry clear (unsigned lower)
+0011
+C'
+MI
+minus (negative)
+0100
+N
+PL
+plus (positive)
+0101
+N'
+VS
+overflow
+0110
+V
+VC
+no overflow
+0111
+HI
+unsigned higher
+1000
+C•Z'
+LS
+unsigned lower or same
+1001
+C' + Z
+GE
+signed greater than or equal
+1010
+N•V + N'•V'
+LT
+signed less than
+1011
+N°V' +N'*V
+GT
+signed greater than
+1100
+Z'• (N•V + N' •V')
+LE
+signed less than or equal
+1101
+Z + N•V' + N' •V
+none (AL) always (unconditional)
+1110
+1
+HS is a synonym for CSLO is a synonym for CC
+AL is an optional mnemonic extension to indicate "always", but is required within an
+IT block.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-54

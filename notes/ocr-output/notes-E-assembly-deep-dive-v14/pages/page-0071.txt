@@ -1,0 +1,14 @@
+E.6.2 Multiplication (64-bit result)
+SMULL — signed multiply long
+• (32-bit) x (32-bit) = (64-bit)
+• SMULL Rd_lo, Rd_hi, Rn, Rm
+LET result = Rn x Rm
+(64-bit result)
+Rd_hi < result[63:32]
+d_10 + result [31:0]
+UMULL — unsigned multiply long
+• UMULL Rd_1o, Rd_hi, Rn, Rm
+• Same as SMULL but for multiplication of unsigned integers.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-71

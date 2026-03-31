@@ -1,0 +1,13 @@
+Calling convention
+There must be an agreed-upon convention between caller and subroutine for how
+parameters are to be passed. While there are many possible implementations, it is
+better to have a standardised solution to maximise inter-operability; e.g.,
+• allows use of pre-built code libraries
+• interfacing assembler with other languages
+• compatibility between programs/ drivers/operating systems
+This standard is called a calling convention, function call standard, or procedure
+call standard.
+ARM publishes the ARM architecture procedure call standard (AAPCS), avail-
+able from developer.arm.com
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-34

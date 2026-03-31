@@ -1,0 +1,23 @@
+E.6.6 Bit field operations
+BFC — bit field clear
+•
+BFC
+Rd, #Isb, #width
+• Clears a portion of Rd of given width and position. Other bits of Rd are not
+changed.
+e.g.,
+BFC
+R6, #7,#3
+BFI — bit field insert
+•
+BFI
+Rd, Rn, #Isb, #width
+• Copies the #width least-significant bits of Rn at position #Isb of Rd. Other bits
+of Rd are not changed.
+CLZ — count leading zeroes
+•
+CLZ
+Rd, Rm
+• Rd - number of leading binary Os in Rm before first binary 1 is seen
+ECE 212 Winter 2026 LEC B1 - Course content O1. C. Sit @ AT
+Notes - E (Assembly deep dive) - E-78

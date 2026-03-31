@@ -1,0 +1,13 @@
+Block address decoding
+• Divide address space into blocks
+• Fully decode each block
+• using high order bits
+• single-chip decoders available
+' e.g., 2:4 decoder divides space into 4 blocks of equal size (1024 bytes for
+previous example
+• Optionally subdivide within block by cascading decoders with more address
+inputs
+• Put memory device at each block start
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+= AI
+Notes - G (Interacing/ decoding) - G-42

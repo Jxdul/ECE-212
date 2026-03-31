@@ -1,0 +1,8 @@
+In the example above, we implemented physical memory that covered the entire
+addressable range. This is not necessary or affordable in all cases. Two strategies:
+• full address decoding —all address lines are used to specify a memory location
+and each physical memory location has a
+• partial address decoding — only a subset of the address bus lines are needed to
+point to physical memory locations
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-38

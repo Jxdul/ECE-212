@@ -1,0 +1,23 @@
+Branching conditionally
+• High-level languages have IF-THEN-ELSE constructs, and therefore GOTO is
+unnecessary and, in fact, discouraged.
+• Assembly, however, usually does not have an ELSE clause. :
+Bcc
+<label>
+means "IF
+THEN GOTO
+The ELSE clause is implied as
+...ELSE
+Consider a high-level language like C:
+void main() {
+•..
+if (condition) {
+I/ do something
+} else {
+I do something else
+}
+I1 do more stuff
+•..
+}
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) -E-52

@@ -1,0 +1,15 @@
+In this example, the way the parameters were passed, more specifically, was:
+• the two 64-bit input values were pushed onto the stack
+• the 64-bit sum replaced the first of the two addends that was pushed onto
+the stack
+• the caller would be responsible for retrieving the result from the stack and
+cleaning up the stack
+Again, there must be agreement as to how things are done between caller and
+callee.
+In this example, the subroutine and the caller did not directly
+the
+items that are popped off the stack. Nonetheless, we must never read and cannot
+rely on anything above the top of the stack. !
+ie., never read
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-56

@@ -1,0 +1,98 @@
+encoding
+APSR
+mnemonic
+<c> <W> operands
+ext description (RTL)
+IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+LDM
+Rn, < registers>
+LET ptr = Rr
+OR i = 0 TO 7
+nnn = base register (RØ to R7)
+xxxx xxxx = register list, corresponding to
+LDMFD
+LDMIA
+<c>
+IF register_list[i] THEN
+Ri - [ptr]
+T1
+1100 1nnn xxxx xxxx
+R7 :R0; must specify at least one register
+Rn!, < registers>
+IF <!> THEN
+ptr - ptr + 4
+! = advance Rn after the load operation,
+Rn - Rn + 4*bitcount(reg_list)
+encoded as reg_ list[n] = 0.
+LET ptr = Rn
+Rn, registers>
+FOR i = 0 TO 14:
+If Rn = SP and W = 1, see POP (Thumb).
+nnnn = base register (R0 to R14)
+IF register_list[i] THEN
+PMx xxxxxxxxxxxx = register list,
+LDM
+LDMIA
+Ri - [ptr]
+12 out 1110 1000 10W1 nan
+corresponding to R15:R0;
+LDMFD
+IF register_list[15] THEN
+ptr - ptr + 4
+last PM0x xxxx xxxx xxxx
+must specify two or more registers;
+Rn!, ‹registers›
+IF <!> THEN
+LoadWritePC ([ptr])
+Rn - Rn + 4*bitcount (reg_list)
+! = advance Rn after the load operation,
+if PC included, cannot include LR
+cannot include SP
+encoded as W = 1
+• pop multiple registers from the stack
+POP <registers>
+POP.W < registers>
+where <registers› = list of one or more registers to be restored, written as
+comma/hyphen-separated list, surrounded by { }. Lowest-numbered regis-
+ter is loaded from lowest memory address.
+encoding
+APSR
+mnemonic
+S <c> «W> operands
+ext description (RTL)
+|LET registers = P:0000000:xxxxxx××
+| # IT FEDE BA98 7654 3210 N Z C V a GE notes
+FOR i = 0 TO 14
+IF registers|i]
+‹registers›
+SP - SP + 4
+Ri - [SP]
+T1
+1011 110P xxx xxxx
+At least one register must be specified.
+Equivalent to LDMIA SP!, < registers>
+IF registers[15]
+LoadWritePC([SP])
+SP -
+SP + 4
+POP
+LET registers = P:M:@:xxxxxxxxxxxxx
+FOR i = 0 TO 14
+IF registerslil
+<> .W ‹registers>
+12
+1110 1000 1011 1101
+At least two registers must be specified.
+SP + 4
+IF registers[15]
+LoadWritePC ([SP])
+SP _ SP + 4
+<> .W {Rt}
+SP - SP +
+t - [SP
+T3 last tttt 1011 0880 0189
+out 1111 1000 0101 1101
+Do not use Rn = SP.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-30

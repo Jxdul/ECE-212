@@ -1,0 +1,8 @@
+Example: Address decoding, simple case
+• Consider a simple CPU that has 8-bit data bus and a 12-bit address bus.
+• Memory address space is
+• Assume we have four memory chips and each of them has a capacity of 1024
+bytes =
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - G (Interacing/decoding) - G-35

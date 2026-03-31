@@ -1,0 +1,14 @@
+MLA — multiply and accumulate
+• (32-bit) + (32-bit) × (32-bit) = (32-bit)
+• ! only lower 32 bits of product retained
+• does not depend on signed/unsigned
+• MLA Rd, Rn, Rm, Ra
+Rd = (Ra + Rn × Rm) [31:0]
+MLS — multiply and subtract
+• (32-bit) - (32-bit) × (32-bit) = (32-bit)
+• 1 only lower 32 bits of product retained
+• does not depend on signed/unsigned
+• MLS Rd, Rn, Rm, Ra
+Rd = (Ra - Rn x Rm) [31: 0]
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-70

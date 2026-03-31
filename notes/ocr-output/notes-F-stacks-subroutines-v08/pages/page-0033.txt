@@ -1,0 +1,10 @@
+Parameters can be passed:
+• by value — the
+• by reference — the parameter's
+...and using one of these mechanisms:
+• via the CPU's registers
+• memory locations
+• via the stack
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks / subroutines) - F-33

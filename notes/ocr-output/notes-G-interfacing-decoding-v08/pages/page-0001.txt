@@ -1,0 +1,58 @@
+ECE
+212
+Part G: Hardware interfacing and address
+decoding
+G.1 What's this all about？
+•
+•
+•
+•
+•
+•
+•
+•
+••••
+•
+••
+G.2 Learning objectives
+23
+G.3 Background......
+•
+G.4 Memory-mapped devices
+G.5 Memory-to-CPU interface .
+.•。
+••
+•
+•
+•
+15
+G.6 Timing diagrams .....
+•
+••
+23
+G.7 Direct memory access （DMA）
+•••
+••••
+•
+29
+G.8 Address decoding
+•
+••
+•
+32
+G.9 Summary …....
+•
+•
+•
+•
+•
+•.
+•
+•
+•
+•
+•
+•
+56
+ECE 212 Winter 2026 LEC B1 -Course content ©J. C. Sit
+Notes - G （Interacing/ decoding）- G-1

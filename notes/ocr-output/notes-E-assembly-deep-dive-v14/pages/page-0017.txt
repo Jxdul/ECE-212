@@ -1,0 +1,18 @@
+E.3.5 LOAD into register from memory
+• LDR
+- load register (word)
+• LDRB
+— load register byte
+• LDRH
+— load register halfword
+• LDRSB
+— load register signed byte
+• LDRSH
+— load register signed halfword
+• LDRD
+— load register dual
+• LDM
+— load multiple
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+• AL
+Notes - E (Assembly deep dive) - E-17

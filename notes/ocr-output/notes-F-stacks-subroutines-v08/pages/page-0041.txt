@@ -1,0 +1,28 @@
+• in non-leaf subroutines (those that do
+), LR must be pre-
+served, but this can be done by stacking together with other registers in a single
+instruction and pipelined memory access. e.g.,
+subr1 PUSH
+{R4-R6, LR} 11
+•.
+BL
+subr2
+// call sub
+• • •
+POP
+{R4-R6, LR}
+BX
+LR
+I return
+Can actually combine last two operations into one!
+POP
+{R4-R6, PC}
+I restore registers and return
+• In the subroutine, accessing parameters on the stack can be done by popping
+them off the stack, without needing to worry about losing the saved return
+value of PC.
+• Output params can be pushed onto the stack.
+• Note that AAPCS requires callee to preserve SP.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - F (Stacks / subroutines) - F-41

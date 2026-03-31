@@ -1,0 +1,14 @@
+F.6.3 Structured programming
+Programs can be constructed from three fundamental components:
+• sequences - linear set of steps
+• loops — allow for a sequence to be repeated a number of times
+• decision mechanisms — allow for one of two (or more) courses of action
+F.6.4 Testability
+Testability is a measure of how easy it is to test/ verify operation of a program or
+component of a program; e.8.,
+• accessibility of interfaces between modules
+• breakpoints
+• top-down vs. bottom-up testing
+• white-box (internal operation) vs. black-box (functionality) testing
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-71

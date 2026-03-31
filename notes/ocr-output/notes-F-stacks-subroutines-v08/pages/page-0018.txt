@@ -1,0 +1,10 @@
+Key idea for stacks
+Stack operations are FILO:
+• When we push items onto the stack, we must pop the items off in reverse
+order.
+• If we push k items onto the stack, we need to pop k items off the stack by
+the end of the subroutine, to ensure the stack is the same size (i.e., that SP
+) at the beginning and end of the subrou-
+tine.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-18

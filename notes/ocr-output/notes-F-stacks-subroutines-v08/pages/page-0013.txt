@@ -1,0 +1,12 @@
+4 The terms up, down, top, and bottom can be ambiguous and depend on the
+way the memory is drawn.
+lower address
+higher address
+US.
+higher address
+lower address
+While both diagrams are showing a full descending stack with three items, to
+avoid unnecessary confusion, we will continue to use the convention on the right,
+consistent with what we have done throughout the course.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-13

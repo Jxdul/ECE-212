@@ -1,0 +1,63 @@
+Branch (to label)
+B{cc}
+< label>
+= Branch to a PC-relative label, within range:
+• B
+<label>
+unconditional, - 16 MB to +16 MB
+• Bcc
+< label>
+conditional, not in IT block, - 1 MB to +1 MB
+• Bcc
+<label>
+conditional, within an IT block, -16 MB to +16 MB
+encoding
+APSR
+notes
+mnemonic
+S <c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+If CCCC = 1110, see UDF.
+cc
+<label>
+LET imm32 = SignExt(imm8:0)
+PC - PC + imm32
+T1 out 1101 CCCC iiii iiii
+If CCCC = 1111, see SVC.
+Branch range = -256 to +254 (even values).
+also means AL).
+cc May not be AL (always) or omitted (which
+<c>
+<label>
+LET imm32 = SignExt(imm11:0)
+out
+PC - PC + imm32
+T2 last
+1110 liii iiii iiii
+values).
+Branch range = -2048 to +2046 (even
+If CCCC = 111x, it's an encoding for something
+co W < label>
+LET imm32 = SignExt(S:k:j:imm6:imm11:0)
+PC - PC + imm32
+53 out 1111 0500 0i1 i111
+10j0 kiii iiii iiii
+1- - - -
+- - Branch range = - 1048576 to +1048574 (even
+also means AL AL (always) or omited (which
+LET L = NOT (j XOR S)
+<> .W <label>
+LET M = NOT (k XOR S)
+LET imm32 = SignExtS:L:M:imm10:imm11:0)
+T4 out 1111 Sii iiii ilii
+last 10j1 kiii iiii iiii
+ーーーー
+- - Branch range = - 16777216 to +16777214
+PC - PC + imm32
+(even values).
+block.
+Encodings T1 and T3 are conditional as defined and thus may not be used inside an IT block or for unconditional branching. For the latter, T2 or T4 are needed. T2 and T4 can be made conditional using an IT
+Assembler calculates the offset from PC value of this B instruction to the given label, then selects the appropriate encoding.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-57

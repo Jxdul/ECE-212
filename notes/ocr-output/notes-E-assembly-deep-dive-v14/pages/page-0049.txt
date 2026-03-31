@@ -1,0 +1,10 @@
+E.5 Comparison and sequence control
+Almost any program
+looping (e.g., DO-WHILE and FOR). In assembly language, we have:
+• branching unconditionally
+• branching conditionally, based on APSR flags
+• conditional execution of other instructions
+• comparison and testing
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-49

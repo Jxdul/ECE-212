@@ -1,0 +1,8 @@
+G.5 Memory-to-CPU interface
+ARM Cortex-M4 core is a 32-bit processor with a 32-bit address bus and a 32-bit data
+bus.
+Memory storage capacity is generally measured in bytes, but this capacity can be
+organised with different port sizes:
+• 8-bit port — the memory can be accessed only one byte at a time
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/decoding) - G-15

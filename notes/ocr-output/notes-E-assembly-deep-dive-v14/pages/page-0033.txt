@@ -1,0 +1,7 @@
+Example - Instruction encoding (disassembling machine code)
+An instruction, known to be some variant of STR, has machine code of 0x636B.
+What is the corresponding assembly instruction?
+There is one instruction halfword 0x636B =Øb
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-33

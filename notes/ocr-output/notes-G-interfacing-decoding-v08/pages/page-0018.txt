@@ -1,0 +1,35 @@
+Byte Enable
+BS3
+BS2
+BS1
+BSO
+Processor
+External
+D(31:24) D23:161 0115:8 07:0
+Data Bus
+32-Bit Port
+Byte 0
+Byte 1
+Byte 2
+Byte 3
+Memory
+16-Bit Port
+Byte 0
+Byte 1
+Driven with
+Memory
+indeterminate values
+Byte 2
+Byte 3
+8-Bit Port
+Byte 0
+Memory
+Byte 1
+Driven with
+indeterminate values
+Byte 2
+L
+Byte 3
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+C AL
+Notes - G (Interacing/ decoding) - G-18

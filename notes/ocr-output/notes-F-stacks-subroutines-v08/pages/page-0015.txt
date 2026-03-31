@@ -1,0 +1,11 @@
+Example
+Let's say we allocate memory range 0x0001 0000 to 0x0001 2FFF (in total
+Øx3000 bytes — remember how to count/calculate this?)
+• Initialise SP to stack origin value 0x13000
+• Push data onto the stack using pre-indexed addressing with pre-decrement:
+e.g., STR RO, [SP, -#4]!
+• Pop data from the stack using post-indexed addressing with post-increment:
+e.g., LDR RO, [SP], #4
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks / subroutines) - F-15

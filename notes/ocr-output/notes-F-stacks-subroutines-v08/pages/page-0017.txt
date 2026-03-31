@@ -1,0 +1,28 @@
+F.4.6 Calling subroutines in ARM
+More details later, but this is the basic idea:
+Example — a subroutine that needs to use R1 and R2
+main
+// do stuff
+BL
+subr3
+I calls the subroutine
+I1 do more stuff
+subr3 PUSH
+{R1 }
+/ save R1
+PUSH
+{R2}
+/ save R2
+11 do calculations involving R1, R2
+POP
+{R2}
+/ restore R2
+POP
+{R1}
+// restore R1
+BX
+LR
+Il return from subroutine
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AKI
+Notes - F (Stacks / subroutines) - F-17

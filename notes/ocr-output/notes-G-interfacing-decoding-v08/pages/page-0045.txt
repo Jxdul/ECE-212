@@ -1,0 +1,17 @@
+Memory map design considerations
+• The memory subspace of each device normally extends across continuous re-
+gions in the memory map.
+• The regions for different devices do not necessarily have to be adjacent to each
+other.
+• Some devices (e.g., 8-bit wide I/O chips installed in systems where 32-bit words
+are usually accessed) may be mapped to only even/ odd addresses.
+• The address decoder logic must be fast; it will be used for every access into the
+memory.
+• The mappings (and decoders) should simplify any future changes to the sys-
+tem.
+• In small systems with large available address spaces, it is often possible to sim-
+plify the design of the address decoders by relaxing the usual requirement that
+each device have a unique base address.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - G (Interacing/decoding) - G-45

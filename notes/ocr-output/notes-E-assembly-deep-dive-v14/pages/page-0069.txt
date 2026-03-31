@@ -1,0 +1,21 @@
+E.6 Data processing operations II
+These include additional arithmetic operations (multiplication, division, sign/ zero-
+extension) and bit-field operations.
+E.6.1 Multiplication (32-bit result)
+MUL — multiply
+• (32-bit) × (32-bit) = (32-bit)
+• A only lower 32 bits of product retained
+• does not depend on signed/unsigned
+• encoding T1: MULS
+Rd, Rn, Rd
+- outside of IT
+MULcc
+Rd, Rn, Rd
+— within an IT block
+Rd - (Rn × Rd) [31:0]
+• encoding T2: MUL
+Rd, Rn, Rm
+Rd = (Rn × Rm) [31:0]
+-
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-69

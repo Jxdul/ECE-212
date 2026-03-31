@@ -1,0 +1,28 @@
+STM32L432xx microcontroller: Package and pinouts
+Figure 5. STM32L432Kx UFQFPN32 pinout(1)
+泌p
+阿P隧附隧M6
+ロコロコロロコロ
+32 31 30 29 28 27 26 25
+VDD • 1
+24- PA14
+PC14-OSC32_IN • 2
+23 |
+PA13
+PC15-OSC32_OUT • 3
+22 7 PA12
+21 E PA11
+VDDANREF+ • 5
+20 • PA10
+PAO/CK_IN • 6
+19 L PA9
+PA1 ロ7
+18 口 PA8
+PA2 C 8
+17 口 VDD
+9 10 11 12 13 14 15 16
+ロロロロロロロロ
+MSv37605V2
+Ref: STM microcontroller datasheet
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-6

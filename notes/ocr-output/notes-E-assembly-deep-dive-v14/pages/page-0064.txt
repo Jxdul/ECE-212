@@ -1,0 +1,14 @@
+• IT blocks may not contain:
+• a nested IT block
+• CBZ/ CBNZ
+• branch or other instructions that modify PC; these must be either outside
+of IT blocks, or must be the last instruction within an IT block:
+B BL
+BX BLX
+ADD PC, PC, Rm
+MOV PC, Rm
+LDM/LDR/POP, if writing to PC
+TBBR
+TBHI
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-64

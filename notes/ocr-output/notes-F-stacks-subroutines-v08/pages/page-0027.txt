@@ -1,0 +1,41 @@
+• store multiple decrement before STMDB (a.k.a. store multiple full descending
+STMFD) — specifically for supporting stacks, in the usual way, but can use any
+register Rn as the stack pointer, not necessarily SP
+STMDB Rn{!), <registers>
+For our stack,
+STMDB SP!, ‹registers>
+where <registers> = list of two or more registers to be stored, written as
+comma/hyphen-separated list, surrounded by { ). Lowest-numbered regis-
+ter is stored to lowest memory address.
+mnemonic
+<c> <W> operands
+ext description (RTL)
+#
+encoding
+APSR
+IT
+FEDC BA98 7654 3210 N Z C V Q GE
+notes
+ET ptr = Rn - 4*bitcount(reg_list
+OR i = 0 TO 1
+At least two registers must be listed
+<c>
+IF reg_listlil
+Rn (!), < registers>
+[ptr] - Ri
+ー - -
+STMDB
+- ptr + 4
+T1
+1110 1001 00W0 nnnn
+r0r rror rrrr rrrr
+- The base register Rn cannot be in the list if ! is
+SP and PC cannot be in the list.
+STMFD
+specified.
+! = write-back to Rn (encoded as W)
+If only a single register is to be stored, use instead STR Rt, [Rn, #-4] (!)
+‹registers> = List of one or more registers to be stored, written as comma-separated list, surrounded by { ). Lowest-numbered register is stored to lowest memory address
+• to save a single register, use STR Rt, [SP, #-4]!
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-27

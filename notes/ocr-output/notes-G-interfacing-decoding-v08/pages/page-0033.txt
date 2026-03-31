@@ -1,0 +1,17 @@
+Our 32-bit processor has an address space of 4 GB and could support a maximum
+of this amount of memory. But, let's say we have only 1 GB of physical memory
+installed, and furthermore that this is implemented as a bank of 128 MB modules
+— we would need
+•
+• To be able to address individual bytes in a 128 MB memory module, we need
+address lines.
+• Thus, split the 32-bit addresses like this:
+• The least-significant bits specify a particular address
+within
+one of the memory modules.
+• The
+most-significant bits would then be used to specify which of the
+memory modules is being accessed.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+S AL
+Notes - G (Interacing/decoding) - G-33

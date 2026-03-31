@@ -1,0 +1,7 @@
+E.6.7 Extended-length arithmetic operations
+The CPU registers are 32 bits wide. How do we, say, add two 64-bit integers?
+• The APSR[C] flag is used to indicate a carry-out from one operation and can
+be used as carry-in for next operation.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-84

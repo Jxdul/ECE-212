@@ -1,0 +1,19 @@
+• LSR
+- logical shift right
+• move all bits of destination register Rd to the right
+• a l is shifted in from the
+• bit "falling out" from the right goes to C flag
+• repeat the above k times
+• k specified as an immediate value or in a register
+...
+/31 |30
+bI bo
+Rd
+before
+Rd
+after
+...
+B31 b30
+by bo
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-44

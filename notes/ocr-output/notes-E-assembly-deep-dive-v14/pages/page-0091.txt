@@ -1,0 +1,18 @@
+E.6.9 Miscellaneous operations
+ВКРТ — breakpoint
+• BKPT
+#imm8
+• causes CPU to enter debug state, so we can use debug tools
+• immediate value doesn't do anything, but does get encoded into instruction
+halfword
+• works inside IT blocks, but executes unconditionally
+MRS — move from special register
+• MRS Rd, < spec_reg›
+• a way to read from status /control registers into a general-purpose register
+• a system-level instruction except when reading from APSR or CONTROL regis-
+ters
+• e.g., MRS
+R3, APSR
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+•A
+Notes - E (Assembly deep dive) - E-91

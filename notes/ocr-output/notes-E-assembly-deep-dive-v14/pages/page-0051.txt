@@ -1,0 +1,11 @@
+Conditional execution
+• In traditional assembly language ISAs, branching was the only instruction that
+could be made conditional.
+• In ARMV7-M assembly language (Thumb-2 instruction set), most instructions
+can be executed conditionally. This is done using a special IT (if-then) instruc-
+tion block.
+• Some conditional branch instructions do not need the IT, as a condition code
+is included in their instruction encoding.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-51

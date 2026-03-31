@@ -1,0 +1,88 @@
+LDR (immediate)
+Let's now zoom in further to LDR (immediate). (PQR / Opcode reference / rows
+97-102)
+encoding
+APSR
+mnemonic
+<c> <W>
+operands
+ext description (RTL)
+| # IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+LDR
+<c>
+Rt, [Rn <, #immed)]
+[LET imm32 = ZeroExt(iii:11:00)
+Rt _ [Rn + imm32]
+T1
+0110 liii iinn nttt
+Offset range = 0, 4, 8,
+...,124.
+#immed has form iiiii: 00 (in binary).
+LDR
+<0>
+Rt, [SP {,#immed) |
+Rt _ [SP + imm32]
+LET imm32 = ZeroExt(iiii:iiii:00)
+T2
+1001 Ittt iiii iiii
+ーーーー
+Rt from RO-R7.
+Offset range = 0, 4, 8,
+#immed has form iiiiiiii: 00 (in binar
+, 1020
+LDR
+<c>
+• W
+Rt, [Rn {, #imm12) ]
+LET imm32 = ZeroExt(imm12)
+Rt _ [Rn + imm32]
+T3
+out 1111
+last tttt iiii iiii iiii
+1000 1101 nnnn
+----
+If Rn = PC, see LDR (literal)
+Offset range = 0 to 4095
+Rt, [Rn, #-imm8]
+LET imm32
+= ZeroExt (imm8)
+1111
+Rt _ [Rn - imm32]
+tttt 1100 iiii iiii
+1000 0101 nnnn
+- - -
+If Rn = PC, see LDR (literal).
+Offset range = -255 to 0.
+LET imm32 = ZeroExt (imm8)
+LDR
+<C>
+Rt, [Rn, #+imm8]!
+Rn - Rn ‡ imm32
+Rt -
+T4 out/
+tttt 1101 iiii iiii
+1111 1000 0101 nnnn
+- -
+last
+LET imm32 = ZeroExt(imm8)
+- U = 1 for +ve imm8; 8 for -ve imm8.
+If Rn = PC, see LDR (literal).
+Rt, [Rn], #timm8
+1111 1000 0101 nonr
+Offset range = -255 to +255.
+Rn _ Rn = imm32
+Rt - [Rn]
+tttt 1001 iiii iii:
+ーーーー
+• encoding T1
+LDR
+Rt, [Rn {, #immed}]
+• a 16-bit encoding - 0110 liii iinn nttt
+• Rt and Rn both restricted to
+• & words should be word-aligned in memory (i.e., at addresses that are
+multiples of )
+• :: the five available bits used to encode the offset are not storing binary
+values of the form iiiii, ...but rather of the form
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-19

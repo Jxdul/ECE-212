@@ -1,0 +1,7 @@
+D
+C
+Q
+Event sequence for a general combinatorial logic system:
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AR
+Notes - G (Interacing/ decoding) - G-28

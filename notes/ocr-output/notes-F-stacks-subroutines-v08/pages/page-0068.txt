@@ -1,0 +1,15 @@
+F.6 Program design process
+Without a proper design process, jumping straight into coding leads to poor results.
+A good design process is based on:
+• top-down design
+• modularity
+• structured programming
+• testability
+• recoverability
+F.6.1 Top-down design
+Top-down design is a method to handle large, complex problems in a systematic
+way:
+• decomposing the problem into smaller, more tractable pieces
+• separation of goals and means
+ECE 212 Winter 2026 LEC B1 - Course content OJ. C. Sit @AL
+Notes - F (Stacks / subroutines) - F-68

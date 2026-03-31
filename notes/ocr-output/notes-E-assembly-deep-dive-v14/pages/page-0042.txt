@@ -1,0 +1,23 @@
+E.4.3 Comparison and test operations
+• CMP
+- compare
+subtracts the two operands, updating N/ Z/C/ V flags, but discards the numer-
+ical result
+• (register) - (immediate)
+(register) - (register)
+• CMN
+- compare negative
+adds the two operands, updating N/Z/C/V flags, but discards the numerical
+result
+• (register) + (immediate)
+• (register) + (register)
+• TST
+- test
+(operand 1) AND (operand2), updating N/Z/C flags, but discards the result of
+the operation
+• TEQ
+- test equivalence
+(operand 1) XOR (operand2), updating N/ Z/C flags, but discards the result of
+the operation
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-42

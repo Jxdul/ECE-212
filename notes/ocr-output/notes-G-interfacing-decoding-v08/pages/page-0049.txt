@@ -1,0 +1,19 @@
+Address decoding - Example #3
+Again, we have a CPU with an 8-bit data bus and a 24-bit address bus. The CPU
+is to be interfaced to a 32 kB RAM at base address 0x60 0000 and 32 kB ROM at
+base address 0x70 0000.
+• Design the simplest possible address decoder.
+• How many copies of the RAM and ROM will exist in the CPU's logical ad-
+dress space?
+Addr: A23
+A19
+A15
+A11
+A7
+A3
+A0
+RAM:
+ROM:
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - G (Interacing / decoding) - G-49

@@ -1,0 +1,18 @@
+F.4.3
+Stack types
+Recall: memory = array of bytes; each byte has a unique numerical address
+There are a couple of choices in the way a stack can be implemented:
+• Choice #1 — descending vs. ascending
+• a descending stack — the stack grows
+from higher addresses
+toward lower addresses
+• an ascending stack — the stack grows
+from lower addresses
+• Choice #2 — full vs. empty
+• a full stack — SP = address of top-most item in the stack
+i.e.,
+• an empty stack — SP = address of next available free space
+i.e.,
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-10

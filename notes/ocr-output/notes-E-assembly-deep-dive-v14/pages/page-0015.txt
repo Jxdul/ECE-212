@@ -1,0 +1,46 @@
+E.3.3
+MOV (register)
+Copy from one register to another.
+encoding
+APSI
+mnemonic
+S <c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210
+NZ C V
+MOV
+<c>
+T1
+out
+ー ー ー I
+Rd, Rm
+Rd - Rm
+last 8188 0118 dmmm mddd
+MOV
+T2 out 0000 0000 00mm mddd
+**--
+MOV
+<c>
+- - - -
+Rd, Rm
+Rd - Rm
+T3
+1110 1010 010S 1111
+MOV
+•W
+out
+0000 dddd 0000 mmmm
+* * -
+• encoding T1
+MOV
+O RI
+— outside of IT block
+MOVc Rd, Rm — last instruction inside a IT block
+• a 16-bit encoding - 0100 0110 dmmm mddd
+• encoding T2
+MOV{S} Rd, Rm — outside of IT block
+• a 16-bit encoding - 0000 0000 00mm mddd
+• Rd and Rm restricted to
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+SAA
+Notes - E (Assembly deep dive) - E-15

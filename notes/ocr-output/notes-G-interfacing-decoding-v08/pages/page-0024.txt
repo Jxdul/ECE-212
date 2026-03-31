@@ -1,0 +1,13 @@
+Data sheet timing diagram — accurately represents intervals and delays
+Ecyc
+tCH
+•!
+tcL
+CLK
+†CHADZ—
+A01 A23
+AS*
+ECLAV
+:ICHSL
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-24

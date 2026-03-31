@@ -1,0 +1,23 @@
+G.4 Memory-mapped devices
+External Bus Peripherals
+Fast SRAM
+FLASH
+LCD
+Controller
+CSO
+CS1
+CS2
+MAC7100
+Addr/Data
+Control
+Chip Selects
+External Bus Signals
+The CPU interfaces to external devices using the data and addresses busses.
+• We've thus far only considered memory (RAM).
+• Other types of devices can also connect via these busses. We call them memory-
+mapped devices since they appear in the CPU's address space.
+• The STM32 microcontroller has many on-chip (
+) peripherals.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - G (Interacing/decoding) - G-14

@@ -1,0 +1,12 @@
+F.4.4 Stack implementation
+• The stack is a contiguous block of memory that must be reserved for this pur-
+pose alone.
+A stack pointer is required to keep track of the top of the stack. While we could
+se any register, we will use only SP (R13).
+• SP must be
+aligned (a multiple of bytes)
+• The push operation uses pre-indexed addressing (pre-decrement).
+• The pop operation uses post-indexed addressing (post-increment).
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-14

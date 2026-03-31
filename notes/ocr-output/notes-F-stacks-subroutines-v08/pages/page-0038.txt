@@ -1,0 +1,30 @@
+Passing parameters by memory location
+Passing by value; e.g.,
+param
+DCD
+0
+ADR
+R5, param
+STRH
+R6, [R5]
+BL
+subr
+•..
+subr
+••.
+LDRH
+RO, param
+•..
+BX
+LR
+Advantages
+Disadvantages
+• simple — just need an agreement
+• can't support position-independent
+on the memory locations used for
+code
+parameter passing
+• avoids use of stack
+• can't support re-entrancy
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-38

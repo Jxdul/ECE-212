@@ -1,0 +1,15 @@
+G.7 Direct memory access (DMA)
+Normally, transfers from one memory address to another memory address require
+the attention of the CPU.
+CPU executes instructions to transfer this data (and may require more than one
+instruction), which themselves must be retrieved from memory.
+• The CPU isn't
+• DMA is a mechanism for moving data to/ from memory without needing the
+CPU's involvement.
+• Normally, the CPU is the bus master for both the address bus and data bus.
+For DMA, the CPU
+this bus master role, allowing for
+pre-defined memory transfers; e.g., disk-to-memory.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - G (Interacing/ decoding) - G-29

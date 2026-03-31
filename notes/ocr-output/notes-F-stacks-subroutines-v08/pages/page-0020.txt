@@ -1,0 +1,35 @@
+F.5.2 Calling a subroutine
+ARM architecture uses a simplified way to branch to a subroutine that
+We call (or invoke) a subroutine with one of these instructions:
+• branch with link — BL{cc} ‹label>
+• branches to subroutine using a PC-relative label within range - 16 MB to
++16 MB
+• writes the return address (= the address of
+BL) to link register LR (R14)
+LR - PC[31:1]:1
+encoding
+APSR
+mnemonic
+<c> <W> operands
+ext description (RTL)
+#
+FEDC BA98 7654 3210 N Z C V Q GE
+notes
+LR - PC[31:1]:1
+BL
+<c>
+< label>
+LET L = NOT (j XOR S)
+LET M = NOT (k XOR S)
+LET imm32 = SignExt(S:L:M:imm10:imm11:0)
+T1
+last 11j1 kiii iiii iiii
+out 1111 OSii iiii iiii
+--
+addressing.
+For calling subroutine using PC-relative
+PC - PC + imm32
+(even values).
+Branch range = -16777216 to +16777214
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-20

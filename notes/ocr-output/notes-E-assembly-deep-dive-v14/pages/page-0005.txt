@@ -1,0 +1,9 @@
+Programming problem #1
+Write an assembly language program that takes an ASCII text string and cap-
+italises all letters.
+• Input and output strings will be stored in memory.
+• Strings are null-terminated.
+• The addresses of the input and output strings will be provided.
+We need:
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-5

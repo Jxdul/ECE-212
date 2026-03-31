@@ -1,0 +1,15 @@
+G.8 Address decoding
+The ARM Cortex-M4 core has a memory address space of 232 bytes =
+• Actual physical memory and I/O devices are both mapped to and share this
+address space.
+• Thus, multiple chips share the same data bus. However, only one chip can be
+active during a bus operation.
+• How do we determine which chip should be active? This will depend on the
+the CPU needs to access. Address decoding is the selection (activa-
+tion) of one particular chip based on the address.
+• Moreover, physical memory (RAM, ROM) may be implemented using multi-
+ple ICs. The appropriate IC must be activated,
+supplied.
+This activation is controlled by chip select signals CS
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/decoding) - G-32

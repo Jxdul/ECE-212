@@ -1,0 +1,8 @@
+Example - Bitwise NOT
+ARM (at least the Thumb-2 instruction set) does not include a bit-wise NOT in-
+struction to toggle all bits of a register. Let's take source register = R11 and desti-
+nation register = R3. How do we do this and what is the binary encoding of this
+instruction? Assume set flags (S).
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-89

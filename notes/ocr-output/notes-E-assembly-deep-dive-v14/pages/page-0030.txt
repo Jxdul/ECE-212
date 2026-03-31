@@ -1,0 +1,17 @@
+• encoding T2
+STR
+Rt, [SPí, #immed)] —
+• a 16-bit encoding — 1001 Ottt iiii iiii
+• Rt restricted to
+• uses SP (ie., R13) as the base register
+• The stack is word-aligned in memory (i.e., its entries are at addresses that
+are multiples of
+• : the eight available bits used to encode the offset are not storing binary
+values of the form iiiiiiii, ...but rather of the form
+• encoding T3
+STR.W Rt, [Rn{,#immed}]
+• a 32-bit encoding — 1111 1000 1100 nnnn
+tttt iiii iiii iiii
+• no restrictions on the 12-bit immediate value
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-30

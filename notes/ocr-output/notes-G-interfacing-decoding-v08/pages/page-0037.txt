@@ -1,0 +1,5 @@
+For this simple computer, we can draw a memory map as:
+base address = starting address for a device
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+• AL
+Notes - G (Interacing/ decoding) - G-37

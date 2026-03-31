@@ -1,0 +1,8 @@
+• to overcome this high-low level dilemma: gradually refine pseudocode until
+it is suitable for more or less direct translation to assembly code
+• once the PDL is written, build the code around it
+• PDL statements can turn into code comments
+• other uses for pseudocode: code review; porting code to other platforms/lan-
+guages
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-76

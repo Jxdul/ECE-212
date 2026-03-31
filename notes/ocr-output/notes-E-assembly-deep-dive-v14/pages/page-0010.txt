@@ -1,0 +1,89 @@
+• encoding T2
+MOV{S) .W Rd, #immed
+• a 32-bit encoding
+• Rd = any register except
+• uses a modified immediate constant
+Modified immediate values
+ThumbExp() pseudocode function - Immediate constants are encoded in 32-bit Thumb instructions using the indicated 12 bits. By expanding and/or
+shifting a 7- or 8-bit pattern, a wide range of useful 32-bit immediate values can be obtained, though not all possible 32-bit values can be encoded this way.
+15 14 13
+12
+11
+10
+9
+8
+7 6 5 4 3
+2
+1
+15 14 13 12 11 10
+8
+7
+6
+5
+4
+3
+2
+1
+0
+i
+imm3
+a
+b
+e f g
+h
+The base pattern to be used is in imm8, seen in the 8-Isb of the second instruction halfword. imm8 here is given as abcdefgh. The pattern abcdefgh or
+1 bcdefgh can be shifted and/or repeated in various ways depending on the 5-bit pattern given in i: imm3:a.
+i:imm3:a
+imm32
+0000x
+0000 0000
+0000 0000
+0000 0000
+abcd efgh
+0001x
+0000 0000
+abcd efgh
+0000 0000
+abcd efgh
+0010x
+abcd efgh
+0000 0000
+abcd efgh 0000 0000
+0011x
+abcd efgh
+abcd efgh
+abcd efgh abod efgh
+01000
+1bcd efgh
+0000 0000
+0000 0000
+0000 0000
+1
+01001
+01bc defg h000 0000
+0000 0000
+0000 0000
+0
+01010
+001b cdef gh00 0000
+0000 0000
+0000 0000
+11101
+0000 0000
+0000 0000
+0000 01bc defg h000
+0
+11110
+0000 0000
+0000 0000
+0000 001b
+cdef ghoo
+0
+11111
+0000 0000
+0000 0000
+0000 0001
+bode fghø
+日
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) -E-10

@@ -1,0 +1,20 @@
+E.5.3 Branching instructions
+• branch:
+B {cc}
+< label>
+• branch with link:
+BL {cc}
+< label>
+• branch with exchange:
+BX { cc}
+Rm
+• branch with link and exchange:
+BLX {cc}
+Rm
+where:
+• {cc} = an optional condition code
+• <Iabel> = a named location (PC-relative addressing)
+• Rm = register holding address to branch to
+requires Rm[0] = 1 (details later)
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-56

@@ -1,0 +1,48 @@
+ITSTATE register (conditional execution in IT blocks)
+7
+6
+5
+4
+3
+2
+1
+IT[7:0]
+T
+encodes size of IT block and Isb of cond code
+cond base
+for each instr in the IT block
+The 3-msb of the condition code specified by the IT instruction.
+cond_base
+P1| P2 P3 P4|
+P3
+" P4
+next 4 instructions are in IT block
+cond_base
+P1
+P2
+P3
+1
+next 3 instructions are in IT block
+cond_base
+P1
+P2
+1
+next 2 instructions are in IT block
+cond_base
+P1
+1
+0
+0
+next instruction is in IT block
+0
+0
+0
+0
+0
+0
+normal execution; not in IT block
+After each instruction within the IT block is executed conditionally based on IT[7:4],
+IT[4:0] is left-shifted by one bit. If IT[2:0] = 000, there are no more instructions left
+in the IT block, and IT| 7:0] is cleared.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-65

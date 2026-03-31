@@ -1,0 +1,15 @@
+Bus signals definitions
+• active-low — signal is "true" when logic low; indicated by signal name being
+complemented; e.g., AS* or AS
+• active-high — signal is "true" when logic high
+• asserted — signal is moved to its active state
+• negated — signal is moved to its inactive state
+• tri-state signal — a signal that can be high, low, or indeterminate (floating / dis-
+connected)
+How to get CPU and peripherals to talk to each other
+• Voltage, current, and timing must be successfully reconciled between the
+CPU and peripherals.
+• These electrical characteristics and the timing information is included in the
+documentation for any particular peripheral.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-13

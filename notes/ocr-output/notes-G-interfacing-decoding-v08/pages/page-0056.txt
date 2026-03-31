@@ -1,0 +1,14 @@
+G.9 Summary
+Here, we studied computer interfacing; in particular, how the CPU communicates
+with other parts of the computer:
+• The STM32L432KC is a microcontroller, a CPU integrated with a lot of other
+sub-systems
+• Communication between the CPU and main memory is a crucial operation
+• Devices are mapped to memory addresses, allowing facile interfacing
+• Address decoding determines which external device is selected
+Up next, exceptions and interrupts:
+• how does the microprocessor deal with something that needs its immediate
+attention, disrupting normal, "linear" processing of instructions?
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - G (Interacing/decoding) - G-56

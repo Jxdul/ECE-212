@@ -1,0 +1,9 @@
+E.6.10 What comes next?
+We have surveyed much of the application-level instruction set for the ARMv7-M
+architecture, giving us a working vocabulary that enabled us to tackle some basic
+programming.
+See also Chp. A7 in ARM Architecture Reference Manual (eClass)
+We next look at the stack as a special type of data structure used for temporary
+program storage and extend our programming repertoire to subroutines.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-93

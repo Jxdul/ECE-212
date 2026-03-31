@@ -1,0 +1,13 @@
+• pop from stack into PC
+• Useful when a subroutine needs to call other subroutines (i.e., a non-leaf
+subroutine), as in such cases LR must be preserved (i.e., pushing it onto
+the stack) before calling other subroutines.
+• e.g., at beginning of subroutine, save required registers
+PUSH {R4-R6, LR›
+at end of subroutine do
+POP
+{R4-R6, PC}
+which combines a multi-register POP operation and BX LR into a single
+instruction!
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-24

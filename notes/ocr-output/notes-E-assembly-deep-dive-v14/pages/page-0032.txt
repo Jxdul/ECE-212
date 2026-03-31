@@ -1,0 +1,20 @@
+STR (register)
+Ref: PQR / Opcode reference / rows 320-330
+• encoding T1
+STR
+Rt, [Rn, Rm]
+• a 16-bit encoding - 0101 000m mmnn nttt
+• All three registers must be
+• EA =
+• RTL:
+- Rt
+• encoding T2
+STRAW
+Rt, [Rn, Rm<, LSL #imm2}]
+-
+• a 32-bit encoding
+• LSL (shift left) of Rm by up to
+bits, equivalent to multiplying
+Rm by
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-32

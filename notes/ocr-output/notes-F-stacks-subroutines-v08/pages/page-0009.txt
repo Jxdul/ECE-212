@@ -1,0 +1,12 @@
+F.4.2 Additional stack terminology
+• top of the stack
+• when we push an item onto the stack — the new item goes onto the top
+of the stack
+• when we pop an item from the stack — the item is removed from the top
+of the stack
+• For CPUs, we initialise an
+stack as a region within memory, with stack
+origin at the top.
+• A stack pointer (SP) keeps track of the top of the stack.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks/ subroutines) - F-9

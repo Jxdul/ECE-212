@@ -1,0 +1,40 @@
+Addressing modes (effective address calculation)
+type
+address calculation
+assembler syntax indexed
+write-back
+immediate
+-
+#imm
+implied
+-
+-
+direct
+-
+Rn
+indirect
+EA = Rn
+[Rn]
+indirect with offset addressing
+EA = Rn + offset
+[Rn, offset]
+Y
+N
+indirect with pre-indexed addressing
+Rn + Rn + offset
+EA = Rn
+[Rn, offset]!
+EA = Rn
+[indirect with post-indexed addressing Rn — Rn + offset [Rn], offset
+Rn = base register for offset/indexed modes
+offset type
+example
+immediate constant
+#imm8
+index register
+Rm
+shifted index register
+Rm, LSL #2
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - E (Assembly deep dive) - E-22

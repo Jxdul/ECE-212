@@ -1,0 +1,5 @@
+Consider again the simple case, but this time choose to implement only the ROM
+and one 1024-byte block of RAM.
+The ROM will be mapped to
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-39

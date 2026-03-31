@@ -1,0 +1,26 @@
+• serial peripheral interface (SPI) bus — a synchronous serial communication
+interface specification used for short-distance communication, especially for
+embedded systems
+• developed by Motorola in the mid-1980s
+• SPI devices communicate in full-duplex mode using a "master-slave" ar-
+chitecture with a single master.
+SCLK
+SCLK
+SPI
+MOSI
+•
+MOSI
+SPI
+Master
+MISO
+MISO
+Slave
+SS
+SS
+• inter-integrated circuit (IC) — a synchronous, multi-master, multi-slave,
+packet-switched, single-ended, serial bus
+• 1982, Philips Semiconductor (now NXP Semiconductors)
+• widely used for attaching lower-speed peripheral ICs to processors and mi-
+crocontrollers in short-distance, intra-board communication
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/decoding) - G-12

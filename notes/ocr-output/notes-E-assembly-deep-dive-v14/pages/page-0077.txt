@@ -1,0 +1,13 @@
+SXTB — signed extend byte
+SXTB Rd, Rmí, ‹rotate>›
+• Operation:
+• let x = Rm with optional ROR by 8/16 / 24 bits
+• Rd « x, sign-extended from 8 to 32 bits
+SXTH — signed extend halfword
+• UXTH Rd, Rm {, ‹rotate>}
+• Operation:
+• let x = Rm with optional ROR by 8/16/24 bits
+• Rd - x, sign-extended from 16 to 32 bits
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-77

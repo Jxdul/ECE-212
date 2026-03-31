@@ -1,0 +1,12 @@
+E.2 Learning objectives
+By the end of this section of the course, you should be able to:
+• Describe the basic operation of a major subset (the ones reviewed in this section
+of the notes) of the ARMv7-M instruction set.
+• For a given instruction, explain reasons for various restrictions including oper-
+ation size, operand type, or EA mode.
+• Given the ARMv7-M programmer's quick reference (PQR):
+O explain how various instructions work, and how they affect the APSR flags
+• check validity of a given instruction
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-4

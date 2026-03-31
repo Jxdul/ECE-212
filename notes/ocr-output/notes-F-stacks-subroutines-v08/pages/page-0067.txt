@@ -1,0 +1,12 @@
+Following AAPCS,
+• parameter passing via registers is prioritised
+• stack operations (i.e.,
+) are minimised
+• overall,
+instructions required
+In this example, no memory access was required at all! The subroutine was
+simplified greatly. Calling overhead for a subroutine should be kept to a mini-
+mum to achieve optimal performance.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-67

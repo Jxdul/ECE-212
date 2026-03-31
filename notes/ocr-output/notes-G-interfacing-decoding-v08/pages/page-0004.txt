@@ -1,0 +1,10 @@
+• Given specifications for data and address buses and mappings for devices or
+memory modules, design full or partial address decoders; explain what mixed-
+mode decoding is; design mixed-mode address decoders.
+Resources:
+• STM32 microcontrollers programming manual
+• STM32 microcontrollers reference manual
+• STM32L432KC microcontroller datasheet
+• STM32 Nucleo-32 boards user manual
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-4

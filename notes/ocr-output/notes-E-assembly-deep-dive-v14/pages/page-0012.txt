@@ -1,0 +1,8 @@
+Example - put arbitrary 32-bit value into Rd
+This can be done using two instructions:
+Rd, #imm16
+Rd, #imm16
+The order of operations is critical! What would happen if the order were swapped?
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-12

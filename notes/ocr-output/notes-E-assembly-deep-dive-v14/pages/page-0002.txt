@@ -1,0 +1,57 @@
+E.4.4 Shifting and bit manipulation
+E.5 Comparison and sequence control
+•
+•
+E.5.1 Branching..
+E.5.2 Condition codes
+E.5.3 Branching instructions
+E.5.4 Compare and branch
+E.5.5 The conditional IT （if-then） block
+E.6 Data processing operations II
+E.6.1 Multiplication （32-bit result）
+•
+•
+•
+•
+E.6.2 Multiplication （64-bit result）
+•••••
+71
+E.6.3 Division
+•
+•
+•
+•
+E.6.4 Saturating
+•
+E.6.5 Sign/zero-extension
+E.6.6 Bit field operations
+•
+•
+•
+•
+•
+78
+E.6.7 Extended-length arithmetic operations
+•••••
+。
+84
+E.6.8 Boolean operations ...
+••••
+86
+E.6.9 Miscellaneous operations
+•
+•
+•
+••
+•
+•
+•
+••
+91
+E.6.10 What comes next？
+•
+•
+•
+93
+ECE 212 Winter 2026 LEC B1 -Course content ©J. C. Sit
+Notes - E （Assembly deep dive）- E-2

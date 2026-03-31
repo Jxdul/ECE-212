@@ -1,0 +1,11 @@
+Example - Extended-length arithmetic operations
+Given two 96-bit integers, how to add or subtract them? Assume the two inte-
+gers are given by A = R4:5:6 and B = R1 :R2: R3. We want to find the sum
+(A + B) and the difference (A - B). The result should be stored in three registers
+R4: R5: R6.
+Addition A + B
+sum
+Subtraction A - B
+difference
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-85

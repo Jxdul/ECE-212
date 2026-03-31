@@ -1,0 +1,13 @@
+E.1 What's this all about?
+• In this section, we embark on a tour of the ARMv7-M assembly language and
+get into the nitty-gritty details.
+• Our tour is organised by instruction category (data movement, arithmetic, ad-
+dress handling, etc.) and presents commonly used operations to allow us to
+implement assembly language programs.
+• The big-picture objective is for you to obtain enough working knowledge that
+will enable you to look up any instruction from suitable reference materials and
+ain an understanding of what the instruction does and how it is encoded.
+• Along the way, we will introduce new concepts that relate to programming
+and some programming examples.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-3

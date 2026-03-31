@@ -1,0 +1,44 @@
+E.3.1 Loading a fixed value into a register
+•
+copy or write a
+into a register; e.g., MOV (immediate)
+mnemonic
+S
+<c> <W> operands
+ext description (RTL)
+#
+MOV
+S
+LET imm32 = ZeroExt (imm8)
+T1
+MOV
+cc
+-Rd, #imm8
+Rd - imm32
+MOV
+{S} <c>
+LET imm32 = ThumbExp (i:imm3:imm8)
+W Rd, #immed
+Rd - imm32
+T2
+MOVW
+<c>
+Rd, #imm16
+LET imm32 = ZeroExt(imm4:i:imm3:imm8)
+Rd - imm32
+T3
+• encoding T1
+MOVS
+Rd, #imm8
+- outside IT block
+MOVcc
+- inside IT block
+Rd, #imm8
+• a 16-bit encoding — 0010 Oddd iiii iiii
+• Rd restricted to
+• 8-bit immediate value is placed into
+of Rd; rest of bits
+• more on conditional execution and IT
+blocks later
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-9

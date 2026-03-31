@@ -1,0 +1,14 @@
+Pseudocode solution
+; need pointers to input and output strings
+set up pointers
+loop: get a byte from input string, incr. ptr
+if byte is 0, goto done
+if byte < 0x61 goto skip
+if byte > 0x goto skip
+byte = byte - 0x
+skip: store byte to output string, incr. ptr
+goto loop
+done:
+store the last byte to output
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-82

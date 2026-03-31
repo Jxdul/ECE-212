@@ -1,0 +1,10 @@
+What's the next step?
+Recall our programming problem on p. E-5. We now have looked at instructions
+for:
+• data movement
+• basic arithmetic, logical/boolean operations
+• comparison and test
+There are more data-processing operations, but we'll defer those until later. In the
+meantime, we need to learn how assembly language deals with decision-making.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-48

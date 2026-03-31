@@ -1,0 +1,20 @@
+E.5.4 Compare and branch
+CBZ
+Rn, ‹label>
+CBNZ
+Rn, < label>
+Compares Rn (
+) with zero and branches accordingly.
+• Similar to:
+CMP
+Rn, #0
+BEQ
+< label> or BNE
+< label>
+ut in a single instruction, and without affecting the APSR N/Z/C / V flags.
+• PC-relative branch destination <label> must come
+this instruction (offset
+range
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) -E-62

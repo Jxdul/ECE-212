@@ -1,0 +1,2652 @@
+===== Page 1 =====
+ECE
+212
+Part F: Stacks and subroutines
+F.1 What's this all about？
+3
+F.2 Learning objectives
+•
+•
+•
+•
+•
+•
+•。
+•
+4
+F.3 Motivation
+•••••
+•
+•••
+•••••
+F.4 The stack
+F.4.1 Basic definitions
+•••
+F.4.2 Additional stack terminology .
+••
+61
+F.4.3 Stack types
+•
+•
+•
+•
+•
+10
+F.4.4 Stack implementation
+•
+•
+.。
+•
+•
+F.4.5 Primary uses of the stack
+•
+F.4.6 Calling subroutines in ARM
+•
+•
+•
+•••
+••
+F.5 Subroutines .. .
+••
+•
+•••
+19
+F.5.1 Basics
+••
+•
+•
+19
+F.5.2 Calling a subroutine
+•
+•.•
+F.5.3 Returning from a subroutine
+22
+ECE 212 Winter 2026 LEC B1 -Course content ©J. C. Sit
+
+===== Page 2 =====
+F.5.4 Additional concepts
+F.5.5 Saving multiple registers
+•
+•
+•
+•
+F.5.6 Restoring multiple registers
+F.5.7 Passing parameters
+F.6 Program design process
+F.6.1 Top-down design
+F.6.2 Modular design
+F.6.3 Structured programming
+F.6.4 Testability .•.
+•
+•
+F.6.5 Recoverability
+••
+•
+••
+72
+F.6.6 Putting it all together
+•
+•
+••
+•
+•
+•
+•
+72
+F.7 Program design language .
+•
+•
+74
+.•
+•
+•
+•
+77
+F.8 Summary••••'.
+ECE 212 Winter 2026 LEC B1 -Course content ©J.C.Sit•AA
+Notes - F （Stacks/subroutines） - F-2
+
+===== Page 3 =====
+F.1 What's this all about?
+In this section, you are being introduced to:
+• the stack — a simple but powerful data structure for temporary storage
+substupine a ay to alped ur programi i We can execute already.
+• some best practises for programming — applying engineering problem solv-
+ing
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - F (Stacks/ subroutines) - F-3
+
+===== Page 4 =====
+F.2 Learning objectives
+By the end of this section of the course, you should be able to:
+• Describe the stack as a data structure, its basic operation (push, pop), and ap-
+plications; discuss its advantages and disadvantages; contrast the stack with a
+queue.
+• Define and correctly apply terminology related to stacks: push, pop, top, grow,
+shrink, stack origin, stack pointer.
+• Explain how stacks are implemented at the CPU level in the ARMv7 archi-
+tecture; describe push and pop operations and how these relate to addressing
+modes.
+• Explain the motivations for using subroutines; describe how the CPU makes
+use of the link register and stack to keep track of calling and returning from
+subroutines; describe in plain language what BL, BLX, and BX instructions do.
+• Define transparency, re-entrancy; explain what position-independent code is
+and how subroutines support this.
+• Explain how to save and restore register values using the stack, how to use LDM,
+STM
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - F (Stacks/ subroutines) - F-4
+
+===== Page 5 =====
+• List and describe various methods of passing input and output parameters; dis-
+cuss their advantages and disadvantages; explain the difference between pass-
+ing by value and passing by reference, and pros/ cons of each
+• Explain the operation of the stack frame, role of frame pointer; describe how local
+variables and parameters are accessed via the stack frame and frame pointer
+• Discuss how each of the following ideas help with programming: top-down
+design, modularity, structured programming, testability, recoverability, pro-
+gram design language.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - F (Stacks/ subroutines) - F-5
+
+===== Page 6 =====
+F.3 Motivation
+In assembly language programming, we need temporary data storage, because
+• we have a limited number of registers
+We may need to temporarily save and later restore the information contained
+in the registers.
+• we need to support subroutines and exception handlers
+Therefore, reserve some memory for these purposes. To keep things as simple as
+possible,
+• this memory should be
+• we need an easy way to keep track of how much of this temp. storage space is
+used
+For the latter requirement, all we need is one pointer to track either the location
+of the last-used memory address or the first-available memory address. (More
+detail on this later.)
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - F (Stacks/ subroutines) - F-6
+
+===== Page 7 =====
+F.4 The stack
+F.4.1 Basic definitions
+• stack = a computer data structure that sees a lot of use, especially in support of
+assembly language subroutines.
+The stack allows allows for data storage and retrieval, but with only the following
+basic operations allowed:
+• push data onto the stack — store the data into the stack structure
+• pop (or pull) data off the stack — retrieve (
+) the data
+into the stack
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+S AL
+Notes - F (Stacks/ subroutines) - F-7
+
+===== Page 8 =====
+A stack starts off empty, and,
+• as items are pushed onto the stack, we say the stack grows
+• as items are popped off of the stack, we say the stack shrinks
+The push+pop operations mean that a stack is a FILO (
+data structure. Contrast this with a queue, a data structure which is
+Some stack analogies
+• stack of dinner plates
+• stacking chairs
+• toddler stacking toys
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks/ subroutines) - F-8
+
+===== Page 9 =====
+F.4.2 Additional stack terminology
+• top of the stack
+• when we push an item onto the stack — the new item goes onto the top
+of the stack
+• when we pop an item from the stack — the item is removed from the top
+of the stack
+• For CPUs, we initialise an
+stack as a region within memory, with stack
+origin at the top.
+• A stack pointer (SP) keeps track of the top of the stack.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks/ subroutines) - F-9
+
+===== Page 10 =====
+F.4.3
+Stack types
+Recall: memory = array of bytes; each byte has a unique numerical address
+There are a couple of choices in the way a stack can be implemented:
+• Choice #1 — descending vs. ascending
+• a descending stack — the stack grows
+from higher addresses
+toward lower addresses
+• an ascending stack — the stack grows
+from lower addresses
+• Choice #2 — full vs. empty
+• a full stack — SP = address of top-most item in the stack
+i.e.,
+• an empty stack — SP = address of next available free space
+i.e.,
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-10
+
+===== Page 11 =====
+These two independent choices means there are
+permutations. The
+ARM's instruction set architecture can support all
+permutations, but the de-
+fault convention is a full descending stack
+• A push operation uses instructions STR
+or STM
+with addressing mode of pre-decrementing SP
+• A pop operation uses instructions LDR
+or LDM
+with addressing mode of post-incrementing SP
+So when we say that ARM conventionally uses a full descending stack — as items
+are added to
+the stack, the top of the stack grows
+toward
+lower memory addresses.
+Previously, when we drew memory maps, we showed one byte per row, like a
+1-D array of bytes. For stacks, we are restricted to storing one word
+at a time, so we are going to modify our memory maps to show each row being
+one word. Thus our memory maps are now 2-D with a width of four bytes, but
+it's better to think of it still
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+歹
+Notes - F (Stacks /subroutines) - F-11
+
+===== Page 12 =====
+address:
+→
+higher address
+lower address
+Assuming we currently have three items (words) in the stack, we can do either
+of the following:
+• push an item #4 onto the stack — first move SP
+then
+copy item from register into memory at the new SP
+• pop item #3 off the stack — first copy item #3 to a register, then move SP
+Note that if we had first pushed item #4 onto the stack, we
+pop item
+#4 off the stack before we can go on to pop item #3 off the stack.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks/ subroutines) - F-12
+
+===== Page 13 =====
+4 The terms up, down, top, and bottom can be ambiguous and depend on the
+way the memory is drawn.
+lower address
+higher address
+US.
+higher address
+lower address
+While both diagrams are showing a full descending stack with three items, to
+avoid unnecessary confusion, we will continue to use the convention on the right,
+consistent with what we have done throughout the course.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-13
+
+===== Page 14 =====
+F.4.4 Stack implementation
+• The stack is a contiguous block of memory that must be reserved for this pur-
+pose alone.
+A stack pointer is required to keep track of the top of the stack. While we could
+se any register, we will use only SP (R13).
+• SP must be
+aligned (a multiple of bytes)
+• The push operation uses pre-indexed addressing (pre-decrement).
+• The pop operation uses post-indexed addressing (post-increment).
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-14
+
+===== Page 15 =====
+Example
+Let's say we allocate memory range 0x0001 0000 to 0x0001 2FFF (in total
+Øx3000 bytes — remember how to count/calculate this?)
+• Initialise SP to stack origin value 0x13000
+• Push data onto the stack using pre-indexed addressing with pre-decrement:
+e.g., STR RO, [SP, -#4]!
+• Pop data from the stack using post-indexed addressing with post-increment:
+e.g., LDR RO, [SP], #4
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks / subroutines) - F-15
+
+===== Page 16 =====
+F.4.5 Primary uses of the stack
+• (in many CPUs, but not always for ARM • next page) saving PC when calling
+a subroutine
+• PC points to next instruction to be fetched and executed
+• To call a subroutine, we must branch to the subroutine code, then come
+back and continue with the next instruction.
+• Thus, we need to save PC before calling the subroutine and restore PC after
+the subroutine is done. One way is to save PC on the stack.
+• branch to subroutine instruction
+pushes PC onto stack,
+then sets PC to address of the subroutine being called; e.g.,
+PC < PC + displacement
+• return from subroutine instruction
+pops PC from the stack
+2 saving and restoring values of registers, while doing calculations but wanting
+not to change those registers' values.)
+3 passing input and output parameters to / from subroutines
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-16
+
+===== Page 17 =====
+F.4.6 Calling subroutines in ARM
+More details later, but this is the basic idea:
+Example — a subroutine that needs to use R1 and R2
+main
+// do stuff
+BL
+subr3
+I calls the subroutine
+I1 do more stuff
+subr3 PUSH
+{R1 }
+/ save R1
+PUSH
+{R2}
+/ save R2
+11 do calculations involving R1, R2
+POP
+{R2}
+/ restore R2
+POP
+{R1}
+// restore R1
+BX
+LR
+Il return from subroutine
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AKI
+Notes - F (Stacks / subroutines) - F-17
+
+===== Page 18 =====
+Key idea for stacks
+Stack operations are FILO:
+• When we push items onto the stack, we must pop the items off in reverse
+order.
+• If we push k items onto the stack, we need to pop k items off the stack by
+the end of the subroutine, to ensure the stack is the same size (i.e., that SP
+) at the beginning and end of the subrou-
+tine.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-18
+
+===== Page 19 =====
+F.5 Subroutines
+F.5.1 Basics
+A subroutine is a program segment which can be called by any other program,
+including
+and
+• Encapsulates frequently-used code / promotes re-use of known-good code.
+• Reduces program memory usage since you call a subroutine instead of repeat-
+ing that same code in several places.
+• Subroutines can be parameterised; e.g.,
+• Calling a subroutine involves a small cost of execution time vs. in-line code.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-19
+
+===== Page 20 =====
+F.5.2 Calling a subroutine
+ARM architecture uses a simplified way to branch to a subroutine that
+We call (or invoke) a subroutine with one of these instructions:
+• branch with link — BL{cc} ‹label>
+• branches to subroutine using a PC-relative label within range - 16 MB to
++16 MB
+• writes the return address (= the address of
+BL) to link register LR (R14)
+LR - PC[31:1]:1
+encoding
+APSR
+mnemonic
+<c> <W> operands
+ext description (RTL)
+#
+FEDC BA98 7654 3210 N Z C V Q GE
+notes
+LR - PC[31:1]:1
+BL
+<c>
+< label>
+LET L = NOT (j XOR S)
+LET M = NOT (k XOR S)
+LET imm32 = SignExt(S:L:M:imm10:imm11:0)
+T1
+last 11j1 kiii iiii iiii
+out 1111 OSii iiii iiii
+--
+addressing.
+For calling subroutine using PC-relative
+PC - PC + imm32
+(even values).
+Branch range = -16777216 to +16777214
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-20
+
+===== Page 21 =====
+• branch and link with exchange — BLX {cc} Rm
+• branches to address held in register Rm
+• just as with BL, the return address is written to LR
+• like BX, allows for change of instruction set, albeit not in ARMv7-M since
+the M-profile CPU supports the Thumb-2 instruction set only
+encoding
+APSR
+mnemonic
+<c>
+<W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210||
+NZ CV Q GE
+notes
+(PC - 2)[31:1]:1
+BLX
+<c>
+Rm
+ESPR[T]
+IF EPSR[T]
+1 Rm［e］
+T1
+out
+UsageFault
+last
+0100 0111 1mmm m000
+Rm cannot be PC.
+PC - Rm[31:1]:0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-21
+
+===== Page 22 =====
+F.5.3 Returning from a subroutine
+Objective: copy LR back into PC
+• branch with exchange — to return from a subroutine
+BX LR
+• writes return address to program counter
+PC + LR[31:1]:0
+mnemonic
+encoding
+APSR
+<c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+BLX
+Rm
+IF EPSRIT] = 0
+ESPRIT RM10311:1
+- Rm [0]
+PC - Rm[31:1]:0
+UsageFault
+T1 last 0180 0111 1mmmmeee
+- - - -
+- - Rm cannot be PC.
+program status register = application program status register (flags) + interrupt program status register + execution program status register (execution state bits)
+31 30 29 28 27 26 25 24 23 22 21 20
+19 18 17 16 15 14 13 12 11 10 9
+3
+2
+1
+0
+APSR
+N
+GE [3:0]
+2 IPSR
+• or exception number
+EPSR
+ICI/IT T
+ICI/IT
+Thumb state; always 1 for ARMv7-M
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - F (Stacks / subroutines) - F-22
+
+===== Page 23 =====
+• move (register)
+MOV PC, LR
+• this also works, with some restrictions
+• may not set flags
+• must be outside of IT block or the last instruction within IT block
+copies link register to program counter
+PC < LR[31:11:0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks / subroutines) - F-23
+
+===== Page 24 =====
+• pop from stack into PC
+• Useful when a subroutine needs to call other subroutines (i.e., a non-leaf
+subroutine), as in such cases LR must be preserved (i.e., pushing it onto
+the stack) before calling other subroutines.
+• e.g., at beginning of subroutine, save required registers
+PUSH {R4-R6, LR›
+at end of subroutine do
+POP
+{R4-R6, PC}
+which combines a multi-register POP operation and BX LR into a single
+instruction!
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-24
+
+===== Page 25 =====
+F.5.4 Additional concepts
+• position-independent code — the subroutine should avoid any absolute ad-
+dressing (e.g., branching to a fixed address)
+• re-entrancy — Best defined by way of an example:
+program A calls a subroutine but before the subroutine finishes
+, the
+CPU switches (exact mechanism not important) to a second program B which
+calls
+...if both instances
+, the subroutine is said to be re-entrant
+• transparency — a subroutine that does not affect the values of any registers
+(other than those used to hold output parameters/ results) is called transparent
+Most any subroutine would be designed to be position-independent, re-entrant,
+and likely also transparent. These and other related concepts speak to a need to have
+a
+on how calling routines and subroutines interact and
+communicate with each other ...more on this idea soon!
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-25
+
+===== Page 26 =====
+F.5.5 Saving multiple registers
+In an earlier example, we had
+main
+11 do stuff
+BL
+subr3
+Il calls the subroutine
+I1 do more stuff
+subr3 PUSH
+{R1}
+11 save R1
+PUSH
+{R2}
+// save R2
+Il do calculations involving R1, R2
+POP
+{R2}
+11 restore R2
+POP {R1} I1 restore R1
+BX
+LR
+Il return from subroutine
+• What if the subroutine needs to save a larger number of registers?
+• What if the subroutine needs to call another subroutine? (What do we do with
+LR?)
+There are several methods to store multiple registers:
+• store multiple STM — like STR but for multiple registers at once; write to mem-
+ory, not necessarily the stack
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - F (Stacks /subroutines) - F-26
+
+===== Page 27 =====
+• store multiple decrement before STMDB (a.k.a. store multiple full descending
+STMFD) — specifically for supporting stacks, in the usual way, but can use any
+register Rn as the stack pointer, not necessarily SP
+STMDB Rn{!), <registers>
+For our stack,
+STMDB SP!, ‹registers>
+where <registers> = list of two or more registers to be stored, written as
+comma/hyphen-separated list, surrounded by { ). Lowest-numbered regis-
+ter is stored to lowest memory address.
+mnemonic
+<c> <W> operands
+ext description (RTL)
+#
+encoding
+APSR
+IT
+FEDC BA98 7654 3210 N Z C V Q GE
+notes
+ET ptr = Rn - 4*bitcount(reg_list
+OR i = 0 TO 1
+At least two registers must be listed
+<c>
+IF reg_listlil
+Rn (!), < registers>
+[ptr] - Ri
+ー - -
+STMDB
+- ptr + 4
+T1
+1110 1001 00W0 nnnn
+r0r rror rrrr rrrr
+- The base register Rn cannot be in the list if ! is
+SP and PC cannot be in the list.
+STMFD
+specified.
+! = write-back to Rn (encoded as W)
+If only a single register is to be stored, use instead STR Rt, [Rn, #-4] (!)
+‹registers> = List of one or more registers to be stored, written as comma-separated list, surrounded by { ). Lowest-numbered register is stored to lowest memory address
+• to save a single register, use STR Rt, [SP, #-4]!
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-27
+
+===== Page 28 =====
+• push multiple registers onto the stack
+PUSH <registers>
+PUSH .W <registers>
+where < registers> = list of one or more registers to be stored, written as
+comma/hyphen-separated list, surrounded by { }. Lowest-numbered regis-
+ter is stored to lowest memory address.
+encoding
+APSR
+mnemonic
+<> «W> operands
+ext description (RTL)
+IT FEDC BA98 7654 3210 N Z C V Q GE
+. notes
+LET registers = 0:M:000000:xxxxxxxx
+<c>
+< registers>
+FOR i = 14 TO 0
+registers|i]
+1011 010M XXXX XXXX
+SP - SP
+- 4
+T1
+[SP] - Ri
+PUSH
+LET registers = 0:M:0:xxxxxxxxxxxxx
+<C>
+FOR i = 14 TO 0
+•W <registers>
+IF registers[il
+1110 1001 0010 1101
+At least two registers must be specified.
+SP -
+- 4
+0M0x xxxx xxxx xxxx
+Equivalent to STMDB SP!, < registers›
+SP and PC cannot be in the list
+[SP] - Ri
+<c>
+" (Rt)
+SP - SP - 4
+[SP] - RI
+T3
+out 1111 1000 0100 1101
+last tttt 1011 0000 0100
+Do not use Rn = SP or PC.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-28
+
+===== Page 29 =====
+F.5.6 Restoring multiple registers
+Again, several methods available:
+• load multiple LDM — like LDR but for multiple registers at once; read from
+memory, not necessarily the stack
+LDM Rn!, <registers>
+LDM Rn, ‹registers>
+• load multiple increment after LDMIA (a.k.a. load multiple full descending LDMFD)
+LDMIA Rn{!}, ‹registers›
+For our stack,
+LDM {IA} SP!, < registers›
+where < registers› = list of one or more registers to be loaded, written as
+comma/hyphen-separated list, surrounded by { 1. Lowest-numbered regis-
+ter is loaded from lowest memory address.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - F (Stacks / subroutines) - F-29
+
+===== Page 30 =====
+encoding
+APSR
+mnemonic
+<c> <W> operands
+ext description (RTL)
+IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+LDM
+Rn, < registers>
+LET ptr = Rr
+OR i = 0 TO 7
+nnn = base register (RØ to R7)
+xxxx xxxx = register list, corresponding to
+LDMFD
+LDMIA
+<c>
+IF register_list[i] THEN
+Ri - [ptr]
+T1
+1100 1nnn xxxx xxxx
+R7 :R0; must specify at least one register
+Rn!, < registers>
+IF <!> THEN
+ptr - ptr + 4
+! = advance Rn after the load operation,
+Rn - Rn + 4*bitcount(reg_list)
+encoded as reg_ list[n] = 0.
+LET ptr = Rn
+Rn, registers>
+FOR i = 0 TO 14:
+If Rn = SP and W = 1, see POP (Thumb).
+nnnn = base register (R0 to R14)
+IF register_list[i] THEN
+PMx xxxxxxxxxxxx = register list,
+LDM
+LDMIA
+Ri - [ptr]
+12 out 1110 1000 10W1 nan
+corresponding to R15:R0;
+LDMFD
+IF register_list[15] THEN
+ptr - ptr + 4
+last PM0x xxxx xxxx xxxx
+must specify two or more registers;
+Rn!, ‹registers›
+IF <!> THEN
+LoadWritePC ([ptr])
+Rn - Rn + 4*bitcount (reg_list)
+! = advance Rn after the load operation,
+if PC included, cannot include LR
+cannot include SP
+encoded as W = 1
+• pop multiple registers from the stack
+POP <registers>
+POP.W < registers>
+where <registers› = list of one or more registers to be restored, written as
+comma/hyphen-separated list, surrounded by { }. Lowest-numbered regis-
+ter is loaded from lowest memory address.
+encoding
+APSR
+mnemonic
+S <c> «W> operands
+ext description (RTL)
+|LET registers = P:0000000:xxxxxx××
+| # IT FEDE BA98 7654 3210 N Z C V a GE notes
+FOR i = 0 TO 14
+IF registers|i]
+‹registers›
+SP - SP + 4
+Ri - [SP]
+T1
+1011 110P xxx xxxx
+At least one register must be specified.
+Equivalent to LDMIA SP!, < registers>
+IF registers[15]
+LoadWritePC([SP])
+SP -
+SP + 4
+POP
+LET registers = P:M:@:xxxxxxxxxxxxx
+FOR i = 0 TO 14
+IF registerslil
+<> .W ‹registers>
+12
+1110 1000 1011 1101
+At least two registers must be specified.
+SP + 4
+IF registers[15]
+LoadWritePC ([SP])
+SP _ SP + 4
+<> .W {Rt}
+SP - SP +
+t - [SP
+T3 last tttt 1011 0880 0189
+out 1111 1000 0101 1101
+Do not use Rn = SP.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-30
+
+===== Page 31 =====
+Summary so far
+• Bulk copying of registers to / from memory: STM, LDM
+• Pushing registers onto stack:
+STMDB
+SP!, {registers>}
+STR
+Rt, [SP, #-4] !
+PUSH
+{registers>}
+• Popping registers off of stack:
+LDMIA
+SP!, {registers>}
+LDR
+Rt, [SP], #4
+POP
+{registers>}
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-31
+
+===== Page 32 =====
+F.5.7 Passing parameters
+A subroutine usually operates on input data and produces output data, though
+•
+•
+•
+This information must be transferred between the subroutine (
+) and the
+program calling the subroutine (
+) — this transfer is called parameter pass-
+ing.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-32
+
+===== Page 33 =====
+Parameters can be passed:
+• by value — the
+• by reference — the parameter's
+...and using one of these mechanisms:
+• via the CPU's registers
+• memory locations
+• via the stack
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks / subroutines) - F-33
+
+===== Page 34 =====
+Calling convention
+There must be an agreed-upon convention between caller and subroutine for how
+parameters are to be passed. While there are many possible implementations, it is
+better to have a standardised solution to maximise inter-operability; e.g.,
+• allows use of pre-built code libraries
+• interfacing assembler with other languages
+• compatibility between programs/ drivers/operating systems
+This standard is called a calling convention, function call standard, or procedure
+call standard.
+ARM publishes the ARM architecture procedure call standard (AAPCS), avail-
+able from developer.arm.com
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-34
+
+===== Page 35 =====
+arm Developer
+IP Products Tools and Software v Architectures v Solutions v Community Support v Documentation Downloads v
+8
+Home I Documentation 1 Architectures I System Architectures I Software Standards 1 ABI
+Procedure Call Standard for the Arm Architecture - ABI 2020Q2 do...
+renion 202020 Doland a Dark i suberite a seach within his document
+ROOMENTABE OF COMENS
+< Back to search
+< All ABI Documentation
+Procedure Call Standard for the Arm® Architecture
+Procedure Call Standard for the Arm Architecture -
+ABI 2020Q2 documentation
+Document number: IHI 0042J, current through ABI release 2020Q2
+Date of Issue: 1st July 2020
+Preamble
+Feedback
+Abstract
+This document describes the Procedure Call Standard use by the Application Binary Interface
+(ABI) for the Arm architecture.
+Keywords
+Procedure call, function call, calling conventions, data layout
+How to find the latest release of this specification or report a defect in it
+Please check the Arm Developer site (https://developer.arm.com/architectures/system-
+architectures/software-standards/abi) for a later release if your copy is more than one year old.
+Please report defects in this specification to arm.eabi@arm.com.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-35
+
+===== Page 36 =====
+AAPCS highlights
+• full descending stack; SP must be
+; i.e., SP always is a
+• parameter passing
+• first four arguments via registers RØ to R3
+• any additional arguments passed via stack
+• first four return values go back into the same registers RØ to R3
+• any additional return values passed via stack
+• subroutines may freely modify RØ to R3 and R12
+• can use RO to R3 as "scratch" registers
+while com-
+puting results)
+• this set of registers are deemed to be
+• if the subroutine needs to use any of R4 to R11, the subroutine must restore
+leir values by the end of the subroutine —
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-36
+
+===== Page 37 =====
+Passing parameters via registers
+• a common approach, especially for passing smaller quantities of data
+• passing by value; e.g.,
+MOV
+RO, #3
+1l a numerical value
+MOV
+R1
+'a'
+// a character
+BL
+subrout1
+// call the subroutine
+• passing by reference; e.g., use R1 as a pointer to the data, such as
+Advantages
+Disadvantages
+• minimises memory accesses by
+• reduces the number of registers
+avoiding stacking of parameters
+available within the subroutine for
+• supports position-independent
+the programmer to use
+code
+• only a limited quantity of data can
+• supports re-entrancy
+be passed
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-37
+
+===== Page 38 =====
+Passing parameters by memory location
+Passing by value; e.g.,
+param
+DCD
+0
+ADR
+R5, param
+STRH
+R6, [R5]
+BL
+subr
+•..
+subr
+••.
+LDRH
+RO, param
+•..
+BX
+LR
+Advantages
+Disadvantages
+• simple — just need an agreement
+• can't support position-independent
+on the memory locations used for
+code
+parameter passing
+• avoids use of stack
+• can't support re-entrancy
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-38
+
+===== Page 39 =====
+Passing parameters via the stack
+Simply push the parameters onto the stack before calling the subroutine.
+• pass by value
+• push register values onto stack
+• subroutine reads values from stack
+• pass by reference
+• push data addresses onto stack
+• subroutine reads addresses from stack, then uses register indirect address-
+ing to retrieve the data
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-39
+
+===== Page 40 =====
+Link register vs. stacked return address
+Most (all?) older CPU designs use a stacked return address for subroutine calls.
+ARM and most?) modern CPU designs choose instead to use a link register.
+• minimises subroutine calling overhead
+• beneficial especially with repeated calls to simple subroutines
+• in leaf subroutines (those that
+), can possibly do ev-
+erything in registers only, ::
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-40
+
+===== Page 41 =====
+• in non-leaf subroutines (those that do
+), LR must be pre-
+served, but this can be done by stacking together with other registers in a single
+instruction and pipelined memory access. e.g.,
+subr1 PUSH
+{R4-R6, LR} 11
+•.
+BL
+subr2
+// call sub
+• • •
+POP
+{R4-R6, LR}
+BX
+LR
+I return
+Can actually combine last two operations into one!
+POP
+{R4-R6, PC}
+I restore registers and return
+• In the subroutine, accessing parameters on the stack can be done by popping
+them off the stack, without needing to worry about losing the saved return
+value of PC.
+• Output params can be pushed onto the stack.
+• Note that AAPCS requires callee to preserve SP.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - F (Stacks / subroutines) - F-41
+
+===== Page 42 =====
+Example #1 — Passing parameters via the stack
+Write a subroutine to add two 64-bit integers P and Q. The numbers are to be
+passed via the stack and the result returned on the top of the stack.
+Assume P = PH : PL and Q = QH:QL where PL, PH, QL, QH are words stored (in
+the stated order) in memory at label nums
+63
+32 31
+0
+P
+Q
+R
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-42
+
+===== Page 43 =====
+main
+ADR
+32 bits,
+R7, nums
+LDM
+R7, {RO-R3 }
+PUSH
+{RO-R3}
+SP→
+TOP
+BL
+add64
+POP
+{R4, R5)
+ADD
+SP, #8
+•..
+add64
+PROC
+PUSH
+{R6-R9}
+LDR
+R6, [SP, #16]
+; get PL
+LDR
+R7, [SP, #20]
+; get PH
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #281
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, [SP, #201
+; save RH
+POP
+{R6-R9}
+BX
+LR
+;
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-43
+
+===== Page 44 =====
+main
+ADR
+32 bits,
+R7, nums
+LDM
+R7, {RO-R3 }
+PUSH
+{RO-R3}
+OLD TOP
+BL
+add64
+QH
+POP
+{R4, R5}
+QL
+ADD
+SP, #8
+PH
+・・・
+SP→
+PL
+add64
+PROC
+PUSH
+{R6-R9}
+LDR
+R6, [SP, #16]
+; get PL
+LDR
+R7, [SP, #20]
+; get PH
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #281
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, [SP, #201
+; save RH
+POP
+{R6-R9}
+BX
+LR
+;
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-44
+
+===== Page 45 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {RO-R3}
+PUSH
+{RO-R3}
+OLD TOP
+BL
+add64
+QH
+POP
+{R4, R5}
+QL
+ADD
+SP, #8
+PH
+・・・
+SP→
+PL
+add64
+PROC
+PUSH
+{R6-R9}
+LDR
+R6, [SP, #16]
+; get PL
+LDR
+R7, [SP, #20]
+; get PH
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #28]
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, İSP, #201
+; save RH
+POP
+{R6-R9}
+BX
+LR
+;
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-45
+
+===== Page 46 =====
+main
+ADR
+32 bits,
+R7, nums
+LDM
+R7, {RO-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
++28
+QH
+POP
+{R4, R5)
++24
+QL
+ADD
+SP, #8
++20
+PH
+•..
++16
+PL
+add64
+PROC
++12
+R9
+PUSH
+{R6-R9}
++8
+R8
+LDR
+R6, [SP, #16]
+; get PL
++4
+R7
+LDR
+R7, [SP, #201
+; get PH
+SP→
+R6
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #281
+; get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, [SP, #201
+; save RH
+POP
+{R6-R9}
+BX
+LR
+;
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-46
+
+===== Page 47 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {RO-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
++28
+QH
+POP
+{R4, R5)
++24
+QL
+ADD
+SP, #8
++20
+PH
+•..
++16
+PL
+add64
+PROC
++12
+R9
+PUSH
+{R6 -R9}
++8
+R8
+LDR
+R6, [SP, #16]
+; get PL
++4
+R7
+LDR
+R7, [SP, #201
+; get PH
+SP→
+R6
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #28]
+; get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+￾RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, ISP, #201
+• save RH
+POP
+{R6-R9}
+BX
+LR
+;
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-47
+
+===== Page 48 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {R0-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
++28
+QH
+POP
+{R4, R5)
++24
+QL
+ADD
+SP, #8
++20
+PH
+・・・
++16
+PL
+add64
+PROC
++12
+R9
+PUSH
+{R6-R9}
++8
+R8
+LDR
+R6, [SP, #161
+; get PL
++4
+R7
+LDR
+R7, [SP, #201
+; get PH
+SP→
+R6
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #281
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+￾RH = PH+QH+C
+STR
+R6, [SP, #161
+• save RL
+STR
+R7, ISP, #201
+• save RH
+POP
+{R6-R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-48
+
+===== Page 49 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {R0-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
++28
+QH
+POP
+{R4, R5)
++24
+QL
+ADD
+SP, #8
++20
+PH
+・・・
++16
+PL
+add64
+PROC
++12
+R9
+PUSH
+{R6-R9}
++8
+R8
+LDR
+R6, [SP, #161
+; get PL
++4
+R7
+LDR
+R7, [SP, #201
+; get PH
+SP→
+R6
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #281
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+•save RL
+STR
+R7, ISP, #201
+• save RH
+POP
+{R6-R9}
+BX
+LR
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-49
+
+===== Page 50 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {R0-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
++28
+QH
+POP
+{R4, R5)
++24
+QL
+ADD
+SP, #8
++20
+PH
+・・・
++16
+RL
+add64
+PROC
++12
+R9
+PUSH
+{R6-R9}
++8
+R8
+LDR
+R6, [SP, #16]
+; get PL
++4
+R7
+LDR
+R7, [SP, #201
+; get PH
+SP→
+R6
+LDR
+R8, [SP, #241
+; get QL
+LDR
+R9, [SP, #28]
+; get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+•save RL
+R6, [SP, #16]
+STR
+R7, [SP, #20]
+; save RH
+POP
+{R6-R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-50
+
+===== Page 51 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {R0-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
++28
+QH
+POP
+{R4, R5)
++24
+QL
+ADD
+SP, #8
++20
+RH
+・・・
++16
+RL
+add64
+PROC
++12
+R9
+PUSH
+{R6-R9}
++8
+R8
+LDR
+R6, [SP, #161
+; get PL
++4
+R7
+LDR
+R7, [SP, #20]
+; get PH
+SP→
+R6
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #281
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+￾RH = PH+QH+C
+STR
+R6, [SP, #16]
+; save RL
+STR
+R7, [SP, #201
+; save RH
+POP
+{R6-R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-51
+
+===== Page 52 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {R0-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
+QH
+POP
+{R4, R5)
+QL
+ADD
+SP, #8
+RH
+・・・
+SP→
+RL
+add64
+PROC
+R9
+PUSH
+{R6-R9}
+R8
+LDR
+R6, [SP, #16]
+; get PL
+R7
+LDR
+R7, [SP, #20]
+; get PH
+R6
+LDR
+R8, [SP, #241
+; get QL
+LDR
+R9, [SP, #281
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, [SP, #20]
+• save RH
+POP
+{R6-R9)
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-52
+
+===== Page 53 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {R0-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
+QH
+POP
+{R4, R5)
+QL
+ADD
+SP, #8
+RH
+・・・
+SP→
+RL
+add64
+PROC
+R9
+PUSH
+{R6-R9}
+R8
+LDR
+R6, [SP, #161
+; get PL
+R7
+LDR
+R7, [SP, #20]
+; get PH
+R6
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #28]
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, [SP, #20]
+• save RH
+POP
+{R6-R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-53
+
+===== Page 54 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {RO-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
+QH
+POP
+{R4, R5}
+SP→
+QL
+ADD
+SP, #8
+RH
+•..
+RL
+add64
+PROC
+R9
+PUSH
+{R6-R9}
+R8
+LDR
+R6, [SP, #16]
+; get PL
+R7
+LDR
+R7, [SP, #201
+; get PH
+R6
+LDR
+R8, [SP, #241
+; get QL
+LDR
+R9, [SP, #281
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, ISP, #201
+; save RH
+POP
+{R6-R9}
+BX
+LR
+;
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-54
+
+===== Page 55 =====
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {R0-R3}
+PUSH
+{R0-R3}
+SP→
+OLD TOP
+BL
+add64
+QH
+POP
+{R4, R5)
+QL
+ADD
+SP, #8
+RH
+•..
+RL
+add64
+PROC
+R9
+PUSH
+{R6-R9}
+R8
+LDR
+R6, [SP, #16]
+; get PL
+R7
+LDR
+R7, [SP, #20]
+; get PH
+R6
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #28]
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, ISP, #201
+; save RH
+POP
+{R6-R9}
+BX
+LR
+;
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-55
+
+===== Page 56 =====
+In this example, the way the parameters were passed, more specifically, was:
+• the two 64-bit input values were pushed onto the stack
+• the 64-bit sum replaced the first of the two addends that was pushed onto
+the stack
+• the caller would be responsible for retrieving the result from the stack and
+cleaning up the stack
+Again, there must be agreement as to how things are done between caller and
+callee.
+In this example, the subroutine and the caller did not directly
+the
+items that are popped off the stack. Nonetheless, we must never read and cannot
+rely on anything above the top of the stack. !
+ie., never read
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-56
+
+===== Page 57 =====
+Example #2 — Passing parameters via the stack
+Write a subroutine to add two 64-bit integers P and Q. The numbers are to be
+passed by reference via the stack and the result returned on the top of the stack.
+As before, P = PH: PL and Q = QH: QL. Assume P and Q are defined labels point-
+ing to the memory location of the two numbers, each stored as two consecutive
+words
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-57
+
+===== Page 58 =====
+main
+ADR
+32 bits,
+RO, P
+ADR
+R1, Q
+PUSH
+{RO, R1}
+SP→
+TOP
+BL
+add64
+POP
+{R4, R5}
+ADD
+SP, #8
+・・・
+add64
+PROC
+PUSH
+{R6-R9}
+LDR
+R6, [SP, #16]
+;get addr of p
+LDR
+R7, [R6]
+; get PL
+LDR
+R8, [R6, #4]
+i get PH
+LDR
+R6, [SP, #20]
+i get addr of Q
+LDR
+R9, [ R6 ]
+; get QL
+ADDS
+R7, R9
+;RL = PL+QL
+LDR
+R9, [R6, #4]
+; get QH
+ADCS
+R8, R9
+;RH = PH+QH+C
+STR
+R7, [SP, #16]
+; save RL
+STR
+R8, [SP, #20]
+i save RH
+POP
+{R6-R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-58
+
+===== Page 59 =====
+main
+ADR
+32 bits,
+RO, P
+ADR
+R1, Q
+PUSH
+{RO, R1}
+OLD TOP
+BL
+add64
+addr of Q
+POP
+{R4, R5)
+SP→
+addr of P
+ADD
+SP, #8
+・・・
+add64
+PROC
+PUSH
+{R6-R9}
+LDR
+R6, [SP, #16]
+;get addr of P
+LDR
+R7, [R6]
+; get PL
+LDR
+R8, [R6, #4]
+i get PH
+LDR
+R6, [SP, #20]
+i get addr of Q
+LDR
+R9, [ R6 ]
+; get QL
+ADDS
+R7, R9
+;RL = PL+QL
+LDR
+R9, [R6, #4]
+; get QH
+ADCS
+R8, R9
+;RH = PH+QH+C
+STR
+R7, [SP, #16]
+; save RL
+STR
+R8, [SP, #20]
+i save RH
+POP
+{R6- R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-59
+
+===== Page 60 =====
+main
+ADR
+32 bits
+RO, P
+ADR
+R1, Q
+PUSH
+{RO, R1)
+OLD TOP
+BL
+add64
++20
+addr of Q
+POP
+{R4, R5)
++16
+addr of P
+ADD
+SP, #8
++12
+R9
+・・・
++8
+R8
+add64
+PROC
++4
+R7
+PUSH
+{R6-R9}
+SP→
+R6
+LDR
+R6, [SP, #16]
+;get addr of P
+LDR
+R7, [R6 ]
+i get PL
+LDR
+R8, [R6, #4]
+i get PH
+LDR
+R6, [SP, #20]
+i get addr of Q
+LDR
+R9, [R6]
+; get QL
+ADDS
+R7, R9
+;RL = PL+QL
+LDR
+R9, [R6, #4]
+; get QH
+ADCS
+R8, R9
+;RH = PH+QH+C
+STR
+R7, [SP, #16]
+; save RL
+STR
+R8, [SP, #20]
+i save RH
+POP
+{R6- R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-60
+
+===== Page 61 =====
+main
+ADR
+32 bits
+RO, P
+ADR
+R1, Q
+PUSH
+{RO, R1)
+OLD TOP
+BL
+add64
++20
+addr of Q
+POP
+{R4, R5)
++16
+RL
+ADD
+SP, #8
++12
+R9
+・・・
++8
+R8
+add64
+PROC
++4
+R7
+PUSH
+{R6-R9}
+SP→
+R6
+LDR
+R6, [SP, #16]
+i get addr of p
+LDR
+R7, [R6]
+; get PL
+LDR
+R8, [R6, #4]
+; get PH
+LDR
+R6, [SP, #20]
+i get addr of Q
+LDR
+R9, [R6]
+; get QL
+ADDS
+R7, R9
+;RL = PL+QL
+LDR
+R9, [R6, #4]
+; get QH
+ADCS
+R8, R9
+;RH = PH+QH+C
+STR
+R7, [SP, #16]
+; save RL
+STR
+R8, [SP, #20]
+• save RH
+POP
+{R6- R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-61
+
+===== Page 62 =====
+main
+ADR
+32 bits
+RO, P
+ADR
+R1, Q
+PUSH
+{RO, R1)
+OLD TOP
+BL
+add64
++20
+RH
+POP
+{R4, R5)
++16
+RL
+ADD
+SP, #8
++12
+R9
+・・・
++8
+R8
+add64
+PROC
++4
+R7
+PUSH
+{R6-R9}
+SP→
+R6
+LDR
+R6, [SP, #16]
+i get addr of p
+LDR
+R7, [R6]
+; get PL
+LDR
+R8, [R6, #4]
+; get PH
+LDR
+R6, [SP, #20]
+i get addr of Q
+LDR
+R9, [ R6 ]
+; get QL
+ADDS
+R7, R9
+;RL = PL+QL
+LDR
+R9, [R6, #4]
+; get QH
+ADCS
+R8, R9
+;RH = PH+QH+C
+STR
+R7, [SP, #16]
+; save RL
+STR
+R8, [SP, #201
+• save RH
+POP
+{R6- R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-62
+
+===== Page 63 =====
+main
+ADR
+RO, P
+32 bits,
+ADR
+R1, Q
+PUSH
+{RO, R1)
+OLD TOP
+BL
+add64
+RH
+POP
+{R4, R5}
+SP→
+RL
+ADD
+SP, #8
+R9
+・・・
+R8
+add64
+PROC
+R7
+PUSH
+{R6-R9}
+R6
+LDR
+R6, [SP, #16]
+;get addr of p
+LDR
+R7, [R6]
+; get PL
+LDR
+R8, [R6, #4]
+; get PH
+LDR
+R6, [SP, #20]
+i get addr of Q
+LDR
+R9, [ R6 ]
+; get QL
+ADDS
+R7, R9
+;RL = PL+QL
+LDR
+R9, IR6, #4]
+; get QH
+ADCS
+R8, R9
+;RH = PH+QH+C
+STR
+R7, [SP, #16]
+; save RL
+STR
+R8, [SP, #201
+• save RH
+POP
+{R6- R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-63
+
+===== Page 64 =====
+main
+ADR
+RO, P
+32 bits,
+ADR
+R1, Q
+PUSH
+{RO, R1}
+SP→
+OLD TOP
+BL
+add64
+RH
+POP
+{R4, R5}
+RL
+ADD
+SP, #8
+R9
+・・・
+R8
+add64
+PROC
+R7
+PUSH
+{R6 -R9}
+R6
+LDR
+R6, [SP, #16]
+;get addr of p
+LDR
+R7, [R6]
+; get PL
+LDR
+R8, [R6, #4]
+i get PH
+LDR
+R6, [SP, #20]
+i get addr of Q
+LDR
+R9, [ R6 ]
+; get QL
+ADDS
+R7, R9
+;RL = PL+QL
+LDR
+R9, [R6, #4]
+; get QH
+ADCS
+R8, R9
+;RH = PH+QH+C
+STR
+R7, [SP, #161
+; save RL
+STR
+R8, [SP, #20]
+i save RH
+POP
+{R6-R9}
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-64
+
+===== Page 65 =====
+Example # 3 — Passing parameters, one more time
+Write a subroutine to add two 64-bit integers P and Q. The subroutine should be
+AAPCS-compliant.
+As before, P = PH: PL and Q = QH: QL. The two input values can be passed in
+registers RØ to R3 and the result will be returned in R0 and R1.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - F (Stacks /subroutines) - F-65
+
+===== Page 66 =====
+main
+ADR
+32 bits,
+R7, nums
+LDM
+R7, {RO-R3 }
+PUSH
+{R0-R3}
+SP→
+TOP
+BL
+add64
+POP
+{R4, R5)
+ADD
+SP, #8
+•..
+add64
+PROC
+PUSH
+{R6-R9}
+LDR
+R6, [SP, #16]
+; get PL
+LDR
+R7, [SP, #20]
+; get PH
+LDR
+R8, [SP, #24]
+; get QL
+LDR
+R9, [SP, #28]
+; get QH
+ADDS
+R6, R8 RO, R2
+;RL = PL+QL
+ADCS
+R7, R9 R1, R3
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+•save RL
+STR
+R7, [SP, #20]
+• save RH
+POP
+{R6-R9}
+BX
+LR
+ENDP
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-66
+
+===== Page 67 =====
+Following AAPCS,
+• parameter passing via registers is prioritised
+• stack operations (i.e.,
+) are minimised
+• overall,
+instructions required
+In this example, no memory access was required at all! The subroutine was
+simplified greatly. Calling overhead for a subroutine should be kept to a mini-
+mum to achieve optimal performance.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-67
+
+===== Page 68 =====
+F.6 Program design process
+Without a proper design process, jumping straight into coding leads to poor results.
+A good design process is based on:
+• top-down design
+• modularity
+• structured programming
+• testability
+• recoverability
+F.6.1 Top-down design
+Top-down design is a method to handle large, complex problems in a systematic
+way:
+• decomposing the problem into smaller, more tractable pieces
+• separation of goals and means
+ECE 212 Winter 2026 LEC B1 - Course content OJ. C. Sit @AL
+Notes - F (Stacks / subroutines) - F-68
+
+===== Page 69 =====
+Task T
+Subtask T1
+Subtask T2
+Subtask T11
+Subtask T12
+Subtask T13
+Subtask T21
+Subtask T22
+Subtask T111
+Subtask T112
+Subtask T221
+Subtask T222
+Subtask T223
+Example — A disk operating system
+Operating
+system
+CLI
+DFM
+Scheduler
+Create
+Delete
+Update
+Seek
+Initialize
+Seek
+Remove
+Seek
+Insert
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-69
+
+===== Page 70 =====
+F.6.2 Modular design
+A module concerned with a single, logically coherent task
+that can be:
+Single entry point
+• designed and tested independently
+Module
+Module code
+replaced by another module that is functionally equiv-
+(i.e. program)
+lent and has a compatible interface
+• described using
+Module data
+(cannot be accessed
+• coupling (how many connections/ dependencies
+outisde the module)
+between modules)
+• modularity or strength (how specific is function-
+Single exit point
+ality of a module)
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-70
+
+===== Page 71 =====
+F.6.3 Structured programming
+Programs can be constructed from three fundamental components:
+• sequences - linear set of steps
+• loops — allow for a sequence to be repeated a number of times
+• decision mechanisms — allow for one of two (or more) courses of action
+F.6.4 Testability
+Testability is a measure of how easy it is to test/ verify operation of a program or
+component of a program; e.8.,
+• accessibility of interfaces between modules
+• breakpoints
+• top-down vs. bottom-up testing
+• white-box (internal operation) vs. black-box (functionality) testing
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-71
+
+===== Page 72 =====
+F.6.5 Recoverability
+Recoverability, also known as exception handling, is the ability of a program/-
+module to:
+• cope with erroneous data
+• recover from certain classes of error
+F.6.6 Putting it all together
+Combining the components above,
+• allows the avoidance of GOTO statements (generally a last resort in high-level
+programming languages)
+• resulting programs are:
+• easier to understand
+• easier to debug
+• more elegant
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-72
+
+===== Page 73 =====
+As discussed before, assembler language does not have an ELSE clause, so state-
+ments like "IF (condition) GOTO (label)" are necessary. As an exercise,
+how are the following implemented in assembly?
+• IF (condition) THEN (action)
+• IF (condition) THEN (action)
+ELSE (other action)
+• FOR (variable = limit1 TO limit2) DO (action)
+• SELECT (variable)
+CASE (case1): (action1)
+CASE (case2): (action2)
+•..
+CASE ELSE: (default action)
+• WHILE (condition) DO (action)
+• DO (action) WHILE (condition)
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-73
+
+===== Page 74 =====
+F.7 Program design language
+Assembly language programs are challenging to write, debug, document, and main-
+tain.
+Use program design language (PDL), a.k.a. pseudocode. The big picture:
+• pseudo
+"programming language"
+• a more verbal description; can be personalised / individual
+• allows using
+techniques and structured constructs
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-74
+
+===== Page 75 =====
+Some key points for PDL:
+• shorthand notation for the description of algorithms using plain English to sub-
+stitute for entire expressions
+• compromise between high-level language and an assembly language program
+• supports good programming principles (top-down design, modularity, struc-
+tured programming)
+• can be extended to deal with specific tasks
+• try to use only English-like statements that precisely describe specific operations
+• describe the meaning rather than how the approach will be implemented
+• explicitly define control constructs (loops and decision mechanisms) - IF,
+FOR, CASE, etc.
+• design at a higher level than the target code (avoid syntactic elements from the
+target assembly language)
+• write at low enough level that coding from it will be nearly automatic
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - F (Stacks / subroutines) - F-75
+
+===== Page 76 =====
+• to overcome this high-low level dilemma: gradually refine pseudocode until
+it is suitable for more or less direct translation to assembly code
+• once the PDL is written, build the code around it
+• PDL statements can turn into code comments
+• other uses for pseudocode: code review; porting code to other platforms/lan-
+guages
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-76
+
+===== Page 77 =====
+F.8 Summary
+In this section, we have covered:
+• the concepts of the stack and subroutines, two highly inter-related topics
+• the stack, a data structure enabling temporary storage and retrieval of data
+• subroutines, a way to enable modular programming
+• an overview of programming practises that allow us to carefully plan our work
+to implement solutions
+Up next:
+• how the microprocessor interfaces with other parts of the computer, includ-
+ing those components that communicate with peripheral devices or networks
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - F (Stacks / subroutines) - F-77
+
+===== Page 78 =====
+Course content © 2026 J. C. Sit, Electrical and Computer Engineering, University of
+Alberta (Canada). All rights reserved. Resale or re-distribution is prohibited.
+Course content, digital or otherwise, created and / or used within the context of the
+course is to be used solely for personal study for students in ECE 212 LEC B1 in
+Winter 2026.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-78
+

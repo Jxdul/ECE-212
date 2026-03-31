@@ -1,0 +1,12 @@
+F.5 Subroutines
+F.5.1 Basics
+A subroutine is a program segment which can be called by any other program,
+including
+and
+• Encapsulates frequently-used code / promotes re-use of known-good code.
+• Reduces program memory usage since you call a subroutine instead of repeat-
+ing that same code in several places.
+• Subroutines can be parameterised; e.g.,
+• Calling a subroutine involves a small cost of execution time vs. in-line code.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-19

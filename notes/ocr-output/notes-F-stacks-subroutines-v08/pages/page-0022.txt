@@ -1,0 +1,42 @@
+F.5.3 Returning from a subroutine
+Objective: copy LR back into PC
+• branch with exchange — to return from a subroutine
+BX LR
+• writes return address to program counter
+PC + LR[31:1]:0
+mnemonic
+encoding
+APSR
+<c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+BLX
+Rm
+IF EPSRIT] = 0
+ESPRIT RM10311:1
+- Rm [0]
+PC - Rm[31:1]:0
+UsageFault
+T1 last 0180 0111 1mmmmeee
+- - - -
+- - Rm cannot be PC.
+program status register = application program status register (flags) + interrupt program status register + execution program status register (execution state bits)
+31 30 29 28 27 26 25 24 23 22 21 20
+19 18 17 16 15 14 13 12 11 10 9
+3
+2
+1
+0
+APSR
+N
+GE [3:0]
+2 IPSR
+• or exception number
+EPSR
+ICI/IT T
+ICI/IT
+Thumb state; always 1 for ARMv7-M
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - F (Stacks / subroutines) - F-22

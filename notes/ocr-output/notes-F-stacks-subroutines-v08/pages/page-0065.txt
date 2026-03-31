@@ -1,0 +1,8 @@
+Example # 3 — Passing parameters, one more time
+Write a subroutine to add two 64-bit integers P and Q. The subroutine should be
+AAPCS-compliant.
+As before, P = PH: PL and Q = QH: QL. The two input values can be passed in
+registers RØ to R3 and the result will be returned in R0 and R1.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - F (Stacks /subroutines) - F-65

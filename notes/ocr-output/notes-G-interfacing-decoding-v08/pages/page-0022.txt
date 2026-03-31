@@ -1,0 +1,5 @@
+Example #2 — Can a word be stored starting at address 0x0003? How would
+the misaligned word be transferred?
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - G (Interacing/ decoding) - G-22

@@ -1,0 +1,15 @@
+E.6.5 Sign/zero-extension
+UXTB - unsigned extend byte
+• UXTB Rd, Rmí, ‹rotate>}
+• Operation:
+• let x = Rm with optional ROR by 8/16/24 bits
+• Rd - x, zero-extended from 8 to 32 bits
+UXTH — unsigned extend halfword
+• UXTH
+Rd, Rm<, «rotate>)
+• Operation:
+• let x = Rm with optional ROR by 8/16/24 bits
+• Rd - x, zero-extended from 16 to 32 bits
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-76

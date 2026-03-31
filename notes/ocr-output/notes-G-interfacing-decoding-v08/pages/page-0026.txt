@@ -1,0 +1,18 @@
+D
+C
+tbd
+___-_.
+tab
+tbc
+Q
+a
+b!
+c :
+setup time
+— data should be held steady for at least this long before the clock event
+• hold time
+- data should be held steady for at least this long
+propagation time/delay
+— how long after clock event
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-26

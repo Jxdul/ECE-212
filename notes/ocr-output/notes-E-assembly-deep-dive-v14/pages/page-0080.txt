@@ -1,0 +1,44 @@
+Review of memory maps - Quiz #2
+0x0000
+MAP
+0X07458
+0x0000
+half1
+DCW
+0xEE33
+0x0000
+half2
+DCW
+0x255
+0x0000
+huge
+DCD
+0x87654321
+0x0000
+smo1
+DCB
+0x12, 0x23,9
+0x0000
+middle DCB
+0x34, "howdy"
+// code
+0x0000
+begin
+LDR
+R1, half2
+0x0000
+LDRSB R2, half1
+0x0000
+LDR
+R3, half1
+0x0000
+LDRH
+R4, huge
+0x0000
+LDR
+R5, smol
+0x0000
+BKPT
+\#0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-80

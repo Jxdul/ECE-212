@@ -1,0 +1,28 @@
+Branch with exchange
+BX { cc}
+Rm
+= Branch to an address held in register Rm
+Allows for change of instruction set, but not in ARMv7-M (since M profile sup-
+orts Thumb instruction set only).
+• Typical use is returning from a subroutine:
+• Can also be used for returning from an exception. (Part H of course.)
+encoding
+APSR
+mnemonic
+S <c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+IF ( (processor mode = handler) AND
+(Rm[31:28] = 1111)
+BX
+<c>
+Rm
+EPSRITE Return (Rm 27:01)
+- Rm [0]
+X LR) an
+1 last 0188 0111 emmmmee - -__
+- - Four from ex subroutine (og. B
+PC - Rm[31:1]:0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-59

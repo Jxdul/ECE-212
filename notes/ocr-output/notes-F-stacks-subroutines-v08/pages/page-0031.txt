@@ -1,0 +1,18 @@
+Summary so far
+• Bulk copying of registers to / from memory: STM, LDM
+• Pushing registers onto stack:
+STMDB
+SP!, {registers>}
+STR
+Rt, [SP, #-4] !
+PUSH
+{registers>}
+• Popping registers off of stack:
+LDMIA
+SP!, {registers>}
+LDR
+Rt, [SP], #4
+POP
+{registers>}
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-31

@@ -1,0 +1,44 @@
+BS3
+BSO
+xfer size
+address
+BS2
+BS1
+port size
+A0
+D[31:24]
+D[23:16]
+D[15:8]
+D[7:0]
+1
+1
+1
+1
+8-bit
+1
+1
+1
+1
+byte
+16-bit
+1
+1
+1
+1
+32-bit
+1
+1
+1
+8-bit
+halfword
+16-bit
+32-bit
+1
+8-bit
+1
+word
+1
+16-bit
+32-bit
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-19

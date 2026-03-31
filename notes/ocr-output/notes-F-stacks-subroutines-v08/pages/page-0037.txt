@@ -1,0 +1,28 @@
+Passing parameters via registers
+• a common approach, especially for passing smaller quantities of data
+• passing by value; e.g.,
+MOV
+RO, #3
+1l a numerical value
+MOV
+R1
+'a'
+// a character
+BL
+subrout1
+// call the subroutine
+• passing by reference; e.g., use R1 as a pointer to the data, such as
+Advantages
+Disadvantages
+• minimises memory accesses by
+• reduces the number of registers
+avoiding stacking of parameters
+available within the subroutine for
+• supports position-independent
+the programmer to use
+code
+• only a limited quantity of data can
+• supports re-entrancy
+be passed
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-37

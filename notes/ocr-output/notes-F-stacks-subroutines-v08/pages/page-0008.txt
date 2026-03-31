@@ -1,0 +1,11 @@
+A stack starts off empty, and,
+• as items are pushed onto the stack, we say the stack grows
+• as items are popped off of the stack, we say the stack shrinks
+The push+pop operations mean that a stack is a FILO (
+data structure. Contrast this with a queue, a data structure which is
+Some stack analogies
+• stack of dinner plates
+• stacking chairs
+• toddler stacking toys
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks/ subroutines) - F-8

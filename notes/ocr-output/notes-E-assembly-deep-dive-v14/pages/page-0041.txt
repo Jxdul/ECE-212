@@ -1,0 +1,16 @@
+E.4.2 Basic logical operations
+• AND
+- bitwise, Boolean AND
+• BIC
+— bit clear = bitwise, Boolean AND with NOT
+• ORR
+— bitwise, Boolean OR
+• ORN
+—bitwise, Boolean OR with NOT
+• EOR
+— bitwise, Boolean XOR
+• MVN
+- move with bitwise NOT
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+S AL
+Notes - E (Assembly deep dive) - E-41

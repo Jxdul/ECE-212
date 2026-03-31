@@ -1,0 +1,15 @@
+F.6.5 Recoverability
+Recoverability, also known as exception handling, is the ability of a program/-
+module to:
+• cope with erroneous data
+• recover from certain classes of error
+F.6.6 Putting it all together
+Combining the components above,
+• allows the avoidance of GOTO statements (generally a last resort in high-level
+programming languages)
+• resulting programs are:
+• easier to understand
+• easier to debug
+• more elegant
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-72

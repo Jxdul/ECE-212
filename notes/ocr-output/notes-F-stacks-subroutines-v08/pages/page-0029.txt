@@ -1,0 +1,16 @@
+F.5.6 Restoring multiple registers
+Again, several methods available:
+• load multiple LDM — like LDR but for multiple registers at once; read from
+memory, not necessarily the stack
+LDM Rn!, <registers>
+LDM Rn, ‹registers>
+• load multiple increment after LDMIA (a.k.a. load multiple full descending LDMFD)
+LDMIA Rn{!}, ‹registers›
+For our stack,
+LDM {IA} SP!, < registers›
+where < registers› = list of one or more registers to be loaded, written as
+comma/hyphen-separated list, surrounded by { 1. Lowest-numbered regis-
+ter is loaded from lowest memory address.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - F (Stacks / subroutines) - F-29

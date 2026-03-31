@@ -1,0 +1,14 @@
+SMLAL — signed multiply accumulate long
+• (64-bit) + (32-bit) × (32-bit) = (64-bit)
+• Conceptually, this is the 64-bit version of MLA for signed integers
+• SMLAL Rd_1o, Ra_hi, Rn, Rm
+ET result = Rd_hi:Rd_1o + Rn x Rm
+(64-bit result)
+Rd_hi - result[63:32]
+Rd_ 10 ‹ result[31:0]
+UMLAL — unsigned multiply accumulate long
+• (64-bit) + (32-bit) x (32-bit) = (64-bit)
+• Conceptually, this is the 64-bit version of MLA for unsigned integers
+• UMLAL Rd_1o, Rd_hi, Rn, Rm
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-72

@@ -1,0 +1,12 @@
+F.5.7 Passing parameters
+A subroutine usually operates on input data and produces output data, though
+•
+•
+•
+This information must be transferred between the subroutine (
+) and the
+program calling the subroutine (
+) — this transfer is called parameter pass-
+ing.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-32

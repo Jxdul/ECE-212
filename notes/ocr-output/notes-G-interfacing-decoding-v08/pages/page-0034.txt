@@ -1,0 +1,11 @@
+In general terms,
+• The N most-significant bits used to generate CS signals.
+• The M least-significant bits used to select a specific memory cells within one
+chip.
+• We can thus have blocks, each storing
+bytes, for a total possible stor-
+age of
+bytes
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - G (Interacing/ decoding) - G-34

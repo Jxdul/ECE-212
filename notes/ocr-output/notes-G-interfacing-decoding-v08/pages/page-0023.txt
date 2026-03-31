@@ -1,0 +1,8 @@
+G.6 Timing diagrams
+Event sequence diagrams — cause and consequence relationships between signals
+• single cause → single consequence
+• multiple causes → single consequence
+• single cause →
+• multiple causes →
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-23

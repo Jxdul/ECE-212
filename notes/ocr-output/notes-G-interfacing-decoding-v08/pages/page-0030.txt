@@ -1,0 +1,8 @@
+Process
+1. CPU starts as the bus master.
+2. A slave device requests the use of the master's buses (address, data, control).
+3. Once the device has control, it can directly read from or write to system mem-
+ory as needed.
+4. When done, it releases the bus and the system returns to normal.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/decoding) - G-30

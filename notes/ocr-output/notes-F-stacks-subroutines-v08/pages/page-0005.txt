@@ -1,0 +1,11 @@
+• List and describe various methods of passing input and output parameters; dis-
+cuss their advantages and disadvantages; explain the difference between pass-
+ing by value and passing by reference, and pros/ cons of each
+• Explain the operation of the stack frame, role of frame pointer; describe how local
+variables and parameters are accessed via the stack frame and frame pointer
+• Discuss how each of the following ideas help with programming: top-down
+design, modularity, structured programming, testability, recoverability, pro-
+gram design language.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - F (Stacks/ subroutines) - F-5

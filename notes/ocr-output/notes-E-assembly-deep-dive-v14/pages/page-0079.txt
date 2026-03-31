@@ -1,0 +1,13 @@
+SBFX — signed bit field extract
+•
+SBFX
+Rd, Rn, #Isb, #width
+• Extracts from Rn any number of adjacent bits at any position, puts these into
+least-significant bits of Rd, then sign-extends.
+UBFX — unsigned bit field extract
+• UBFX Rd, Rn, #Isb, #width
+• Extracts from Rn any number of adjacent bits at any position, puts these into
+least-significant bits of Rd, then zero-extends.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-79

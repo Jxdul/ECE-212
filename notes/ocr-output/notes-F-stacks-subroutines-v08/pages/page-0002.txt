@@ -1,0 +1,41 @@
+F.5.4 Additional concepts
+F.5.5 Saving multiple registers
+•
+•
+•
+•
+F.5.6 Restoring multiple registers
+F.5.7 Passing parameters
+F.6 Program design process
+F.6.1 Top-down design
+F.6.2 Modular design
+F.6.3 Structured programming
+F.6.4 Testability .•.
+•
+•
+F.6.5 Recoverability
+••
+•
+••
+72
+F.6.6 Putting it all together
+•
+•
+••
+•
+•
+•
+•
+72
+F.7 Program design language .
+•
+•
+74
+.•
+•
+•
+•
+77
+F.8 Summary••••'.
+ECE 212 Winter 2026 LEC B1 -Course content ©J.C.Sit•AA
+Notes - F （Stacks/subroutines） - F-2

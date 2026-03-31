@@ -1,0 +1,10 @@
+a
+a
+C
+b
+C
+--
+General form - shaded areas indicate
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - G (Interacing/ decoding) - G-27

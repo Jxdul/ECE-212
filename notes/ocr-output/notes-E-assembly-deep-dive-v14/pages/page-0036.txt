@@ -1,0 +1,13 @@
+• byte reverse (packed halfword)
+REV16
+Rd, Rm
+Rm
+Rd
+• byte reverse (signed halfword)
+REVSH
+Rd, Rm
+Rm
+Rd
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+O AI
+Notes - E (Assembly deep dive) - E-36

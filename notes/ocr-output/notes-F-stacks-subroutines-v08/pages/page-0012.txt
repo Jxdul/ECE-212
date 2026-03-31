@@ -1,0 +1,15 @@
+address:
+→
+higher address
+lower address
+Assuming we currently have three items (words) in the stack, we can do either
+of the following:
+• push an item #4 onto the stack — first move SP
+then
+copy item from register into memory at the new SP
+• pop item #3 off the stack — first copy item #3 to a register, then move SP
+Note that if we had first pushed item #4 onto the stack, we
+pop item
+#4 off the stack before we can go on to pop item #3 off the stack.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks/ subroutines) - F-12

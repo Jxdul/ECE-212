@@ -1,0 +1,13 @@
+E.3 Data-movement operations
+• move (MOV) — register ‹ immediate
+— register - register
+• load (LDx) — register < memory
+• store (STx) — register → memory
+• In typical CISC designs (e.g.,
+), the MOV operation also includes mem-
+ory access, so there are no separate load / store-type instructions.
+• In most RISC designs (
+), memory access is exclusive to load and
+store operations.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-7

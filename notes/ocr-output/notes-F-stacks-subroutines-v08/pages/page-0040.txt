@@ -1,0 +1,11 @@
+Link register vs. stacked return address
+Most (all?) older CPU designs use a stacked return address for subroutine calls.
+ARM and most?) modern CPU designs choose instead to use a link register.
+• minimises subroutine calling overhead
+• beneficial especially with repeated calls to simple subroutines
+• in leaf subroutines (those that
+), can possibly do ev-
+erything in registers only, ::
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-40

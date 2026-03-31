@@ -1,0 +1,30 @@
+• branch and link with exchange — BLX {cc} Rm
+• branches to address held in register Rm
+• just as with BL, the return address is written to LR
+• like BX, allows for change of instruction set, albeit not in ARMv7-M since
+the M-profile CPU supports the Thumb-2 instruction set only
+encoding
+APSR
+mnemonic
+<c>
+<W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210||
+NZ CV Q GE
+notes
+(PC - 2)[31:1]:1
+BLX
+<c>
+Rm
+ESPR[T]
+IF EPSR[T]
+1 Rm［e］
+T1
+out
+UsageFault
+last
+0100 0111 1mmm m000
+Rm cannot be PC.
+PC - Rm[31:1]:0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-21

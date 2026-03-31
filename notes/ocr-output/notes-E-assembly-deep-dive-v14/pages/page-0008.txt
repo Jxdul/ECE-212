@@ -1,0 +1,41 @@
+Quick review: Registers, hexadecimal, and binary
+Consider a register, e.g., R5 = 0x 1A2B 3C4D
+MSB
+LSB
+0x
+1A
+2B
+3C
+4D
+0b
+00011010
+00101011
+0011 1100
+01001101
+31
+••.
+24 23
+...
+16 15
+•..
+8
+7
+•..
+0
++ byte
+→
+upper halfword
+→
+• +
+(lower) halfword
+→
+word
+• default operation size is on the whole word
+• halfword-size operations are almost always on the
+halfword only
+— something must be done about
+• byte-size operations are always on the
+portion of the register only
+— something must be done about
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-8

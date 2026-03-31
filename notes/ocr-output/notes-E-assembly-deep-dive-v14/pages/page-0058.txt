@@ -1,0 +1,32 @@
+Branch with link (to label)
+BL{cc} «label>
+= Branch to a PC-relative label:
+• within range - 16 MB to + 16 MB
+• also writes the address of the subsequent instruction to link register LR ().
+Note:
+LR - PC|31:1]:1
+• Used to call a subroutine, saving the return address. (More in Part F)
+encoding
+APSR
+mnemonic
+S <c> «W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+BL
+<c>
+‹label>
+LET L = NOT (j XOR S)
+LR - PC[31:1]:1
+LET M = NOT (k XOR S)
+out 1111 @Sii iiii iiii
+LET imm32 = SignExt(S:L:M:imm10:imm11:0)
+T1
+last 11j1 kiii iiii iiii
+ーーーー
+- -
+i dealing broutine using a relative
+PC - PC + imm32
+(even values) = - 16777216 t0 +16777214
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-58

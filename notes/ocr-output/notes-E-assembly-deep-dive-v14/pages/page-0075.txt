@@ -1,0 +1,13 @@
+USAT — unsigned saturate
+• USAT Rd, #imm5, Rn{, <shift>}
+• Operation:
+• let x = Rn with optional LS or ASR
+• let s = #imm5
+• Case 1: x > 25 - 1
+Rd < 25 - 1 and set APSR[Q] flag
+• Case 2: x < 0
+Rd - O and set APSRIQ] flag
+• Case 3: otherwise
+Rd + x
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-75

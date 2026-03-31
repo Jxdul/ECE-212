@@ -1,0 +1,45 @@
+E.3.2 Loading an address into a register
+• ADR
+Rd, < label>
+• calculates a PC-relative address
+• translates to:
+ADD
+Rd, PC, #immed
+Or
+SUB
+Rd, PC, #immed
+• #immed = displacement from current value
+encoding
+APSR
+mnemonic
+S <c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+ADR
+<c>
+Rd, <label>
+imm32 _ ZeroExt(imm8:00
+Rd - Align(PC) + imm32
+1010 Oddd iiii iiii - - - -
+ADR
+<c>
+.W Rd, <label>
+imm32 — ZeroExt(1: 1mm3: imm8)
+Rd - Align(PC) - imm32
+1111 0110 1018 1111
+Biii dddd iiii iiii
+----
+ofset range is -40 0-nt instruction
+UB Rd, PC, #0 — special case for zer
+ADR
+<c> .W Rd, <label>
+ZeroExt(i:imm3 :imm8)
+T3
+lOiii dddd iiii iiii
+1111 0110 0000 1111
+ange is 0 to 409
+or «labe 1> after current instruction. Offs
+Use ADR to form a PC-relative address and put it into a register. Generally used with labels, where assembler calculates the required immediate value to be added to or subtracted from PC.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-14

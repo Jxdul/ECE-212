@@ -1,0 +1,15 @@
+What are all these acronyms?! ®
+• direct memory access (DMA) — A method by which an I/O device sends/ re-
+ceives data directly to / from memory, bypassing the CPU, thereby speeding
+up memory operations. The process is managed by the DMA controller.
+LDR
+RO,
+STR RO,
+• pulse-width modulation (PWM) — a modulation technique used to encode a
+message into a pulsing signal
+• vary the duty cycle of a fixed-frequency square (rectangular) wave
+• Although this modulation technique can be used to encode information
+for transmission, one of its primary applications is for controlling power
+deliver; e.g., to a motor.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/decoding) - G-10

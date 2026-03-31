@@ -1,0 +1,11 @@
+G.1 What's this all about?
+• How does the microprocessor / microcontroller interface with other parts of
+the computer system? e.g., components that facilitate communication with pe-
+ripheral devices.
+• We are already familiar with the concept of the memory system, but now we
+will look at more detail on the hardware interface.
+• Many non-memory hardware devices are actually mapped to memory space,
+which means the CPU accesses them via addresses.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - G (Interacing/ decoding) - G-2

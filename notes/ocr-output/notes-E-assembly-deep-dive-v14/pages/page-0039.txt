@@ -1,0 +1,16 @@
+All operations on the previous page are defined in a consistent fashion in the ARM
+pseudocode description of the operations. Since the same pseudocode function is
+called, then
+, just with different inputs
+applied!
+R = AddWithCarry(A, B, Cin)
+where R is the result, A is the first addend, B is the second addend, and Cin is the
+carry-in (applied to co in the addition).
+• ADD (regular addition): AddWithCarry(A, B, 0)
+• SUB (regular subtraction): AddWithCarry
+• ADC (addition with carry): AddWithCarry
+• SBC (subtraction with carry):
+AddWithCarry
+• RSB (reverse subtraction): AddWithCarry
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-39

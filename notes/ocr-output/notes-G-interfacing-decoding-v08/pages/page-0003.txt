@@ -1,0 +1,17 @@
+G.2 Learning objectives
+By the end of this section of the course, you should be able to:
+• Define, in your own words, the terms active-high, active-low, asserted, negated,
+tri-state.
+• Explain what it means for devices to be memory-mapped.
+• Describe the relationship between memory port size, data bus size, and explain
+how any particular byte, halfword, or word is accessed.
+• Read and interpret timing diagrams for various hardware peripherals.
+• Define direct memory access; explain its advantages and describe its basic oper-
+ation.
+• Explain, in your own words, what full and partial address decoding are.
+• Explain how partial decoding leads to multiple copies being mapped into mem-
+ory space; discuss advantages and disadvantages.
+• Explain the relationship between chip select signals and address decoding; de-
+scribe the general goals for the design of the address decoder.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-3

@@ -1,0 +1,12 @@
+LDR = load register (word)
+Consider the LDR instruction. (PQR / Opcode reference / row 97)
+There are three sub-categories:
+• immediate — of the form LDR Rt, [Rn, #immed]
+The immediate value refers to an optional fixed-value offset.
+• literal — of the form LDR Rt, ‹label>
+e.g., named variables defined with directives like DCB, DCD, etc.
+• register — of the form LDR Rt, [Rn, Rm]
+The offset is the value of a second register Rm.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-18

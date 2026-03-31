@@ -1,0 +1,13 @@
+F.8 Summary
+In this section, we have covered:
+• the concepts of the stack and subroutines, two highly inter-related topics
+• the stack, a data structure enabling temporary storage and retrieval of data
+• subroutines, a way to enable modular programming
+• an overview of programming practises that allow us to carefully plan our work
+to implement solutions
+Up next:
+• how the microprocessor interfaces with other parts of the computer, includ-
+ing those components that communicate with peripheral devices or networks
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - F (Stacks / subroutines) - F-77

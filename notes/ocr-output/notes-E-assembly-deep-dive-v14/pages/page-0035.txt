@@ -1,0 +1,13 @@
+E.3.7 Miscellaneous operations
+• reverse bits
+RBIT
+Rd, Rm
+Rm
+Rd
+• byte reverse (word)
+REV
+Rd, Rm
+Rm
+Rd
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-35

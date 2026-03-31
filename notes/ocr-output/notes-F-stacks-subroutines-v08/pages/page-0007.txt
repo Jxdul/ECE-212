@@ -1,0 +1,13 @@
+F.4 The stack
+F.4.1 Basic definitions
+• stack = a computer data structure that sees a lot of use, especially in support of
+assembly language subroutines.
+The stack allows allows for data storage and retrieval, but with only the following
+basic operations allowed:
+• push data onto the stack — store the data into the stack structure
+• pop (or pull) data off the stack — retrieve (
+) the data
+into the stack
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+S AL
+Notes - F (Stacks/ subroutines) - F-7

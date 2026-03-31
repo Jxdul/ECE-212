@@ -1,0 +1,60 @@
+main
+ADR
+R7, nums
+32 bits,
+LDM
+R7, {R0-R3}
+PUSH
+{R0-R3}
+OLD TOP
+BL
+add64
+QH
+POP
+{R4, R5)
+QL
+ADD
+SP, #8
+RH
+・・・
+SP→
+RL
+add64
+PROC
+R9
+PUSH
+{R6-R9}
+R8
+LDR
+R6, [SP, #16]
+; get PL
+R7
+LDR
+R7, [SP, #20]
+; get PH
+R6
+LDR
+R8, [SP, #241
+; get QL
+LDR
+R9, [SP, #281
+i get QH
+ADDS
+R6, R8
+;RL = PL+QL
+ADCS
+R7, R9
+;RH = PH+QH+C
+STR
+R6, [SP, #16]
+• save RL
+STR
+R7, [SP, #20]
+• save RH
+POP
+{R6-R9)
+BX
+LR
+ENDP
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-52

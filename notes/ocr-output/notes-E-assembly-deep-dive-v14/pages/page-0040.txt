@@ -1,0 +1,17 @@
+Example - Negation
+In ARM assembly language, there is no separate NEG (negation) instruction, so
+how do we do this operation? Use RSB (reverse subtract) with
+RSB
+or
+RSB
+How does this work? Let's compare the RTL descriptions of SUB vs. RSB:
+• RSB { S}
+Rd, Rn, #const means:
+LET imm32 = ThumbExpImm(i:imm3:imm8)
+Rd - imm32 - Rn
+• SUB {S}
+Rd, Rn, #const means:
+LET imm32 = ThumbExpImm(i: imm3: 1mm8)
+Rd - Rn - imm32
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-40

@@ -1,0 +1,7 @@
+Course content © 2026 J. C. Sit, Electrical and Computer Engineering, University of
+Alberta (Canada). All rights reserved. Resale or re-distribution is prohibited.
+Course content, digital or otherwise, created and / or used within the context of the
+course is to be used solely for personal study for students in ECE 212 LEC B1 in
+Winter 2026.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing / decoding) - G-57

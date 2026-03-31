@@ -1,0 +1,12 @@
+Pseudo-instructions for putting constants into Rd
+• MOV32 Rd,#imm32
+• puts an arbitrary 32-bit immediate value into a register
+• assembler translates this into
+• LDR
+Rd, =const
+• assembler generates most efficient way to put the constant into the reg-
+ister
+• may be MOV, MVN, or LDR with constant read from a literal pool
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-13

@@ -1,0 +1,17 @@
+Address decoding - Example #4.5
+If the requirements are changed to:
+• base addr of ROM1 and ROM2 = 0xFF 8000 and 0xFF 0000, respectively
+• base addr of RAM = 0x00 0000
+• base addr of PER1 and PER2 = 0x40 0000 and 0x60 0000, respectively
+How do we select bits for partial decoding?
+Addr: A23
+A19
+A15
+A11
+A7
+A3
+AO
+ROM1 :
+ROM2 :
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/decoding) - G-52

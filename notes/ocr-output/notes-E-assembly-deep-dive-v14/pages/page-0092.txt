@@ -1,0 +1,23 @@
+program status register = application program status register (flags) + interrupt program status register + execution program status register (execution state bits)
+31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10
+87 65
+APSR
+N Z C V
+GE [3:0]
+B EPSR
+• or exception number
+EPSR
+ICI/IT T
+ICI/IT
+Thumb state; always 1 for ARMv7-M
+PRIMASK
+BASEPRI
+FAULTMASK
+CONTROL
+MSR — move to special register
+• MSR <spec_reg>, Rn
+• a way to write to status/ control registers from a general-purpose register
+• a system-level instruction except when writing to APSR
+• e.g., MSR APSR, R6
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-92

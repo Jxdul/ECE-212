@@ -1,0 +1,11 @@
+F.7 Program design language
+Assembly language programs are challenging to write, debug, document, and main-
+tain.
+Use program design language (PDL), a.k.a. pseudocode. The big picture:
+• pseudo
+"programming language"
+• a more verbal description; can be personalised / individual
+• allows using
+techniques and structured constructs
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-74

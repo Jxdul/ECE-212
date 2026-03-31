@@ -1,0 +1,5 @@
+Using partial address decoding, we can simplify the address decoding:
+The ROM will be mapped to
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+S AL
+Notes - G (Interacing/ decoding) - G-40

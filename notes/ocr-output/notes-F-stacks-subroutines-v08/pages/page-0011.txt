@@ -1,0 +1,24 @@
+These two independent choices means there are
+permutations. The
+ARM's instruction set architecture can support all
+permutations, but the de-
+fault convention is a full descending stack
+• A push operation uses instructions STR
+or STM
+with addressing mode of pre-decrementing SP
+• A pop operation uses instructions LDR
+or LDM
+with addressing mode of post-incrementing SP
+So when we say that ARM conventionally uses a full descending stack — as items
+are added to
+the stack, the top of the stack grows
+toward
+lower memory addresses.
+Previously, when we drew memory maps, we showed one byte per row, like a
+1-D array of bytes. For stacks, we are restricted to storing one word
+at a time, so we are going to modify our memory maps to show each row being
+one word. Thus our memory maps are now 2-D with a width of four bytes, but
+it's better to think of it still
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+歹
+Notes - F (Stacks /subroutines) - F-11

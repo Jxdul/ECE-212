@@ -1,0 +1,19 @@
+F.5.4 Additional concepts
+• position-independent code — the subroutine should avoid any absolute ad-
+dressing (e.g., branching to a fixed address)
+• re-entrancy — Best defined by way of an example:
+program A calls a subroutine but before the subroutine finishes
+, the
+CPU switches (exact mechanism not important) to a second program B which
+calls
+...if both instances
+, the subroutine is said to be re-entrant
+• transparency — a subroutine that does not affect the values of any registers
+(other than those used to hold output parameters/ results) is called transparent
+Most any subroutine would be designed to be position-independent, re-entrant,
+and likely also transparent. These and other related concepts speak to a need to have
+a
+on how calling routines and subroutines interact and
+communicate with each other ...more on this idea soon!
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-25

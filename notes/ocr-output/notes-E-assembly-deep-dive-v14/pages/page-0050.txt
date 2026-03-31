@@ -1,0 +1,18 @@
+E.5.1 Branching
+Branching (a.k.a. jumping) means that program execution is to continue from a new
+location; i.e., PC - (new value)
+• branching unconditionally
+• branch to target addr:
+B
+< label>
+• call subroutine:
+BL
+< label>
+• branching conditionally
+• branch if (condition):
+Bcc
+<label>
+where cc = condition code
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) -E-50

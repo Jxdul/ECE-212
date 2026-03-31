@@ -1,0 +1,11 @@
+G.3 Background
+The STM Nucleo-32 board featuring the STM32L432KC microcontroller (an
+plementation of an ARM Cortex-M4 core) is a powerful system which in-
+cludes a broad range of hardware interfaces to allow for input/output (I/O)
+with a wide variety of peripherals.
+• In this course, we use only
+of the microcontroller's processing
+and interfacing capabilities.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - G (Interacing/ decoding) - G-5

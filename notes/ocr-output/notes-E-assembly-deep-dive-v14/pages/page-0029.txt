@@ -1,0 +1,74 @@
+STR (immediate)
+Let's now zoom in further to STR (immediate). (PQR / Opcode reference / rows
+323-328)
+encoding
+APSR
+mnemonic
+<c> <W> operands
+ext description (RTL)
+| # IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+<c>
+Rt, [Rn {,#immed}]
+ET imm32 = ZeroExt(iii:ii:00
+Rn + imm32] «
+Rt
+T1
+0110 Diii iinn nttt
+Rt and Rn both from RØ-R7.
+orse angs o i (in binary).
+<c>
+Rt, [SP‹, #immed} |
+LET imm32 = ZeroExt(iiii:iiii:00)
+[SP + imm32] - Rt
+T2
+1001 Ottt iiii iiii
+- -
+Rt from RØ-R7.
+#immed has form iiiiiiii: 00 (in binar
+Offset range = 0, 4, 8,
+...,1020.
+<c>
+LET imm32 = ZeroExt(imm12)
+STR
+•W
+Rt, [Rn ,#imm12) ]
+[Rn + imm32] - Rt
+T3
+1111 1000 1100 nnnn
+tttt iiii iiii iiii
+- - Rt and Rn may not be PC.
+Rt, [Rn, #-imm8]
+[Rn - imm32] - Rt
+LET imm32 = ZeroExt (imm8)
+tttt 1100 iiii iiii
+1111 1000 0100 nnnn
+ー ー =
+LET imm32 = ZeroExt (imm8)
+<c>
+Rt, [Rn, #timm8]!
+- Rn ‡ imm32
+T4
+1111 1088 810 man
+tttt 11U1 iiii iiii
+- - - -
+U = 1 for +ve imm8; 0 for -ve imm8.
+Rt, [Rn], #timm8
+LET imm32 = ZeroExt(imm8)
+[Rn] _ Rt
+1111 1000 0100 nnn
+Cannot use Rt = Rn = PC.
+Rn - Rn ‡ imm32
+tttt 10U1 iiii iiii
+- -
+• encoding T1
+STR
+Rt, [Rn {, #immed}]
+• a 16-bit encoding - 0110 Oiii iinn nttt
+• Rt and Rn both restricted to
+• Я words should be word-aligned in memory (i.e., at addresses that are
+multiples of
+• :: the five available bits used to encode the offset are not storing binary
+values of the form iiiii, ...but rather of the form
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-29

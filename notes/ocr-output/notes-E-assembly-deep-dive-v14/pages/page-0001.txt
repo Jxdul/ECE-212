@@ -1,0 +1,52 @@
+ECE
+212
+Part E: Assembly language deep dive
+E.1 What's this all about？
+3
+E.2 Learning objectives
+•
+•
+•
+4
+E.3 Data-movement operations .
+7
+E.3.1 Loading a fixed value into a register
+9
+E.3.2 Loading an address into a register .
+•
+•
+1
+4
+E.3.3 MOV （register）..
+1.
+E.3.4 MOV （shifted register）
+16
+E.3.5 LOAD into register from memory
+•
+•
+•
+17
+E.3.6 STORE from register into memory
+•
+••
+•
+E.3.7 Miscellaneous operations
+•
+•
+•
+••
+••
+35
+E.4 Data processing operations I
+•
+•
+••••••
+E.4.1 Basic arithmetic operations
+E.4.2 Basic logical operations
+•
+••
+..
+41
+E.4.3 Comparison and test operations
+ECE 212 Winter 2026 LEC B1 -Course content ©J. C. Sit
+Notes - E （Assembly deep dive）- E-1

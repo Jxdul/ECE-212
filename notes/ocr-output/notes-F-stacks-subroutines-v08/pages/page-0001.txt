@@ -1,0 +1,63 @@
+ECE
+212
+Part F: Stacks and subroutines
+F.1 What's this all about？
+3
+F.2 Learning objectives
+•
+•
+•
+•
+•
+•
+•。
+•
+4
+F.3 Motivation
+•••••
+•
+•••
+•••••
+F.4 The stack
+F.4.1 Basic definitions
+•••
+F.4.2 Additional stack terminology .
+••
+61
+F.4.3 Stack types
+•
+•
+•
+•
+•
+10
+F.4.4 Stack implementation
+•
+•
+.。
+•
+•
+F.4.5 Primary uses of the stack
+•
+F.4.6 Calling subroutines in ARM
+•
+•
+•
+•••
+••
+F.5 Subroutines .. .
+••
+•
+•••
+19
+F.5.1 Basics
+••
+•
+•
+19
+F.5.2 Calling a subroutine
+•
+•.•
+F.5.3 Returning from a subroutine
+22
+ECE 212 Winter 2026 LEC B1 -Course content ©J. C. Sit

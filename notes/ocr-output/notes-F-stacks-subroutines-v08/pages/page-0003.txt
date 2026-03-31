@@ -1,0 +1,9 @@
+F.1 What's this all about?
+In this section, you are being introduced to:
+• the stack — a simple but powerful data structure for temporary storage
+substupine a ay to alped ur programi i We can execute already.
+• some best practises for programming — applying engineering problem solv-
+ing
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - F (Stacks/ subroutines) - F-3

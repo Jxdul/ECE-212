@@ -1,0 +1,16 @@
+Advantages
+• speed — DMA does not require CPU fetching, decoding, executing instruc-
+tions
+efficiency — CPU can be relieved of the processing overhead associated with
+regular reading from, or writing to, I/O ports
+• DMA may use otherwise unused bus cycles
+Implementation is done by the DMA controller (DMAC), a specialised hardware
+device, like a simple processor.
+• must emulate CPU bus cycles
+• must request bus control from the CPU
+• modes of operation:
+• cycle-stealing mode — bus is released between successive transfers; al-
+lows for interleaved operation with CPU
+• burst mode - DMA transfers performed on consecutive bus cycles
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/decoding) - G-31

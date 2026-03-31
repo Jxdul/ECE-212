@@ -1,0 +1,30 @@
+Task T
+Subtask T1
+Subtask T2
+Subtask T11
+Subtask T12
+Subtask T13
+Subtask T21
+Subtask T22
+Subtask T111
+Subtask T112
+Subtask T221
+Subtask T222
+Subtask T223
+Example — A disk operating system
+Operating
+system
+CLI
+DFM
+Scheduler
+Create
+Delete
+Update
+Seek
+Initialize
+Seek
+Remove
+Seek
+Insert
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks / subroutines) - F-69

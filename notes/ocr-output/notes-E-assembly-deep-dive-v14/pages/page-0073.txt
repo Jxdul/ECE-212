@@ -1,0 +1,17 @@
+E.6.3 Division
+SDIV — signed division
+• This is an integer division and the result rounds toward zero.
+• For floating-point division, require
+•
+SDIV
+Rd, Rn, Rm
+Rn
+Rd +
+Rm
+(integer division)
+UDIV — unsigned division
+• Same as the above, but for unsigned integers.
+• UDIV
+Rd, Rn, Rm
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-73

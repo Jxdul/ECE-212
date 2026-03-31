@@ -1,0 +1,59 @@
+STM32L432xx microcontroller: Block diagram
+NUTRIT, TD
+IAU d
+Quad SPI memory interface
+TRACED 3:01_
+DVA2
+DMA1
+TVe8=1.716384
+Touch sensin controller
+VODA, VSSU
+PA[15:01
+EPIC PORT s
+PVD. PYl
+VDD, VSS, NRS
+CDIP pORT P
+PC|15:14]
+CHIO PORT G
+카의
+GPIO PORT H
+IWDG
+←>
+oscs2 al
+PCLK*
+AVIL
+RTC TAMPY
+企
+1 channels, ETR aS AF
+10 external anakg inpu
+USB FS
+CRS SYNC
+FYTIT WENIB
+RX, TX, CK, CTS, RTS as AF
+mpl channes MINI CHI1
+MOSI, MISO, SCK, NSS as AF
+TIM1 / PUS
+12C1/SMBUS
+SCL SOA, SMEA 25 AF
+WWDG
+SCL SDA, SMBA, 3S AF
+1 compel channel EN 23 Af
+ExGAN1
+IX RK saAF
+USART1
+VOLT MNM WINE
+RY. IX CTS RTS gAr
+IMP INM CUT
+COMPI
+> *X, TX, SUSPEND 35. 4F
+LPTIM 1
+10
+> IN1. IN2, OUT, ETRaS AF
+1PTNX
+*IN1, OUT, ETR as AF
+MSV39215V3
+Note:
+AF: alternate function on 1/O pins.
+Ref: STM microcontroller datasheet
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-7

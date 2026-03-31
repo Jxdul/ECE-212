@@ -1,0 +1,12 @@
+• encoding T4
+STR
+Rt, [Rn, #-imm8]
+ー
+STR
+Rt, [Rn, #timm8]!
+-
+STR
+-
+Rt, [Rn], #timm8
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+Notes - E (Assembly deep dive) - E-31

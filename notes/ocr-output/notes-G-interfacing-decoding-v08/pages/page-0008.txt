@@ -1,0 +1,52 @@
+Many of the (physical) pins on the CPU may be used as general-purpose input/out-
+put (GPIO). Special sets of registers are used:
+• to configure the pins for GPIO or other functions
+• to configure the ports (speed, data flow direction)
+• to send/ receive the data itself (output/ input data registers)
+7
+To on-chip
+4 Analog
+peripheral
+Alternate function input
+on/off
+VODIOX VDDIOX
+T
+trigger
+Protection
+Input data register
+on/oft
+diode
+Write
+L Input driver
+-
+1/O pin
+-
+-
+output driver
+VODIOX
+onloff,
+-Pull
+Protection
+Bit set/reset registers
+• P-MOS
+Lown
+diode
+Output
+Vss
+control
+Vss
+Output data register
+Read/write
+N-MOS
+A
+Vss
+From on-chip
+Push-pull,
+peripheral
+Alternate function output
+open-drain or
+disabled_
+- Analog
+MS31476V1
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-8

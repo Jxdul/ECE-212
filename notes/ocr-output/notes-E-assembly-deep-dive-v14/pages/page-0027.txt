@@ -1,0 +1,14 @@
+E.3.6 STORE from register into memory
+• STR
+- store register (word)
+• STRB
+- store register byte
+• STRH
+— store register halfword
+• STRD
+— store register dual
+• STM
+- store multiple
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+O AL
+Notes - E (Assembly deep dive) - E-27

@@ -1,0 +1,17 @@
+AAPCS highlights
+• full descending stack; SP must be
+; i.e., SP always is a
+• parameter passing
+• first four arguments via registers RØ to R3
+• any additional arguments passed via stack
+• first four return values go back into the same registers RØ to R3
+• any additional return values passed via stack
+• subroutines may freely modify RØ to R3 and R12
+• can use RO to R3 as "scratch" registers
+while com-
+puting results)
+• this set of registers are deemed to be
+• if the subroutine needs to use any of R4 to R11, the subroutine must restore
+leir values by the end of the subroutine —
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-36

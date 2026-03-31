@@ -1,0 +1,36 @@
+Example - IT block
+ITTE
+NE
+; next 3 instr are conditional
+ANDNE
+RO, RO, R1
+; (T) doesn't update flags
+ADDSNE
+R2, R2, #1
+; (T) does update flags
+MOVEQ
+R2, R3
+; (E) conditional move
+CMP
+RO, #9
+; Sets up N/Z/C/ V flags
+ITE
+GT
+; next 2 instr are conditional
+ANDGT
+RO, RO, R1
+; (T) doesn't update flags
+MOVLE
+R2, R3
+; (E) conditional move
+ITT
+AL
+; The instructions below do not set flags
+ADDAL
+RO, RO, R1
+; (T) 16-bit encoding for ADD, not ADDS
+SUBAL
+R2, R2, #1
+; (T) 16-bit encoding for SUB, not SUBS
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-68

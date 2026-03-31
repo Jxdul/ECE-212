@@ -1,0 +1,31 @@
+F.5.5 Saving multiple registers
+In an earlier example, we had
+main
+11 do stuff
+BL
+subr3
+Il calls the subroutine
+I1 do more stuff
+subr3 PUSH
+{R1}
+11 save R1
+PUSH
+{R2}
+// save R2
+Il do calculations involving R1, R2
+POP
+{R2}
+11 restore R2
+POP {R1} I1 restore R1
+BX
+LR
+Il return from subroutine
+• What if the subroutine needs to save a larger number of registers?
+• What if the subroutine needs to call another subroutine? (What do we do with
+LR?)
+There are several methods to store multiple registers:
+• store multiple STM — like STR but for multiple registers at once; write to mem-
+ory, not necessarily the stack
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - F (Stacks /subroutines) - F-26

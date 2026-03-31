@@ -1,0 +1,12 @@
+Passing parameters via the stack
+Simply push the parameters onto the stack before calling the subroutine.
+• pass by value
+• push register values onto stack
+• subroutine reads values from stack
+• pass by reference
+• push data addresses onto stack
+• subroutine reads addresses from stack, then uses register indirect address-
+ing to retrieve the data
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - F (Stacks /subroutines) - F-39

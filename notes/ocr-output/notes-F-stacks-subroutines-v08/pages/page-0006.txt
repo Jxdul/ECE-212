@@ -1,0 +1,17 @@
+F.3 Motivation
+In assembly language programming, we need temporary data storage, because
+• we have a limited number of registers
+We may need to temporarily save and later restore the information contained
+in the registers.
+• we need to support subroutines and exception handlers
+Therefore, reserve some memory for these purposes. To keep things as simple as
+possible,
+• this memory should be
+• we need an easy way to keep track of how much of this temp. storage space is
+used
+For the latter requirement, all we need is one pointer to track either the location
+of the last-used memory address or the first-available memory address. (More
+detail on this later.)
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - F (Stacks/ subroutines) - F-6

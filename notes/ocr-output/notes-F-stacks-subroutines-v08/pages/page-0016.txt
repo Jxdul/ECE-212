@@ -1,0 +1,19 @@
+F.4.5 Primary uses of the stack
+• (in many CPUs, but not always for ARM • next page) saving PC when calling
+a subroutine
+• PC points to next instruction to be fetched and executed
+• To call a subroutine, we must branch to the subroutine code, then come
+back and continue with the next instruction.
+• Thus, we need to save PC before calling the subroutine and restore PC after
+the subroutine is done. One way is to save PC on the stack.
+• branch to subroutine instruction
+pushes PC onto stack,
+then sets PC to address of the subroutine being called; e.g.,
+PC < PC + displacement
+• return from subroutine instruction
+pops PC from the stack
+2 saving and restoring values of registers, while doing calculations but wanting
+not to change those registers' values.)
+3 passing input and output parameters to / from subroutines
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - F (Stacks /subroutines) - F-16

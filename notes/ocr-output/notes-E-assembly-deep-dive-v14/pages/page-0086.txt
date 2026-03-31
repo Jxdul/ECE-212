@@ -1,0 +1,41 @@
+E.6.8 Boolean operations
+AND — bitwise, Boolean AND
+mnemonic
+S
+<c> <W> operands
+ext description (RTL)
+IT
+AND
+{S)
+<C>
+Rd, Rn, #immed
+imm32 _ ThumbExpC (i :imm3: imm8)
+Rd - Rn AND imm32
+T1
+AND
+S
+out
+Rn - Rn AND Rm
+AND
+cc
+Rn, Rm
+in
+AND
+{S}
+<c>
+Rd, Rn, Rm<, < shift>}
+Rd - Rn AND Rm(shifted)
+• W
+T2
+Rn, Rm {, ‹shift>}
+Rn - Rn AND Rm(shifted)
+• Given:
+× AND 1 =
+x AND O =
+• To clear selected bits in a register:
+AND {S) Rd, Rn, #bitmask
+• Think of bitmask as a 32-bit binary pattern, where:
+• any 1s in bitmask →
+• any 0s in bitmask →
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-86

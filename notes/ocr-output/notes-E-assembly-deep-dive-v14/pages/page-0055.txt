@@ -1,0 +1,106 @@
+Version with extended information (reference only; not needed for this course)
+Condition codes and definitions
+mnemonic
+—— definition -
+condition test
+condition
+integer arithmetic
+FP arithmetic
+encoding
+C-like
+boolean
+EQ
+equal
+equal
+0000
+Z == 1i
+Z
+NE
+not equal
+not equal or unordered
+0001
+Z ==0
+CS (HS)
+carry set (unsigned higher or same)
+greater than, equal, or unordered
+0010
+C == 1
+C
+CC (LO)
+carry clear (unsigned lower)
+less than
+0011
+C == 0
+MI
+minus (negative)
+less than
+0100
+N == 1
+N
+PL
+plus (positive)
+greater than, equal, or unordered
+0101
+N == Ø
+N'
+VS
+overflow
+unordered
+0110
+V ==1
+V
+VC
+no overflow
+not unordered
+0111
+V
+== 0
+V'
+HI
+unsigned higher
+greater than, or unordered
+1000
+C == 1 and Z ==
+C•Z'
+LS
+unsigned lower or same
+less than or equal
+1001
+C ==
+or Z == 1
+C' + Z
+GE
+signed greater than or equal
+greater than or equal
+1010
+== V
+N•V + N'•V'
+LT
+signed less than
+less than, or unordered
+1011
+N != V
+N・V' + N'・V
+GT
+signed greater than
+greater than
+1100
+Z == 0 and N == V
+Z' • (N•V + N'•V')
+LE
+signed less than or equal
+less than, equal, or unordered
+1101
+Z == 1 or N != V
+Z + N•V' + N'• V
+none (AL) always (unconditional)
+always (unconditional)
+1118
+TRUE
+1
+HS is a synonym for CS
+LO is a synonym for CC
+AL is an optional mnemonic extension to indicate "always", but is required within an
+IT block.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-55

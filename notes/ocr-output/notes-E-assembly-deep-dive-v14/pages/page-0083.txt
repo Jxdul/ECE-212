@@ -1,0 +1,32 @@
+2 - One possible implementation
+; data here
+; assume these addresses are given/setup ahead of time
+str_ptr_in DCD 0x0000AA00
+str_ptr_out DCD 0x0000BB00
+begin
+ADR
+R0, str_ptr_in ;R0 ptr to i/p
+ADR R1, str_ptr_out ;R1 ptr to o/p
+; main loop, get a byte into R2, process it
+1oop
+LDR
+CBZ
+R2, done
+CMP
+R2, #0x61
+BLO
+skip
+CMP
+R2,#0x
+BHI
+SUBS R2,
+skip
+STR
+;
+B
+100p
+done
+STR
+:
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-83

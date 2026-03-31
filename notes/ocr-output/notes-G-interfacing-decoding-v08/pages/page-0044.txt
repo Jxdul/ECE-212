@@ -1,0 +1,10 @@
+Address decoder design
+The address decoder must assert the chip select signal whenever the address bus
+carries an address within the desired address range for the device. Ways to imple-
+ment:
+• discrete logic gates
+• medium-scale integration decoder
+• programmable logic devices
+• etc.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-44

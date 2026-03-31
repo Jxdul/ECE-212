@@ -1,0 +1,20 @@
+• encoding T3
+MOV(S).W Rd, Rm
+• a 32-bit encoding - 1118 1018 0105 1111
+0000 dddd 0000 mmmm
+• restrictions on use with R13 (SP) or R15 (PC)
+E.3.4 MOV (shifted register)
+ARM's processor design includes a powerful barrel shifter that can perform a range
+of useful shift/ rotate operations on the value read from the source operand.
+• MOV {S}
+Rd, Rm, < shift>
+where shift is one of:
+• LSL #k — logical shift left
+• LSR #k — logical shift right
+• ASR #K — arithmetic shift right
+• ROR #k — rotate right
+• RRX #k — rotate right with extend
+Note: We'll use standalone instructions LSL, LSR, etc. instead of this MOV with
+shifted register form.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-16

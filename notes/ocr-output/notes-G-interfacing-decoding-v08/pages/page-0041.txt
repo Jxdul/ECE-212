@@ -1,0 +1,10 @@
+In partial address decoding, some address lines are not decoded, leading to some
+address lines being "don't care" values.
+• Multiple addresses may have the same decoding.
+• Memories are mapped multiple times in memory (echoing or mirroring), as if
+ere are multiple copies of the same memory.
+• Advantages —
+• Disadvantages —
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - G (Interacing/ decoding) - G-41

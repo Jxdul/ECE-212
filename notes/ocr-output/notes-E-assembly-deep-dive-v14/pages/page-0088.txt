@@ -1,0 +1,38 @@
+EOR — bitwise, Boolean XOR
+mnemonic
+S
+<> <W> operands
+ext description (RTL)
+#
+IT
+EOR
+{S} <c>
+LET 1mm32 = ThumbExpC (1:1mm3:1mm8)
+Rd, Rn, #immed
+T1
+Rd - Rn XOR imm32
+EOR
+S
+EOR
+Rn - Rn XOR Rm
+T1 out
+cc
+Rn, Rm
+EOR
+Rd, Rn, Rm{, < shift >}
+Rd - Rn XOR Rm(shifted)
+{S} <c>
+•W
+T2
+EOR
+Rn, Rm{, < shift>}
+Rn - Rn XOR Rm(shifted)
+• Given:
+× XOR 1 =
+× XOR 0 =
+• To toggle selected bits in a register:
+EOR(S} Rd, Rn, #bitmask
+• any 1s in bitmask →
+• any Os in bitmask →
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-88

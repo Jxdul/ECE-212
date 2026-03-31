@@ -1,0 +1,17 @@
+E.6.4 Saturating
+SSAT — signed saturate
+•
+SSAT
+Rd, #imm5, Rn ‹ , ‹shift>}
+• Operation:
+• letx = Rn with optional LSL or ASR
+• let s = #imm5
+• Case 1: x > 25 - 1
+Rd - 25-1 and set APSRIQ] flag
+• Case 2: x < -25
+Rd < -25 and set APSR[Q] flag
+• Case 3: otherwise
+Rd = x
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-74

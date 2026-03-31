@@ -1,0 +1,21 @@
+• joint test action group (TAG) — an industry standard for test and verification
+of printed circuit boards after manufacture
+TDI = test data in
+TDO = test data out
+TCK = test clock
+TMS
+- TMS
+- TMS
+TMS = test mode select
+TCK DEVICE 1
+TCK DEVICE 2
+- TCK DEVICE 3
+TRST = test reset (optional)
+TDI
+TDO
+TDI
+TDO
+TDI
+TDO
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - G (Interacing/ decoding) - G-11
