@@ -1,0 +1,10 @@
+14:44:07 **** Incremental Build of configuration Debug for project lab3sigma ****
+make -j16 all 
+arm-none-eabi-size  lab3sigma.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20924	    576	   2048	  23548	   5bfc	lab3sigma.elf
+Finished building: default.size.stdout
+ 
+
+14:44:07 Build Finished. 0 errors, 0 warnings. (took 191ms)
+

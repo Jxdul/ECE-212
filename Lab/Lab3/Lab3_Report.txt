@@ -1,0 +1,156 @@
+ECE 212 Lab 3 Report
+
+Introduction
+
+The objective of Lab 3 was to get more comfortable with ARM assembly subroutines, stack usage, and passing parameters between routines. In this lab we implemented three assembly routines: Welcomeprompt, Sort, and Display. Welcomeprompt collects the user input from MITTTY, Sort arranges the values in ascending order, and Display prints the final sorted results.
+
+This lab also focused on proper stack discipline. Our routines had to preserve the return address and any registers that needed to survive subroutine calls, while also passing the number of entries and the array base address between routines without hardcoding assumptions. We used the provided C support functions such as printf, cr, value, and getstring to handle the MITTTY interaction.
+
+Design (Including Flow Charts)
+
+1. Overall program design
+
+The program is split into three assembly files:
+- Lab3a_L432KC.s implements Welcomeprompt.
+- Lab3b_L432KC.s implements Sort.
+- Lab3c_L432KC.s implements Display.
+
+The test harness in Lab3_L432KC.s gives a menu that can test each subroutine on its own or run all three in order. The input values are stored starting at memory address 0x20001000, which matches the lab requirements. In the full program flow, Welcomeprompt is called first, Sort is called second, and Display is called last.
+
+2. Welcomeprompt design
+
+Welcomeprompt saves r4-r8 and lr at the start, then uses r4 as the current array pointer, r5 as the number of entries, r6 as the lower limit, r7 as the upper limit, and r8 as the input counter. The routine keeps asking for the number of entries until the user enters a value from 3 to 10. It then asks for the lower and upper bounds, and if the bounds are invalid it asks for them again. After that, it accepts the requested number of values one at a time, with a separate prompt for the final number. Each valid entry is stored in memory using post-indexed addressing, and any invalid entry causes an error message and another prompt.
+
+At the end of the routine, the number of entries is written onto the stack so the later subroutines can use it. In our code this is done with `str r5, [sp, #24]` right before `POP {r4-r8, pc}`.
+
+Welcomeprompt flowchart (from pre-lab/flowcharts/WelcomePrompt.md):
+
+```mermaid
+flowchart TD
+    start([Start Welcomeprompt]) --> saveRegs[Save callee registers and keep baseAddress]
+    saveRegs --> promptEntry[Prompt and read entryCount]
+    promptEntry --> entryLow{"entryCount < 3?"}
+    entryLow -->|Yes| errLow[Print entry-too-low error] --> promptEntry
+    entryLow -->|No| entryHigh{"entryCount > 10?"}
+    entryHigh -->|Yes| errHigh[Print entry-too-high error] --> promptEntry
+    entryHigh -->|No| promptLower[Prompt and read lowerLimit]
+    promptLower --> promptUpper[Prompt and read upperLimit]
+    promptUpper --> boundsOk{"lowerLimit <= upperLimit?"}
+    boundsOk -->|No| errBounds[Print bounds error and reprompt] --> promptLower
+    boundsOk -->|Yes| initIndex[Set index = 0]
+
+    initIndex --> doneInput{"index == entryCount?"}
+    doneInput -->|Yes| writeStack[Write entryCount to stack flag]
+    writeStack --> endNode([Restore registers and return])
+    doneInput -->|No| isLast{"index == entryCount - 1?"}
+    isLast -->|Yes| promptLast[Prompt for last number]
+    isLast -->|No| promptValue[Prompt for number]
+    promptLast --> readValue[Read numeric input]
+    promptValue --> readValue
+    readValue --> inRange{"lowerLimit <= value <= upperLimit?"}
+    inRange -->|No| errRange[Print out-of-range error] --> isLast
+    inRange -->|Yes| storeValue[Store value at memory and increment index]
+    storeValue --> doneInput
+```
+
+3. Sort design
+
+Sort receives the base address of the array in r0 and loads the entry count from the stack. The routine preserves r4-r7 and lr, then performs a bubble sort on the list in memory. The outer loop tracks how many passes are left, while the inner loop compares adjacent values and swaps them when the current value is greater than the next value. Since the routine uses the base address passed in r0, it does not depend on one fixed memory location.
+
+Sort flowchart (from pre-lab/flowcharts/Sort.md):
+
+```mermaid
+flowchart TD
+    start([Start Sort]) --> saveRegs[Save callee registers]
+    saveRegs --> readInputs[Read entryCount from stack and arrayBase from R0]
+    readInputs --> initOuter[Set i = 0]
+    initOuter --> outerDone{"i >= entryCount - 1?"}
+    outerDone -->|Yes| restoreEnd([Restore registers and return with stack unchanged])
+    outerDone -->|No| initInner[Set j = 0]
+    initInner --> innerDone{"j >= entryCount - 1 - i?"}
+    innerDone -->|Yes| nextOuter[Increment i] --> outerDone
+    innerDone -->|No| loadPair[Load array[j] and array[j+1]]
+    loadPair --> compareVals{"array[j] > array[j+1]?"}
+    compareVals -->|Yes| swapVals[Swap adjacent elements]
+    compareVals -->|No| incInner[Increment j]
+    swapVals --> incInner
+    incInner --> innerDone
+```
+
+4. Display design
+
+Display receives both the entry count and the array base address from the stack. After saving r4-r7 and lr, it prints the number of entries, prints a heading for the sorted output, then walks through the array and prints each value on its own line. When all values have been displayed, the routine prints "Program ended" and restores the stack before returning.
+
+Display flowchart (from pre-lab/flowcharts/Display.md):
+
+```mermaid
+flowchart TD
+    start([Start Display]) --> saveRegs[Save callee registers]
+    saveRegs --> readInputs[Read entryCount and arrayBase from stack]
+    readInputs --> printCountMsg[Print message for number of entries]
+    printCountMsg --> printCountVal[Print entryCount value]
+    printCountVal --> printSortedMsg[Print sorted-order message]
+    printSortedMsg --> initIndex[Set index = 0]
+    initIndex --> donePrint{"index >= entryCount?"}
+    donePrint -->|Yes| printEnd[Print Program ended message]
+    printEnd --> restoreEnd([Restore registers and return with stack unchanged])
+    donePrint -->|No| loadVal[Load value at arrayBase + index*4]
+    loadVal --> printVal[Print value]
+    printVal --> nextIndex[Increment index]
+    nextIndex --> donePrint
+```
+
+Quality of Program Structure/Comments
+
+The program structure is good because each required task is separated into its own subroutine. Welcomeprompt handles validated input and storage, Sort handles ordering the values, and Display handles the final output. This makes the code easier to test and matches the main goal of learning subroutine design and parameter passing.
+
+The assembly files include comments explaining register usage, branch conditions, loop purpose, and stack behavior. The comments in Welcomeprompt are especially helpful because they explain the validation path and why the number of entries is written back onto the stack before returning. The comments in Sort and Display are shorter, but they still explain the main steps clearly.
+
+A few weaknesses are also visible. Some comments have small spelling or wording issues, and one comment in Sort says "moves 46 into r3" when it clearly means r6. The code also relies on specific stack offsets, which works for this calling pattern but is a little harder to read. Even with that, the implementation is organized, modular, and documented well enough for the lab.
+
+Testing
+
+The provided test harness in Lab3_L432KC.s supports four menu options:
+- Test 1 calls Welcomeprompt by itself and checks whether registers are restored and whether the number of entries is returned through the stack.
+- Test 2 prints the values before sorting, calls Sort, and then prints the values after sorting so the bubble sort behavior can be observed directly.
+- Test 3 calls Display and checks that registers and stack contents are restored correctly after the routine returns.
+- Test 4 runs the complete sequence of Welcomeprompt, Sort, and Display.
+
+The testing strategy checks both functionality and calling-convention correctness. This matters because the lab is not only about getting the right output, but also about preserving the stack pointer and protected registers across subroutine calls. The test harness explicitly prints "Register not properly restored" and "Stack not properly restored" if those requirements are violated.
+
+Recommended functional test cases for this lab are:
+- Entry count too low, such as 2, to verify the minimum-count error path.
+- Entry count too high, such as 11, to verify the maximum-count error path.
+- Lower and upper limits entered in the wrong order to verify the bounds error message.
+- Input values below the lower limit or above the upper limit to verify range checking.
+- Mixed unsorted values such as 6, 4, 45, 20, 10 to verify that bubble sort produces ascending output.
+- Already sorted input to verify that Sort leaves correct input unchanged.
+- Repeated values to verify stable handling of equal adjacent comparisons.
+
+One thing worth noting is that our current Welcomeprompt code accepts the bounds only when `lowerLimit < upperLimit`, because it branches on `blt` after `cmp r6, r7`. The flowchart and assignment wording suggest the condition should be `lowerLimit <= upperLimit`. That means equal lower and upper limits would currently be rejected, so this should be treated as an edge case during testing.
+
+I could not re-run the embedded build in this environment because the local ARM compiler toolchain (`arm-none-eabi-gcc`) is not installed here, and the generated `Debug/makefile` does not execute cleanly on this macOS setup. However, the existing `Debug` artifacts and map file show that the project was built with `main_L432KC_test.c` and includes the three routines Welcomeprompt, Sort, and Display.
+
+Questions
+
+Q1. How are parameters passed between the subroutines in this lab?
+
+A1. The lab uses both registers and the stack. Welcomeprompt receives the array base address in r0. Sort receives the array base address in r0 and the entry count from the stack. Display receives both the entry count and the array base address from the stack. This shows two common ARM parameter-passing methods in the same program.
+
+Q2. Why is it necessary to preserve lr and other registers on the stack?
+
+A2. Every `bl` instruction overwrites lr with a new return address. Since our routines call helper functions such as `printf`, `cr`, `value`, and `getstring`, failing to preserve lr would cause the program to return to the wrong location. The assignment also notes that the provided helper routines overwrite r0-r3, so values that need to stay alive should be kept in higher registers and preserved when necessary.
+
+Q3. Why should the base address of the array not be hardcoded inside Sort or Display?
+
+A3. The assignment and test harness are designed to check whether the code is general. If a routine assumes the array always begins at 0x20001000, it may fail when the tester changes the address. Passing the base address as a parameter makes the routine reusable and follows proper subroutine design.
+
+Q4. What sorting method was used and why is it appropriate here?
+
+A4. The implemented algorithm is bubble sort. Bubble sort is appropriate for this lab because the maximum number of entries is small, the compare-and-swap logic is easy to express in assembly language, and it clearly demonstrates indexed memory access, loop control, and conditional branching.
+
+Conclusion
+
+Lab 3 achieved its main purpose of giving us practice with ARM assembly subroutine design, stack usage, and parameter passing. Our solution separates the problem into three routines that match the assignment structure: input collection, sorting, and formatted output. The code uses the provided MITTTY support routines correctly and includes the stack and register preservation expected in the lab.
+
+The overall implementation is organized and reasonably well commented. The bubble sort routine and the output routine are straightforward and align well with the pre-lab flowcharts. The main issue in our code is that Welcomeprompt currently enforces `lowerLimit < upperLimit` instead of allowing equality, which should be noted as an edge-case limitation. Other than that, our work shows the required concepts clearly and demonstrates a good understanding of stack-based subroutine interaction on the STM32 platform.

@@ -1,0 +1,32 @@
+!SESSION 2026-03-12 14:39:28.915 -----------------------------------------------
+eclipse.buildId=Version 2.0.0
+java.version=21.0.8
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  C:\Users\jadyl\Desktop\new\Lab\Lab3\inlab\lab3sigma\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 C:\Users\jadyl\Desktop\new\Lab\Lab3\inlab\lab3sigma\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-03-12 14:39:56.200
+!MESSAGE Log4j2 initialized with config file C:\Users\jadyl\Desktop\new\Lab\Lab3\inlab\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-03-12 14:39:59.425
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-03-12 14:40:05.127
+!MESSAGE Indexed 'lab3sigma' (23 sources, 116 headers) in 3.9 sec: 11,302 declarations; 47,173 references; 7 unresolved inclusions; 1,297 syntax errors; 1,498 unresolved names (2.5%)
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-03-12 14:40:05.210
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+COM5
+COM1
+COM9
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-03-12 14:40:05.211
+!MESSAGE port: COM5
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-03-12 14:40:05.212
+!MESSAGE port: COM1
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-03-12 14:40:05.212
+!MESSAGE port: COM9

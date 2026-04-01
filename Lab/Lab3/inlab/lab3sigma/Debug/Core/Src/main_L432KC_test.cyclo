@@ -1,0 +1,9 @@
+../Core/Src/main_L432KC_test.c:31:6:cr	1
+../Core/Src/main_L432KC_test.c:35:6:value	1
+../Core/Src/main_L432KC_test.c:39:6:value1	1
+../Core/Src/main_L432KC_test.c:44:5:getstring	2
+../Core/Src/main_L432KC_test.c:105:5:main	1
+../Core/Src/main_L432KC_test.c:156:6:SystemClock_Config	5
+../Core/Src/main_L432KC_test.c:220:13:MX_USART2_UART_Init	2
+../Core/Src/main_L432KC_test.c:255:13:MX_GPIO_Init	1
+../Core/Src/main_L432KC_test.c:284:6:Error_Handler	1
