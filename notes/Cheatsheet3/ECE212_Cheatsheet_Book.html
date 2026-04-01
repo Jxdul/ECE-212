@@ -1,0 +1,1906 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ECE 212 Exam Cheatsheet Book</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.42in 0.45in 0.5in;
+    }
+    :root {
+      --paper: #fbf7ef;
+      --panel: #fffdf8;
+      --panel-2: #f5efe1;
+      --ink: #161616;
+      --muted: #5f5a53;
+      --line: #d6cab6;
+      --soft: #efe5d2;
+      --soft2: #fffaf0;
+      --accent: #18324b;
+      --accent-2: #8b4d2f;
+      --accent-3: #285a53;
+      --accent-lite: #dfe8ef;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      font-size: 8.9pt;
+      line-height: 1.28;
+      background: var(--paper);
+    }
+    body {
+      padding: 0;
+    }
+    h1, h2, h3, h4 {
+      color: var(--accent);
+      margin: 0.14in 0 0.06in;
+      page-break-after: avoid;
+      break-after: avoid-page;
+    }
+    h1 {
+      font-family: "Baskerville", "Times New Roman", serif;
+      font-size: 26pt;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.08in;
+    }
+    h2 {
+      font-family: "Baskerville", "Times New Roman", serif;
+      font-size: 15pt;
+      background: linear-gradient(90deg, var(--accent-lite), transparent 72%);
+      border-bottom: 1px solid var(--line);
+      padding: 0.05in 0.07in 0.04in;
+      border-radius: 8px 8px 0 0;
+    }
+    h3 {
+      font-size: 10.1pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-2);
+    }
+    h4 {
+      font-size: 9pt;
+      margin-bottom: 0.03in;
+      color: var(--accent);
+    }
+    p {
+      margin: 0.04in 0;
+      orphans: 3;
+      widows: 3;
+    }
+    ul, ol {
+      margin: 0.04in 0 0.06in 0.18in;
+      padding: 0;
+    }
+    li {
+      margin: 0.02in 0;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.06in 0 0.1in;
+      font-size: 7.8pt;
+      background: var(--panel);
+      border-radius: 8px;
+      overflow: hidden;
+      break-inside: auto;
+      page-break-inside: auto;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 4px 5px;
+      vertical-align: top;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    th {
+      background: #e4d7c3;
+      text-align: left;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background: #fffaf3;
+    }
+    code, pre, .mono {
+      font-family: "Menlo", "Consolas", "Courier New", monospace;
+    }
+    pre {
+      background: #fff8ec;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent-3);
+      padding: 7px 8px;
+      margin: 0.06in 0 0.1in;
+      white-space: pre-wrap;
+      line-height: 1.2;
+      font-size: 7.7pt;
+      border-radius: 6px;
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+    .lede {
+      font-size: 9.3pt;
+      color: var(--muted);
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.16in;
+    }
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.12in;
+    }
+    .section {
+      break-inside: auto;
+      page-break-inside: auto;
+      margin-bottom: 0.09in;
+      background: rgba(255,255,255,0.34);
+    }
+    .callout {
+      background: linear-gradient(90deg, #f9efde, #fffaf1);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent-2);
+      padding: 7px 9px;
+      margin: 0.06in 0 0.09in;
+      border-radius: 6px;
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+    .small {
+      font-size: 7.8pt;
+    }
+    .tight li {
+      margin: 0.01in 0;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    .grid-2 {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    .grid-2 > div {
+      display: table-cell;
+      vertical-align: top;
+      width: 50%;
+      padding-right: 0.08in;
+    }
+    .muted {
+      color: var(--muted);
+    }
+    .cover {
+      page-break-after: always;
+      min-height: 9.1in;
+      background:
+        radial-gradient(circle at top right, rgba(24,50,75,0.12), transparent 32%),
+        radial-gradient(circle at bottom left, rgba(139,77,47,0.12), transparent 34%),
+        linear-gradient(180deg, #fffdf8 0%, #f7efdf 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 0.32in;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before,
+    .cover::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(24,50,75,0.06);
+      z-index: 0;
+    }
+    .cover::before {
+      width: 3.3in;
+      height: 3.3in;
+      top: -1.2in;
+      right: -1.0in;
+    }
+    .cover::after {
+      width: 2.6in;
+      height: 2.6in;
+      bottom: -0.9in;
+      left: -0.7in;
+      background: rgba(139,77,47,0.07);
+    }
+    .cover > * {
+      position: relative;
+      z-index: 1;
+    }
+    .section > h3,
+    .section > h4,
+    .section-card,
+    .card,
+    .grid-2,
+    .two-col,
+    .three-col,
+    ul,
+    ol {
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+    .section > h3 + *,
+    .section > h4 + * {
+      break-before: avoid-page;
+      page-break-before: avoid;
+    }
+    .eyebrow {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-2);
+      font-weight: 700;
+      margin-bottom: 0.08in;
+    }
+    .cover-subtitle {
+      font-size: 10.3pt;
+      line-height: 1.36;
+      color: var(--muted);
+      max-width: 6.8in;
+      margin: 0.12in 0 0.18in;
+    }
+    .cover-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 0.16in;
+      margin-top: 0.16in;
+    }
+    .hero-panel,
+    .meta-panel {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.14in;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0.09in 0 0.02in;
+    }
+    .chip {
+      display: inline-block;
+      background: #fff4e4;
+      color: var(--accent);
+      border: 1px solid #dcc5a8;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 7.2pt;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .pill-note {
+      font-size: 8.1pt;
+      color: var(--muted);
+      margin-top: 0.05in;
+    }
+    .cover-list {
+      margin: 0.08in 0 0;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.11in;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .section-card {
+      background: rgba(255,255,255,0.68);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.1in;
+    }
+    .footer-note {
+      font-size: 7.2pt;
+      color: var(--muted);
+      margin-top: 0.16in;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .summary-band {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.12in;
+      margin-top: 0.18in;
+    }
+    .summary-band .card strong {
+      display: block;
+      color: var(--accent);
+      font-size: 8.4pt;
+      margin-bottom: 2px;
+    }
+    .summary-band .card span {
+      color: var(--muted);
+      font-size: 7.6pt;
+    }
+    .toc-intro {
+      margin: 0.02in 0 0.12in;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div class="eyebrow">ECE 212 / Exam Reference / ARM + Systems</div>
+    <h1>ECE 212 Exam Cheatsheet Book</h1>
+    <p class="cover-subtitle">
+      Consolidated from OCR notes in Parts E, F, and G: assembly language deep dive,
+      stacks and subroutines, and hardware interfacing/address decoding. This edition
+      cleans OCR damage, restores missing notation where intent is clear, and adds
+      compact explanations, worked examples, traps, and solve patterns for exam use.
+    </p>
+
+    <div class="cover-grid">
+      <div class="hero-panel">
+        <div class="meta-row">
+          <span class="chip">ARMv7-M / Thumb-2</span>
+          <span class="chip">Stacks + AAPCS</span>
+          <span class="chip">DMA + Decoding</span>
+          <span class="chip">Worked Examples</span>
+          <span class="chip">Exam Traps</span>
+        </div>
+        <p class="pill-note">
+          Built for open-book exam speed: start with the coverage map, then jump to the
+          exact table, example, or branch/stack/decoder pattern you need.
+        </p>
+        <div class="callout">
+          <strong>How to use this book:</strong> skim the section banner, find the relevant
+          instruction family or hardware topic, read the bolded trap or solve pattern,
+          and only drop into the worked example if you need the full reasoning chain.
+        </div>
+      </div>
+      <div class="meta-panel">
+        <h3>Included</h3>
+        <ul class="cover-list tight">
+          <li>All named topics from all three OCR text files</li>
+          <li>OCR cleanup and notation repair</li>
+          <li>Short explanations instead of raw opcode dumps</li>
+          <li>Subroutine and stack conventions</li>
+          <li>Address-decoder design patterns</li>
+          <li>Practice-style “common mistakes” sections</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="summary-band">
+      <div class="card">
+        <strong>Part E</strong>
+        <span>Data movement, arithmetic, logic, flags, shifts, branches, IT blocks, multiply/divide, saturation, extension, bit fields.</span>
+      </div>
+      <div class="card">
+        <strong>Part F</strong>
+        <span>Full descending stack, BL/BX/LR, register save-restore, AAPCS, parameter passing, modular program design.</span>
+      </div>
+      <div class="card">
+        <strong>Part G</strong>
+        <span>Memory-mapped peripherals, data bus vs port size, timing diagrams, DMA, full/partial/mixed-mode decoding.</span>
+      </div>
+    </div>
+
+    <div class="footer-note">Prepared from OCR text in the current folder on 2026-03-31</div>
+  </section>
+
+  <h2>Table of Contents</h2>
+  <p class="toc-intro">Page numbers refer to the PDF edition of this book.</p>
+  <table class="small">
+    <tr>
+      <th>Section</th>
+      <th style="width: 12%; text-align: right;">Page</th>
+    </tr>
+    <tr><td><strong>Table of Contents</strong></td><td style="text-align: right;"><strong>2</strong></td></tr>
+    <tr><td><strong>Part E: ARMv7-M Assembly Deep Dive</strong></td><td style="text-align: right;"><strong>3</strong></td></tr>
+    <tr><td>Quick Register and Flag Review</td><td style="text-align: right;">3</td></tr>
+    <tr><td>E.3 Data-Movement Operations</td><td style="text-align: right;">3</td></tr>
+    <tr><td>E.4 Data Processing Operations I</td><td style="text-align: right;">4</td></tr>
+    <tr><td>E.5 Comparison and Sequence Control</td><td style="text-align: right;">5</td></tr>
+    <tr><td>E.6 Data Processing Operations II</td><td style="text-align: right;">7</td></tr>
+    <tr><td><strong>Part F: Stacks, Subroutines, and Program Design</strong></td><td style="text-align: right;"><strong>9</strong></td></tr>
+    <tr><td>F.4 The Stack</td><td style="text-align: right;">9</td></tr>
+    <tr><td>F.5 Subroutines</td><td style="text-align: right;">10</td></tr>
+    <tr><td>F.5.7 Passing Parameters</td><td style="text-align: right;">11</td></tr>
+    <tr><td>F.6 Program Design Process</td><td style="text-align: right;">12</td></tr>
+    <tr><td><strong>Part G: Hardware Interfacing, DMA, and Address Decoding</strong></td><td style="text-align: right;"><strong>13</strong></td></tr>
+    <tr><td>G.4 Memory-Mapped Devices</td><td style="text-align: right;">13</td></tr>
+    <tr><td>G.5 Memory-to-CPU Interface</td><td style="text-align: right;">13</td></tr>
+    <tr><td>G.6 Timing Diagrams</td><td style="text-align: right;">14</td></tr>
+    <tr><td>G.7 Direct Memory Access (DMA)</td><td style="text-align: right;">14</td></tr>
+    <tr><td>G.8 Address Decoding</td><td style="text-align: right;">14</td></tr>
+    <tr><td><strong>Practice Sections</strong></td><td style="text-align: right;"><strong>17</strong></td></tr>
+    <tr><td>Final Review Checklist</td><td style="text-align: right;">17</td></tr>
+  </table>
+  <p class="small muted">All OCR-derived topics are still included below in the body of the reference; this contents page is intentionally compressed so you can jump to the right PDF page quickly during review.</p>
+
+  <div class="page-break"></div>
+
+  <h2>Part E: ARMv7-M Assembly Deep Dive</h2>
+
+  <div class="section">
+    <h3>E.1-E.2 Purpose and Learning Goals</h3>
+    <ul class="tight">
+      <li>Goal: build enough working ARMv7-M / Thumb-2 literacy to read instructions, validate them, and infer effects on registers, memory, and APSR flags.</li>
+      <li>Major ideas: data movement, arithmetic and logic, comparisons, shifts, branching, IT blocks, multiplication/division, extension, bit fields, and system/status moves.</li>
+      <li>Exam standard: know what instruction forms are legal, what gets written, how effective addresses are formed, and which flags matter.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Quick Register and Flag Review</h3>
+    <div class="grid-2">
+      <div>
+        <ul class="tight">
+          <li>General-purpose registers: <span class="mono">R0-R12</span></li>
+          <li><span class="mono">R13 = SP</span>, <span class="mono">R14 = LR</span>, <span class="mono">R15 = PC</span></li>
+          <li>Word = 32 bits, halfword = 16 bits, byte = 8 bits</li>
+          <li>Little-endian memory for Cortex-M: lowest-addressed byte is least significant byte of the word</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="tight">
+          <li><span class="mono">N</span>: negative result</li>
+          <li><span class="mono">Z</span>: result is zero</li>
+          <li><span class="mono">C</span>: carry out / no borrow</li>
+          <li><span class="mono">V</span>: signed overflow</li>
+          <li><span class="mono">Q</span>: saturation occurred</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>E.3 Data-Movement Operations</h3>
+    <h4>E.3.1 Loading a Fixed Value into a Register</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Use</th>
+        <th>Key Idea</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><span class="mono">MOVS Rd, #imm8</span></td>
+        <td>Small immediate</td>
+        <td>Zero-extends 8-bit immediate into <span class="mono">Rd</span></td>
+        <td>Common 16-bit form, often outside IT block</td>
+      </tr>
+      <tr>
+        <td><span class="mono">MOV{S}.W Rd, #imm</span></td>
+        <td>Larger modified immediate</td>
+        <td>Uses Thumb expanded immediate encoding</td>
+        <td>Not every 32-bit constant is directly encodable</td>
+      </tr>
+      <tr>
+        <td><span class="mono">MOVW Rd, #imm16</span></td>
+        <td>Load low 16 bits</td>
+        <td>Loads a zero-extended 16-bit immediate into <span class="mono">Rd</span></td>
+        <td>Use with <span class="mono">MOVT</span> for arbitrary 32-bit values</td>
+      </tr>
+      <tr>
+        <td><span class="mono">MOVT Rd, #imm16</span></td>
+        <td>Load top 16 bits</td>
+        <td>Writes <span class="mono">Rd[31:16] = imm16</span> and leaves <span class="mono">Rd[15:0]</span> unchanged</td>
+        <td>Usually do <span class="mono">MOVW</span> first, then <span class="mono">MOVT</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono">MVN Rd, #imm</span></td>
+        <td>Move bitwise NOT of immediate</td>
+        <td><span class="mono">Rd = ~imm32</span></td>
+        <td>Useful when the complement is encodable but the original constant is not</td>
+      </tr>
+      <tr>
+        <td><span class="mono">LDR Rd, =const</span></td>
+        <td>Pseudo-instruction</td>
+        <td>Assembler chooses best way to materialize constant</td>
+        <td>May become <span class="mono">MOV</span>, <span class="mono">MVN</span>, or literal-pool load</td>
+      </tr>
+      <tr>
+        <td><span class="mono">MOV32 Rd, #imm32</span></td>
+        <td>Pseudo-instruction</td>
+        <td>Assembler usually emits <span class="mono">MOVW</span> + <span class="mono">MOVT</span></td>
+        <td>Good conceptual shortcut</td>
+      </tr>
+    </table>
+
+    <div class="callout">
+      <strong>Arbitrary 32-bit constant pattern:</strong><br>
+      <span class="mono">MOVW Rd, #low16</span><br>
+      <span class="mono">MOVT Rd, #high16</span><br>
+      Do not swap them. If you do <span class="mono">MOVT</span> first then <span class="mono">MOVW</span>, the low-half write can destroy part of the value construction you intended.
+    </div>
+
+    <h4>E.3.2 Loading an Address into a Register</h4>
+    <ul class="tight">
+      <li><span class="mono">ADR Rd, label</span> computes a PC-relative address.</li>
+      <li>Assembler turns it into an <span class="mono">ADD</span> or <span class="mono">SUB</span> relative to aligned <span class="mono">PC</span>.</li>
+      <li>Use it when you want the <em>address</em> of a label, not the <em>data stored at</em> that label.</li>
+      <li>Typical confusion: <span class="mono">ADR R0, table</span> gives pointer to <span class="mono">table</span>; <span class="mono">LDR R0, table</span> often means load a value from memory near <span class="mono">PC</span>.</li>
+    </ul>
+
+    <h4>E.3.3-E.3.4 Register Moves and Shifted Register Moves</h4>
+    <ul class="tight">
+      <li><span class="mono">MOV Rd, Rm</span>: copy one register to another.</li>
+      <li><span class="mono">MOV Rd, Rm, LSL #k</span> and related forms exist, but course notes prefer using standalone <span class="mono">LSL/LSR/ASR/ROR/RRX</span>.</li>
+      <li>Barrel shifter = one operand can be shifted/rotated as part of the instruction datapath.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>E.3.5-E.3.6 Loads, Stores, and Addressing Modes</h3>
+    <table>
+      <tr>
+        <th>Family</th>
+        <th>Meaning</th>
+        <th>Size / Extension</th>
+      </tr>
+      <tr>
+        <td><span class="mono">LDR</span>, <span class="mono">STR</span></td>
+        <td>Load/store word</td>
+        <td>32-bit</td>
+      </tr>
+      <tr>
+        <td><span class="mono">LDRB</span>, <span class="mono">STRB</span></td>
+        <td>Load/store byte</td>
+        <td>8-bit, zero-extended on load</td>
+      </tr>
+      <tr>
+        <td><span class="mono">LDRH</span>, <span class="mono">STRH</span></td>
+        <td>Load/store halfword</td>
+        <td>16-bit, zero-extended on load</td>
+      </tr>
+      <tr>
+        <td><span class="mono">LDRSB</span></td>
+        <td>Load signed byte</td>
+        <td>8-bit sign-extended to 32 bits</td>
+      </tr>
+      <tr>
+        <td><span class="mono">LDRSH</span></td>
+        <td>Load signed halfword</td>
+        <td>16-bit sign-extended to 32 bits</td>
+      </tr>
+      <tr>
+        <td><span class="mono">LDRD</span>, <span class="mono">STRD</span></td>
+        <td>Dual-register load/store</td>
+        <td>64-bit via two registers</td>
+      </tr>
+      <tr>
+        <td><span class="mono">LDM</span>, <span class="mono">STM</span></td>
+        <td>Load/store multiple registers</td>
+        <td>Bulk transfer</td>
+      </tr>
+    </table>
+
+    <h4>Addressing Forms</h4>
+    <table>
+      <tr>
+        <th>Form</th>
+        <th>Syntax</th>
+        <th>Effective Address</th>
+        <th>Write-back?</th>
+      </tr>
+      <tr>
+        <td>Indirect</td>
+        <td><span class="mono">[Rn]</span></td>
+        <td><span class="mono">EA = Rn</span></td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Offset</td>
+        <td><span class="mono">[Rn, #imm]</span> or <span class="mono">[Rn, Rm]</span></td>
+        <td><span class="mono">EA = Rn + offset</span></td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Pre-indexed</td>
+        <td><span class="mono">[Rn, #imm]!</span></td>
+        <td><span class="mono">Rn = Rn + offset; EA = Rn</span></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Post-indexed</td>
+        <td><span class="mono">[Rn], #imm</span></td>
+        <td><span class="mono">EA = Rn; Rn = Rn + offset</span></td>
+        <td>Yes</td>
+      </tr>
+    </table>
+
+    <ul class="tight">
+      <li>Literal load: <span class="mono">LDR Rt, label</span> or effectively <span class="mono">LDR Rt, [PC, #imm]</span>.</li>
+      <li>Register offset: <span class="mono">LDR Rt, [Rn, Rm]</span>.</li>
+      <li>Scaled register offset: <span class="mono">LDR.W Rt, [Rn, Rm, LSL #imm2]</span>.</li>
+      <li>Word accesses should be word-aligned; halfwords should be halfword-aligned.</li>
+      <li>SP-based addressing is common for locals, parameters, and saved registers.</li>
+    </ul>
+
+    <h4>Worked Example: Decode the Addressing Effect</h4>
+    <pre>Suppose R6 = 0x11223300.
+
+LDR  R1, [R6]         ; use address 0x11223300, R6 unchanged
+LDR  R2, [R6, #4]     ; use address 0x11223304, R6 unchanged
+LDR  R3, [R6, #-6]    ; use address 0x112232FA, R6 unchanged
+LDR  R4, [R6, #-6]!   ; first R6 = 0x112232FA, then load from that address
+LDR  R5, [R6], #8     ; load from old R6, then R6 = R6 + 8
+
+Exam rule:
+1. Compute effective address first from syntax.
+2. Decide transfer size and sign/zero extension.
+3. Apply write-back only if '!' or post-index form is present.</pre>
+  </div>
+
+  <div class="section">
+    <h3>E.3.7 Miscellaneous Data Movement</h3>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Effect</th>
+        <th>Typical Use</th>
+      </tr>
+      <tr>
+        <td><span class="mono">RBIT Rd, Rm</span></td>
+        <td>Reverse all 32 bits</td>
+        <td>Bit-order transforms</td>
+      </tr>
+      <tr>
+        <td><span class="mono">REV Rd, Rm</span></td>
+        <td>Reverse bytes in a word</td>
+        <td>Endianness conversion</td>
+      </tr>
+      <tr>
+        <td><span class="mono">REV16 Rd, Rm</span></td>
+        <td>Reverse bytes within each halfword</td>
+        <td>Packed halfword data</td>
+      </tr>
+      <tr>
+        <td><span class="mono">REVSH Rd, Rm</span></td>
+        <td>Reverse lower halfword bytes then sign-extend</td>
+        <td>Signed 16-bit byte-swapped input</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>E.4 Data Processing Operations I</h3>
+    <h4>E.4.1 Basic Arithmetic</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Meaning</th>
+        <th>Model</th>
+      </tr>
+      <tr>
+        <td><span class="mono">ADD</span></td>
+        <td>Add</td>
+        <td><span class="mono">A + B</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono">ADC</span></td>
+        <td>Add with carry</td>
+        <td><span class="mono">A + B + C</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono">SUB</span></td>
+        <td>Subtract</td>
+        <td><span class="mono">A - B</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono">SBC</span></td>
+        <td>Subtract with carry = subtract with borrow support</td>
+        <td><span class="mono">A - B - (1-C)</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono">RSB</span></td>
+        <td>Reverse subtract</td>
+        <td><span class="mono">B - A</span></td>
+      </tr>
+    </table>
+
+    <ul class="tight">
+      <li>ARM unifies these through the internal idea of <span class="mono">AddWithCarry(A, B, Cin)</span>.</li>
+      <li>Extended-precision addition/subtraction depends on carrying <span class="mono">C</span> from one word to the next.</li>
+      <li>Negation pattern: <span class="mono">RSB Rd, Rn, #0</span> gives <span class="mono">Rd = 0 - Rn = -Rn</span>.</li>
+    </ul>
+
+    <h4>E.4.2 Basic Logical Operations</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Meaning</th>
+        <th>Bit-mask Use</th>
+      </tr>
+      <tr>
+        <td><span class="mono">AND</span></td>
+        <td>Bitwise AND</td>
+        <td>Clear bits where mask has 0</td>
+      </tr>
+      <tr>
+        <td><span class="mono">BIC</span></td>
+        <td>Bit clear = <span class="mono">A AND (~B)</span></td>
+        <td>Clear selected bits directly</td>
+      </tr>
+      <tr>
+        <td><span class="mono">ORR</span></td>
+        <td>Bitwise OR</td>
+        <td>Set bits where mask has 1</td>
+      </tr>
+      <tr>
+        <td><span class="mono">ORN</span></td>
+        <td><span class="mono">A OR (~B)</span></td>
+        <td>Less common complement form</td>
+      </tr>
+      <tr>
+        <td><span class="mono">EOR</span></td>
+        <td>Bitwise XOR</td>
+        <td>Toggle bits where mask has 1</td>
+      </tr>
+      <tr>
+        <td><span class="mono">MVN</span></td>
+        <td>Bitwise NOT of operand</td>
+        <td>Create complement</td>
+      </tr>
+    </table>
+
+    <h4>E.4.3 Comparison and Test</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Hidden Operation</th>
+        <th>Result Stored?</th>
+        <th>Flags</th>
+      </tr>
+      <tr>
+        <td><span class="mono">CMP A, B</span></td>
+        <td><span class="mono">A - B</span></td>
+        <td>No</td>
+        <td>N, Z, C, V</td>
+      </tr>
+      <tr>
+        <td><span class="mono">CMN A, B</span></td>
+        <td><span class="mono">A + B</span></td>
+        <td>No</td>
+        <td>N, Z, C, V</td>
+      </tr>
+      <tr>
+        <td><span class="mono">TST A, B</span></td>
+        <td><span class="mono">A AND B</span></td>
+        <td>No</td>
+        <td>N, Z, C</td>
+      </tr>
+      <tr>
+        <td><span class="mono">TEQ A, B</span></td>
+        <td><span class="mono">A XOR B</span></td>
+        <td>No</td>
+        <td>N, Z, C</td>
+      </tr>
+    </table>
+
+    <h4>E.4.4 Shifts and Bit Manipulation</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Meaning</th>
+        <th>Useful Interpretation</th>
+      </tr>
+      <tr>
+        <td><span class="mono">LSL</span></td>
+        <td>Logical shift left</td>
+        <td>Multiply unsigned value by <span class="mono">2^k</span> if no overflow matters</td>
+      </tr>
+      <tr>
+        <td><span class="mono">LSR</span></td>
+        <td>Logical shift right</td>
+        <td>Unsigned divide by <span class="mono">2^k</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono">ASR</span></td>
+        <td>Arithmetic shift right</td>
+        <td>Signed divide by <span class="mono">2^k</span> with sign replication</td>
+      </tr>
+      <tr>
+        <td><span class="mono">ROR</span></td>
+        <td>Rotate right</td>
+        <td>Bit cycle; no information discarded</td>
+      </tr>
+      <tr>
+        <td><span class="mono">RRX</span></td>
+        <td>Rotate right through carry</td>
+        <td>Carry becomes new MSB</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>E.5 Comparison and Sequence Control</h3>
+    <h4>E.5.1, E.5.3 Branching Instructions</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Meaning</th>
+        <th>Typical Use</th>
+      </tr>
+      <tr>
+        <td><span class="mono">B label</span></td>
+        <td>Unconditional branch</td>
+        <td>Loop, skip, jump</td>
+      </tr>
+      <tr>
+        <td><span class="mono">Bcc label</span></td>
+        <td>Conditional branch</td>
+        <td>If/while/for logic</td>
+      </tr>
+      <tr>
+        <td><span class="mono">BL label</span></td>
+        <td>Branch with link</td>
+        <td>Call subroutine; saves return address in LR</td>
+      </tr>
+      <tr>
+        <td><span class="mono">BX Rm</span></td>
+        <td>Branch to address in register</td>
+        <td>Commonly <span class="mono">BX LR</span> to return</td>
+      </tr>
+      <tr>
+        <td><span class="mono">BLX Rm</span></td>
+        <td>Branch with link to address in register</td>
+        <td>Indirect function call</td>
+      </tr>
+    </table>
+
+    <h4>E.5.2 Condition Codes</h4>
+    <table>
+      <tr>
+        <th>Code</th>
+        <th>Meaning</th>
+        <th>Flag Test</th>
+        <th>Interpretation</th>
+      </tr>
+      <tr><td><span class="mono">EQ</span></td><td>Equal</td><td><span class="mono">Z=1</span></td><td>Last result was zero / operands equal</td></tr>
+      <tr><td><span class="mono">NE</span></td><td>Not equal</td><td><span class="mono">Z=0</span></td><td>Operands differ</td></tr>
+      <tr><td><span class="mono">CS/HS</span></td><td>Carry set / unsigned higher or same</td><td><span class="mono">C=1</span></td><td>Unsigned compare</td></tr>
+      <tr><td><span class="mono">CC/LO</span></td><td>Carry clear / unsigned lower</td><td><span class="mono">C=0</span></td><td>Unsigned compare</td></tr>
+      <tr><td><span class="mono">MI</span></td><td>Minus</td><td><span class="mono">N=1</span></td><td>Negative</td></tr>
+      <tr><td><span class="mono">PL</span></td><td>Plus</td><td><span class="mono">N=0</span></td><td>Non-negative</td></tr>
+      <tr><td><span class="mono">VS</span></td><td>Overflow</td><td><span class="mono">V=1</span></td><td>Signed overflow happened</td></tr>
+      <tr><td><span class="mono">VC</span></td><td>No overflow</td><td><span class="mono">V=0</span></td><td>No signed overflow</td></tr>
+      <tr><td><span class="mono">HI</span></td><td>Unsigned higher</td><td><span class="mono">C=1 and Z=0</span></td><td><span class="mono">&gt;</span> for unsigned</td></tr>
+      <tr><td><span class="mono">LS</span></td><td>Unsigned lower or same</td><td><span class="mono">C=0 or Z=1</span></td><td><span class="mono">&lt;=</span> for unsigned</td></tr>
+      <tr><td><span class="mono">GE</span></td><td>Signed greater or equal</td><td><span class="mono">N=V</span></td><td><span class="mono">&gt;=</span> for signed</td></tr>
+      <tr><td><span class="mono">LT</span></td><td>Signed less than</td><td><span class="mono">N!=V</span></td><td><span class="mono">&lt;</span> for signed</td></tr>
+      <tr><td><span class="mono">GT</span></td><td>Signed greater than</td><td><span class="mono">Z=0 and N=V</span></td><td><span class="mono">&gt;</span> for signed</td></tr>
+      <tr><td><span class="mono">LE</span></td><td>Signed less or equal</td><td><span class="mono">Z=1 or N!=V</span></td><td><span class="mono">&lt;=</span> for signed</td></tr>
+      <tr><td><span class="mono">AL</span></td><td>Always</td><td>True</td><td>Unconditional</td></tr>
+    </table>
+
+    <div class="callout">
+      <strong>Unsigned vs signed exam trap:</strong>
+      after <span class="mono">CMP</span>, use <span class="mono">HI/HS/LO/LS</span> for unsigned comparisons and <span class="mono">GT/GE/LT/LE</span> for signed comparisons.
+    </div>
+
+    <h4>E.5.4 Compare and Branch</h4>
+    <ul class="tight">
+      <li><span class="mono">CBZ Rn, label</span>: branch if <span class="mono">Rn == 0</span></li>
+      <li><span class="mono">CBNZ Rn, label</span>: branch if <span class="mono">Rn != 0</span></li>
+      <li>Equivalent idea to <span class="mono">CMP Rn, #0</span> then <span class="mono">BEQ/BNE</span>, but does not modify APSR flags.</li>
+      <li>Useful for loop exit and null/zero tests.</li>
+      <li>Use them when you only care about zero/nonzero and want later branches to still see the old APSR flags.</li>
+      <li>These are PC-relative branches and are best thought of as short local tests, not general replacements for every compare-then-branch sequence.</li>
+    </ul>
+
+    <h4>E.5.5 Conditional IT Block</h4>
+    <ul class="tight">
+      <li><span class="mono">IT{x{y{z}}} cc</span> makes the next 1 to 4 instructions conditional.</li>
+      <li><span class="mono">T</span> means use base condition; <span class="mono">E</span> means use inverse condition.</li>
+      <li>Example: <span class="mono">ITTE GT</span> means instruction 1 = GT, instruction 2 = GT, instruction 3 = LE.</li>
+      <li>IT blocks may not contain nested IT blocks.</li>
+      <li>Instructions that modify <span class="mono">PC</span> must be outside the block or the last instruction in the block.</li>
+      <li><span class="mono">CBZ/CBNZ</span> may not be inside an IT block.</li>
+      <li><span class="mono">BKPT</span> executes even inside an IT block.</li>
+    </ul>
+
+    <table>
+      <tr>
+        <th>Inside an IT block</th>
+        <th>Status</th>
+        <th>Reason / Reminder</th>
+      </tr>
+      <tr>
+        <td>Ordinary data-processing instruction</td>
+        <td>Usually allowed</td>
+        <td>Normal use case for conditional execution</td>
+      </tr>
+      <tr>
+        <td>Nested <span class="mono">IT</span></td>
+        <td>Not allowed</td>
+        <td>No nesting</td>
+      </tr>
+      <tr>
+        <td><span class="mono">CBZ</span>, <span class="mono">CBNZ</span></td>
+        <td>Not allowed</td>
+        <td>Must be outside the IT block</td>
+      </tr>
+      <tr>
+        <td>Instruction writing <span class="mono">PC</span></td>
+        <td>Last only</td>
+        <td>Branch/return style instructions must end the block</td>
+      </tr>
+      <tr>
+        <td><span class="mono">BKPT</span></td>
+        <td>Executes anyway</td>
+        <td>Breakpoint is not suppressed by the IT condition</td>
+      </tr>
+    </table>
+
+    <pre>Example:
+CMP   R0, #9
+ITE   GT
+ANDGT R0, R0, R1
+MOVLE R2, R3
+
+Meaning:
+if (R0 > 9 signed) then
+    R0 = R0 AND R1
+else
+    R2 = R3</pre>
+  </div>
+
+  <div class="section">
+    <h3>Worked Example: Capitalize an ASCII String</h3>
+    <p>The OCR notes start with a programming problem asking for a null-terminated string copy that capitalizes lowercase letters.</p>
+    <pre>; R0 = input pointer, R1 = output pointer
+loop:
+    LDRB  R2, [R0], #1      ; get next char, advance input
+    CBZ   R2, done          ; if NUL, finish
+    CMP   R2, #0x61         ; 'a'
+    BLO   skip
+    CMP   R2, #0x7A         ; 'z'
+    BHI   skip
+    SUB   R2, R2, #0x20     ; lowercase -> uppercase
+skip:
+    STRB  R2, [R1], #1      ; write char, advance output
+    B     loop
+done:
+    STRB  R2, [R1]          ; store final NUL</pre>
+
+    <p><strong>Why it works:</strong> lowercase ASCII letters occupy a contiguous block from <span class="mono">0x61</span> to <span class="mono">0x7A</span>; uppercase versions are exactly <span class="mono">0x20</span> smaller.</p>
+  </div>
+
+  <div class="section">
+    <h3>E.6 Data Processing Operations II</h3>
+    <h4>E.6.1-E.6.2 Multiplication</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Operation</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><span class="mono">MUL</span></td>
+        <td><span class="mono">(32-bit) * (32-bit) -> low 32 bits</span></td>
+        <td>Signed/unsigned same for low 32 bits</td>
+      </tr>
+      <tr>
+        <td><span class="mono">MLA</span></td>
+        <td><span class="mono">Ra + Rn*Rm</span></td>
+        <td>Multiply accumulate</td>
+      </tr>
+      <tr>
+        <td><span class="mono">MLS</span></td>
+        <td><span class="mono">Ra - Rn*Rm</span></td>
+        <td>Multiply subtract</td>
+      </tr>
+      <tr>
+        <td><span class="mono">SMULL</span></td>
+        <td>Signed 32x32 -> 64 bits</td>
+        <td>Stores low/high in two registers</td>
+      </tr>
+      <tr>
+        <td><span class="mono">UMULL</span></td>
+        <td>Unsigned 32x32 -> 64 bits</td>
+        <td>Use when interpretation matters</td>
+      </tr>
+      <tr>
+        <td><span class="mono">SMLAL</span></td>
+        <td>Signed 64-bit accumulate</td>
+        <td>Adds product into existing 64-bit value</td>
+      </tr>
+      <tr>
+        <td><span class="mono">UMLAL</span></td>
+        <td>Unsigned 64-bit accumulate</td>
+        <td>Unsigned version</td>
+      </tr>
+    </table>
+
+    <h4>E.6.3 Division</h4>
+    <ul class="tight">
+      <li><span class="mono">SDIV Rd, Rn, Rm</span>: signed integer division, rounds toward zero.</li>
+      <li><span class="mono">UDIV Rd, Rn, Rm</span>: unsigned integer division.</li>
+      <li>These are integer operations, not floating-point division.</li>
+    </ul>
+
+    <h4>E.6.4 Saturating</h4>
+    <ul class="tight">
+      <li><span class="mono">SSAT Rd, #s, Rn {, shift}</span>: clamp result into signed <span class="mono">s</span>-bit range <span class="mono">[-2^(s-1), 2^(s-1)-1]</span>.</li>
+      <li><span class="mono">USAT Rd, #s, Rn {, shift}</span>: clamp result into unsigned <span class="mono">s</span>-bit range <span class="mono">[0, 2^s-1]</span>.</li>
+      <li>If clamping occurs, set <span class="mono">APSR.Q</span>.</li>
+    </ul>
+
+    <h4>E.6.5 Sign/Zero Extension</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Meaning</th>
+        <th>Result</th>
+      </tr>
+      <tr><td><span class="mono">UXTB</span></td><td>Unsigned extend byte</td><td>low 8 bits -> 32 bits, zero-filled</td></tr>
+      <tr><td><span class="mono">UXTH</span></td><td>Unsigned extend halfword</td><td>low 16 bits -> 32 bits, zero-filled</td></tr>
+      <tr><td><span class="mono">SXTB</span></td><td>Signed extend byte</td><td>low 8 bits -> 32 bits, sign-filled</td></tr>
+      <tr><td><span class="mono">SXTH</span></td><td>Signed extend halfword</td><td>low 16 bits -> 32 bits, sign-filled</td></tr>
+    </table>
+    <p>Optional rotate before extension lets you pick another byte/halfword position from the source register.</p>
+
+    <h4>E.6.6 Bit Field Operations</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Use</th>
+      </tr>
+      <tr><td><span class="mono">BFC Rd, #lsb, #width</span></td><td>Clear selected bit field in destination</td></tr>
+      <tr><td><span class="mono">BFI Rd, Rn, #lsb, #width</span></td><td>Insert low bits of source into destination field</td></tr>
+      <tr><td><span class="mono">CLZ Rd, Rm</span></td><td>Count leading zeros</td></tr>
+      <tr><td><span class="mono">SBFX Rd, Rn, #lsb, #width</span></td><td>Extract field then sign-extend</td></tr>
+      <tr><td><span class="mono">UBFX Rd, Rn, #lsb, #width</span></td><td>Extract field then zero-extend</td></tr>
+    </table>
+
+    <h4>E.6.7 Extended-Length Arithmetic</h4>
+    <p>For numbers wider than 32 bits, do the least significant word first, then ripple the carry/borrow upward.</p>
+    <pre>; 64-bit addition: A = A_hi:A_lo in R5:R4, B = B_hi:B_lo in R1:R0
+ADDS  R4, R4, R0
+ADCS  R5, R5, R1
+
+; 96-bit pattern:
+ADDS  low,  low,  low2
+ADCS  mid,  mid,  mid2
+ADCS  high, high, high2</pre>
+
+    <h4>E.6.8 Boolean Operations with Masks</h4>
+    <ul class="tight">
+      <li>Clear selected bits: <span class="mono">AND Rd, Rn, #mask</span> where mask has 0s in the bits to clear.</li>
+      <li>Set selected bits: <span class="mono">ORR Rd, Rn, #mask</span> where mask has 1s in the bits to set.</li>
+      <li>Toggle selected bits: <span class="mono">EOR Rd, Rn, #mask</span> where mask has 1s in the bits to toggle.</li>
+      <li>Bitwise NOT pattern: <span class="mono">MVN Rd, Rm</span> or equivalent OR/AND combinations when needed.</li>
+    </ul>
+
+    <h4>E.6.9 Miscellaneous Operations</h4>
+    <table>
+      <tr>
+        <th>Instruction</th>
+        <th>Meaning</th>
+        <th>Exam Note</th>
+      </tr>
+      <tr><td><span class="mono">BKPT #imm8</span></td><td>Breakpoint for debugging</td><td>Immediate encodes but has no arithmetic meaning</td></tr>
+      <tr><td><span class="mono">MRS Rd, APSR</span></td><td>Move from special register</td><td>Read status/control style register</td></tr>
+      <tr><td><span class="mono">MSR APSR, Rn</span></td><td>Move to special register</td><td>Write status/control style register</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Part E Exam Traps and Fast Checks</h3>
+    <ul class="tight">
+      <li><strong>Address vs data:</strong> <span class="mono">ADR</span> gets address, <span class="mono">LDR</span> usually gets data.</li>
+      <li><strong>Signed vs unsigned branch:</strong> use the right condition family.</li>
+      <li><strong>Post-index vs pre-index:</strong> write-back timing changes the address used.</li>
+      <li><strong>LDRB/LDRH vs LDRSB/LDRSH:</strong> zero-extension and sign-extension are not interchangeable.</li>
+      <li><strong>IT blocks:</strong> no nested IT, no <span class="mono">CBZ/CBNZ</span>, and PC-changing instructions only last.</li>
+      <li><strong>Carry in subtraction:</strong> ARM <span class="mono">C=1</span> means no borrow.</li>
+      <li><strong>Extended-length arithmetic:</strong> use <span class="mono">ADDS</span> or <span class="mono">SUBS</span> first, then <span class="mono">ADCS</span> or <span class="mono">SBCS</span> upward.</li>
+      <li><strong>Literal loads:</strong> PC-relative range and alignment matter.</li>
+    </ul>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h2>Part F: Stacks, Subroutines, and Program Design</h2>
+
+  <div class="section">
+    <h3>F.1-F.3 Purpose, Motivation, and Core Idea</h3>
+    <ul class="tight">
+      <li>Need temporary storage because registers are limited.</li>
+      <li>Need support for subroutines and exception handling.</li>
+      <li>Need a simple way to track used temporary memory with one pointer.</li>
+      <li>That data structure is the stack.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>F.4 The Stack</h3>
+    <h4>F.4.1-F.4.2 Basic Definitions and Terminology</h4>
+    <ul class="tight">
+      <li>Stack = FILO / LIFO structure: first in, last out.</li>
+      <li><strong>Push</strong>: store new item on top of stack.</li>
+      <li><strong>Pop</strong>: retrieve top item and remove it from stack.</li>
+      <li><strong>Top of stack</strong>: item that would be popped next.</li>
+      <li><strong>Stack pointer (SP)</strong>: register tracking top / next free location depending on convention.</li>
+      <li><strong>Stack origin</strong>: initial boundary of reserved stack region.</li>
+    </ul>
+
+    <h4>F.4.3 Stack Types</h4>
+    <table>
+      <tr>
+        <th>Choice</th>
+        <th>Option A</th>
+        <th>Option B</th>
+      </tr>
+      <tr>
+        <td>Growth direction</td>
+        <td>Descending: grows toward lower addresses</td>
+        <td>Ascending: grows toward higher addresses</td>
+      </tr>
+      <tr>
+        <td>SP meaning</td>
+        <td>Full: SP points at top item</td>
+        <td>Empty: SP points at next free slot</td>
+      </tr>
+    </table>
+    <p>ARM convention in this course: <strong>full descending stack</strong>.</p>
+
+    <h4>F.4.4 Stack Implementation</h4>
+    <ul class="tight">
+      <li>Reserved contiguous memory block used only for stack.</li>
+      <li><span class="mono">SP = R13</span>.</li>
+      <li>SP must be word-aligned; under AAPCS, effectively 8-byte aligned at call boundaries.</li>
+      <li>Push on full descending stack = pre-decrement SP, then store.</li>
+      <li>Pop on full descending stack = load from SP, then post-increment SP.</li>
+    </ul>
+
+    <pre>; Example stack region
+; stack occupies 0x00010000 to 0x00012FFF
+MOV   SP, #0x13000      ; stack origin just above top
+
+; push R0
+STR   R0, [SP, #-4]!
+
+; pop into R0
+LDR   R0, [SP], #4</pre>
+
+    <h4>F.4.5-F.4.6 Primary Uses of the Stack</h4>
+    <ul class="tight">
+      <li>Save return information during calls.</li>
+      <li>Save and later restore register values.</li>
+      <li>Pass parameters and return values when registers are insufficient.</li>
+      <li>Subroutine rule: if you push <span class="mono">k</span> words, you must pop or otherwise reclaim the same <span class="mono">k</span> words before returning, unless the calling convention explicitly says otherwise.</li>
+    </ul>
+
+    <h4>Stack Frame and Frame Pointer</h4>
+    <ul class="tight">
+      <li>A <strong>stack frame</strong> is the chunk of stack memory belonging to one active subroutine call.</li>
+      <li>Typical contents: saved <span class="mono">LR</span>, saved callee-saved registers, local variables, and sometimes stack-passed parameters.</li>
+      <li>If <span class="mono">SP</span> changes during the routine, offsets from <span class="mono">SP</span> can become hard to track.</li>
+      <li>A <strong>frame pointer</strong> is a register copied from <span class="mono">SP</span> at a stable point so locals and parameters can be referenced with fixed offsets.</li>
+      <li>Exam use: if the problem asks for a stable base for locals/params after several pushes or local allocations, use a frame pointer.</li>
+    </ul>
+
+    <pre>; One common pattern
+PUSH {R4-R7, LR}       ; save callee-saved regs + return address
+SUB  SP, SP, #16       ; reserve locals
+MOV  R7, SP            ; R7 used here as frame pointer
+
+; examples of fixed-offset access
+LDR  R0, [R7, #0]      ; local 0
+LDR  R1, [R7, #4]      ; local 1
+LDR  R2, [R7, #16]     ; first stacked item above locals
+
+MOV  SP, R7            ; discard locals
+ADD  SP, SP, #16
+POP  {R4-R7, PC}</pre>
+
+    <div class="callout">
+      <strong>Frame-pointer exam rule:</strong>
+      if the callee keeps pushing, popping, or allocating temporary space, offsets from <span class="mono">SP</span> move around; offsets from a frame pointer stay stable.
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>F.5 Subroutines</h3>
+    <h4>F.5.1 Basics</h4>
+    <ul class="tight">
+      <li>Subroutine = reusable program segment callable from elsewhere.</li>
+      <li>Benefits: reuse, smaller code size, modularity, cleaner design.</li>
+      <li>Cost: call/return overhead compared with inline code.</li>
+    </ul>
+
+    <h4>F.5.2 Calling a Subroutine</h4>
+    <ul class="tight">
+      <li><span class="mono">BL label</span>: branch with link; writes return address into <span class="mono">LR</span>.</li>
+      <li><span class="mono">BLX Rm</span>: indirect call through register; also writes return address into <span class="mono">LR</span>.</li>
+      <li>Leaf subroutine = does not call another subroutine.</li>
+      <li>Non-leaf subroutine = calls another subroutine, so it must preserve its own caller's return address first.</li>
+    </ul>
+
+    <h4>F.5.3 Returning from a Subroutine</h4>
+    <table>
+      <tr>
+        <th>Pattern</th>
+        <th>Use</th>
+      </tr>
+      <tr>
+        <td><span class="mono">BX LR</span></td>
+        <td>Standard return</td>
+      </tr>
+      <tr>
+        <td><span class="mono">MOV PC, LR</span></td>
+        <td>Also works with restrictions</td>
+      </tr>
+      <tr>
+        <td><span class="mono">POP {R4-R6, PC}</span></td>
+        <td>Restore regs and return in one instruction</td>
+      </tr>
+    </table>
+
+    <pre>; Leaf subroutine
+subr:
+    ; use only caller-saved regs if possible
+    BX   LR
+
+; Non-leaf subroutine
+subr:
+    PUSH {R4-R6, LR}
+    ; body
+    BL   helper
+    ; more body
+    POP  {R4-R6, PC}</pre>
+
+    <h4>F.5.4 Additional Concepts</h4>
+    <ul class="tight">
+      <li><strong>Position-independent code</strong>: avoids absolute addresses so code works regardless of load location.</li>
+      <li><strong>Re-entrant</strong>: multiple active invocations can coexist safely.</li>
+      <li><strong>Transparent</strong>: subroutine restores registers it was not supposed to change.</li>
+      <li>All of these push you toward a formal calling convention.</li>
+    </ul>
+
+    <h4>F.5.5-F.5.6 Saving and Restoring Multiple Registers</h4>
+    <table>
+      <tr>
+        <th>Operation</th>
+        <th>General Form</th>
+        <th>Stack-Friendly Alias</th>
+      </tr>
+      <tr>
+        <td>Store multiple</td>
+        <td><span class="mono">STMDB SP!, {regs}</span></td>
+        <td><span class="mono">PUSH {regs}</span></td>
+      </tr>
+      <tr>
+        <td>Load multiple</td>
+        <td><span class="mono">LDMIA SP!, {regs}</span></td>
+        <td><span class="mono">POP {regs}</span></td>
+      </tr>
+    </table>
+
+    <ul class="tight">
+      <li>Lowest-numbered register maps to lowest memory address in the block transfer.</li>
+      <li>For a single register save/restore, <span class="mono">STR [SP, #-4]!</span> and <span class="mono">LDR [SP], #4</span> are fine.</li>
+      <li>Do not casually include <span class="mono">SP</span> or <span class="mono">PC</span> in the wrong lists.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>F.5.7 Passing Parameters</h3>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Pass by Value</th>
+        <th>Pass by Reference</th>
+        <th>Pros</th>
+        <th>Cons</th>
+      </tr>
+      <tr>
+        <td>Registers</td>
+        <td>Put data in regs</td>
+        <td>Put address in regs</td>
+        <td>Fast, re-entrant, position-independent</td>
+        <td>Limited quantity, consumes working registers</td>
+      </tr>
+      <tr>
+        <td>Memory location</td>
+        <td>Agreed fixed memory slots</td>
+        <td>Address known to both caller/callee</td>
+        <td>Simple conceptually</td>
+        <td>Not PIC-friendly, not re-entrant, shared-state risk</td>
+      </tr>
+      <tr>
+        <td>Stack</td>
+        <td>Push raw values</td>
+        <td>Push addresses</td>
+        <td>Scales to many params, flexible</td>
+        <td>More memory traffic and stack bookkeeping</td>
+      </tr>
+    </table>
+
+    <h4>AAPCS Highlights</h4>
+    <ul class="tight">
+      <li>Stack is full descending.</li>
+      <li>SP must be aligned, and call boundaries should preserve 8-byte alignment.</li>
+      <li>Arguments 1-4 in <span class="mono">R0-R3</span>.</li>
+      <li>Return values 1-4 in <span class="mono">R0-R3</span>.</li>
+      <li><span class="mono">R0-R3</span> and <span class="mono">R12</span> are caller-saved / scratch.</li>
+      <li><span class="mono">R4-R11</span> are callee-saved; restore them if you modify them.</li>
+      <li>Callee must preserve SP.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Performance conclusion from the notes:</strong>
+      register passing is the preferred AAPCS-compliant path because it minimizes stack traffic and can eliminate memory access entirely for simple subroutines.
+    </div>
+
+    <h4>Pass by Value vs Pass by Reference</h4>
+    <table>
+      <tr>
+        <th>Style</th>
+        <th>What You Pass</th>
+        <th>Callee Sees</th>
+        <th>When to Prefer It</th>
+      </tr>
+      <tr>
+        <td>Pass by value</td>
+        <td>The actual data bits</td>
+        <td>A copy of the input</td>
+        <td>Small scalar inputs that the callee should not modify in caller memory</td>
+      </tr>
+      <tr>
+        <td>Pass by reference</td>
+        <td>An address / pointer</td>
+        <td>Where the caller's data lives</td>
+        <td>Large objects, output parameters, or data that must be updated in place</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Worked Example: 64-bit Add on the Stack</h3>
+    <p>Idea from the notes: inputs are two 64-bit values, and the subroutine overwrites one stacked operand with the result.</p>
+    <pre>; Caller pushes PL, PH, QL, QH in registers first, then:
+PUSH {R0-R3}
+BL   add64
+POP  {R4, R5}      ; get RL, RH
+ADD  SP, SP, #8    ; discard remaining stacked words if convention requires
+
+add64:
+    PUSH {R6-R9}
+    LDR  R6, [SP, #16]   ; PL
+    LDR  R7, [SP, #20]   ; PH
+    LDR  R8, [SP, #24]   ; QL
+    LDR  R9, [SP, #28]   ; QH
+    ADDS R6, R6, R8      ; RL
+    ADCS R7, R7, R9      ; RH
+    STR  R6, [SP, #16]
+    STR  R7, [SP, #20]
+    POP  {R6-R9}
+    BX   LR</pre>
+
+    <p><strong>Key exam lesson:</strong> stack offsets must be computed after accounting for the callee's own pushes.</p>
+  </div>
+
+  <div class="section">
+    <h3>Worked Example: AAPCS-Compliant 64-bit Add</h3>
+    <pre>; Inputs:
+; R0 = PL, R1 = PH, R2 = QL, R3 = QH
+; Outputs:
+; R0 = RL, R1 = RH
+
+add64_aapcs:
+    ADDS R0, R0, R2
+    ADCS R1, R1, R3
+    BX   LR</pre>
+    <p>This is the ideal exam answer when the problem explicitly allows AAPCS register passing.</p>
+  </div>
+
+  <div class="section">
+    <h3>F.6 Program Design Process</h3>
+    <table>
+      <tr>
+        <th>Topic</th>
+        <th>Meaning</th>
+        <th>Why It Matters in Assembly</th>
+      </tr>
+      <tr>
+        <td>Top-down design</td>
+        <td>Break big problem into smaller tasks</td>
+        <td>Keeps low-level coding manageable</td>
+      </tr>
+      <tr>
+        <td>Modular design</td>
+        <td>Single-purpose modules with defined interfaces</td>
+        <td>Independent testing and replacement</td>
+      </tr>
+      <tr>
+        <td>Structured programming</td>
+        <td>Build from sequence, decision, and loop constructs</td>
+        <td>Reduces spaghetti control flow</td>
+      </tr>
+      <tr>
+        <td>Testability</td>
+        <td>Ease of verifying operation</td>
+        <td>Supports debugging with breakpoints and module tests</td>
+      </tr>
+      <tr>
+        <td>Recoverability</td>
+        <td>Ability to cope with errors</td>
+        <td>Important for robust routines and exception handling</td>
+      </tr>
+    </table>
+
+    <h4>Control Structure Mapping</h4>
+    <ul class="tight">
+      <li><strong>IF-THEN</strong>: compare/test, then conditional branch over action if false.</li>
+      <li><strong>IF-THEN-ELSE</strong>: conditional branch to ELSE, execute THEN, unconditional branch to END, then ELSE block.</li>
+      <li><strong>WHILE</strong>: test at top, branch out if false.</li>
+      <li><strong>DO-WHILE</strong>: body first, test at bottom, branch back if true.</li>
+      <li><strong>FOR</strong>: initialize, top test, body, increment, branch back.</li>
+      <li><strong>SELECT/CASE</strong>: compare against cases and branch to matching handler or default.</li>
+    </ul>
+
+    <h4>F.7 Program Design Language (PDL)</h4>
+    <ul class="tight">
+      <li>Pseudocode is the bridge between high-level reasoning and assembly implementation.</li>
+      <li>Describe what needs to happen before deciding exact registers/opcodes.</li>
+      <li>Keep statements English-like but precise enough that coding becomes almost mechanical.</li>
+      <li>Good PDL later turns into comments, tests, reviews, and ports.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Part F Exam Traps and Solve Patterns</h3>
+    <ul class="tight">
+      <li><strong>Full descending stack:</strong> push = pre-decrement, pop = post-increment.</li>
+      <li><strong>Non-leaf subroutine:</strong> save LR before calling another routine.</li>
+      <li><strong>Caller-saved vs callee-saved:</strong> know which side is responsible.</li>
+      <li><strong>SP offsets:</strong> if you push registers in the callee, all parameter offsets move.</li>
+      <li><strong>Return cleanup:</strong> know whether caller or callee removes stack arguments.</li>
+      <li><strong>Transparency:</strong> if not returning a value in a register, restore it.</li>
+      <li><strong>Stack discipline:</strong> never read above the top of stack; do not rely on stale data.</li>
+    </ul>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h2>Part G: Hardware Interfacing, DMA, and Address Decoding</h2>
+
+  <div class="section">
+    <h3>G.1-G.3 Big Picture and Background</h3>
+    <ul class="tight">
+      <li>The CPU talks to memory and peripherals through address, data, and control signals.</li>
+      <li>Many devices are memory-mapped, so the CPU accesses them using addresses just like memory.</li>
+      <li>The STM32L432KC integrates many on-chip peripherals: GPIO, DMA, ADC/DAC, SPI, I2C, USART, timers, CAN, USB, and more.</li>
+      <li>GPIO ports use control/configuration registers plus input/output data registers.</li>
+    </ul>
+
+    <h4>Signal Vocabulary</h4>
+    <table>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+      <tr><td>Active-high</td><td>Signal is true when logic high</td></tr>
+      <tr><td>Active-low</td><td>Signal is true when logic low</td></tr>
+      <tr><td>Asserted</td><td>Driven to active state</td></tr>
+      <tr><td>Negated</td><td>Driven to inactive state</td></tr>
+      <tr><td>Tri-state</td><td>Can be 0, 1, or high-impedance / floating</td></tr>
+    </table>
+
+    <h4>GPIO Register View</h4>
+    <table>
+      <tr>
+        <th>Register Type</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td>Mode / configuration register</td>
+        <td>Choose input, output, analog, or alternate-function behavior</td>
+      </tr>
+      <tr>
+        <td>Input data register</td>
+        <td>Read current logic levels on pins configured as inputs</td>
+      </tr>
+      <tr>
+        <td>Output data register</td>
+        <td>Drive logic levels on output pins</td>
+      </tr>
+      <tr>
+        <td>Alternate-function selection</td>
+        <td>Hand pin control to a peripheral such as SPI, I2C, USART, or a timer</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>G.4 Memory-Mapped Devices</h3>
+    <ul class="tight">
+      <li>External devices can share the processor buses and occupy regions of the address space.</li>
+      <li>Examples: RAM, ROM, LCD controller, I/O peripherals.</li>
+      <li>On-chip peripherals are also memory-mapped inside the MCU.</li>
+      <li>Only one target device should be active for a given bus transaction.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>G.5 Memory-to-CPU Interface</h3>
+    <h4>Bus and Port Size</h4>
+    <ul class="tight">
+      <li>Cortex-M4 here is modeled with a 32-bit address bus and 32-bit data bus.</li>
+      <li>Memory capacity is counted in bytes, but memory chips may have 8-bit, 16-bit, or 32-bit ports.</li>
+      <li>A 32-bit CPU talking to narrower memory may require multiple transfers for one word access.</li>
+    </ul>
+
+    <table>
+      <tr>
+        <th>Memory Port Size</th>
+        <th>Byte Access</th>
+        <th>Halfword Access</th>
+        <th>Word Access</th>
+      </tr>
+      <tr>
+        <td>8-bit</td>
+        <td>1 transfer</td>
+        <td>2 transfers</td>
+        <td>4 transfers</td>
+      </tr>
+      <tr>
+        <td>16-bit</td>
+        <td>1 transfer</td>
+        <td>1 transfer</td>
+        <td>2 transfers</td>
+      </tr>
+      <tr>
+        <td>32-bit</td>
+        <td>1 transfer</td>
+        <td>1 transfer</td>
+        <td>1 transfer</td>
+      </tr>
+    </table>
+
+    <h4>Byte Enable / Byte Select Lines</h4>
+    <ul class="tight">
+      <li>CPU has byte-enable lines to indicate which byte lanes of the data bus are active.</li>
+      <li>With a 32-bit bus, the active byte lane depends on <span class="mono">A1:A0</span> and transfer size.</li>
+      <li>Misalignment complicates transfers and can require multiple cycles or be disallowed depending on architecture/peripheral.</li>
+    </ul>
+
+    <pre>Byte write to address 0x1234 on a 32-bit port:
+1. Address lines carry 0x00001234
+2. Low bits A1:A0 = 00 select the lowest byte lane
+3. Only the corresponding byte-enable line is asserted
+4. Data appears on the matching byte lane of D[31:0]</pre>
+
+    <div class="callout">
+      <strong>Exam question pattern:</strong>
+      given address, transfer size, and memory port width, determine:
+      address bits, active byte lanes, number of transfers, and whether the access is aligned.
+    </div>
+
+    <h4>Worked Example: Misaligned Word on a 32-bit Port</h4>
+    <pre>Question:
+Can a 32-bit word be stored starting at address 0x0003 on a 32-bit-wide port?
+
+Reasoning:
+1. A word needs 4 bytes.
+2. Address 0x0003 starts in the highest byte lane of the first aligned 32-bit word.
+3. Only byte 3 fits in the aligned word at addresses 0x0000-0x0003.
+4. The remaining bytes must go into the next aligned word at addresses 0x0004-0x0006.
+
+So the transfer spans two aligned bus words:
+- first bus word contributes 1 byte
+- second bus word contributes 3 bytes
+
+Exam conclusion:
+misaligned accesses break the clean one-transfer model. On a real target they may
+require multiple transfers, extra hardware support, or may be disallowed.</pre>
+  </div>
+
+  <div class="section">
+    <h3>G.6 Timing Diagrams</h3>
+    <ul class="tight">
+      <li>Event sequence diagrams show causal ordering between signals.</li>
+      <li>Data-sheet timing diagrams quantify delays and legal intervals.</li>
+      <li>For sequential elements like D flip-flops, know setup time, hold time, and propagation delay.</li>
+    </ul>
+
+    <table>
+      <tr>
+        <th>Term</th>
+        <th>Meaning</th>
+      </tr>
+      <tr><td>Setup time</td><td>Data must be stable for this long before clock edge</td></tr>
+      <tr><td>Hold time</td><td>Data must remain stable for this long after clock edge</td></tr>
+      <tr><td>Propagation delay</td><td>Delay from input event to output change</td></tr>
+    </table>
+
+    <p>Shaded/uncertain regions in timing diagrams usually mean the signal is not guaranteed valid there.</p>
+  </div>
+
+  <div class="section">
+    <h3>G.7 Direct Memory Access (DMA)</h3>
+    <ul class="tight">
+      <li>Normally CPU is bus master and executes instructions to move data.</li>
+      <li>DMA lets a device transfer directly to/from memory without CPU performing each data move.</li>
+      <li>CPU temporarily yields bus-master role to the DMA controller.</li>
+    </ul>
+
+    <h4>DMA Process</h4>
+    <ol class="tight">
+      <li>CPU starts as bus master.</li>
+      <li>A device requests bus use.</li>
+      <li>DMA controller gains control and performs memory transfers directly.</li>
+      <li>DMA releases bus and CPU resumes normal control.</li>
+    </ol>
+
+    <h4>Advantages and Modes</h4>
+    <table>
+      <tr>
+        <th>Advantage</th>
+        <th>Why</th>
+      </tr>
+      <tr><td>Speed</td><td>No fetch/decode/execute overhead for each moved word</td></tr>
+      <tr><td>Efficiency</td><td>CPU is freed for other work</td></tr>
+      <tr><td>Bus utilization</td><td>May use otherwise idle cycles</td></tr>
+    </table>
+    <ul class="tight">
+      <li><strong>Cycle stealing</strong>: DMA takes bus for one transfer at a time, interleaving with CPU.</li>
+      <li><strong>Burst mode</strong>: DMA performs consecutive transfers before releasing bus.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>G.8 Address Decoding</h3>
+    <h4>Core Idea</h4>
+    <ul class="tight">
+      <li>Address space is large; physical devices occupy selected subranges inside it.</li>
+      <li>Decoder logic asserts the correct chip select (<span class="mono">CS</span>) based on address bus values.</li>
+      <li>Only the selected device should respond to the bus cycle.</li>
+    </ul>
+
+    <h4>General Design Math</h4>
+    <ul class="tight">
+      <li>If a chip stores <span class="mono">2^M</span> bytes, it needs <span class="mono">M</span> low-order address lines internally.</li>
+      <li>If there are <span class="mono">2^N</span> equal-size blocks, use <span class="mono">N</span> high-order bits to choose block / chip.</li>
+      <li>Total address bits = <span class="mono">N + M</span>.</li>
+    </ul>
+
+    <h4>Full vs Partial vs Block vs Mixed-Mode Decoding</h4>
+    <table>
+      <tr>
+        <th>Scheme</th>
+        <th>Meaning</th>
+        <th>Result</th>
+      </tr>
+      <tr>
+        <td>Full decoding</td>
+        <td>Use all relevant address lines</td>
+        <td>Each physical location has one unique logical address</td>
+      </tr>
+      <tr>
+        <td>Partial decoding</td>
+        <td>Ignore some address lines</td>
+        <td>Device appears at multiple mirrored addresses</td>
+      </tr>
+      <tr>
+        <td>Block decoding</td>
+        <td>Split address space into blocks using high-order bits</td>
+        <td>Simple decoder-driven memory map</td>
+      </tr>
+      <tr>
+        <td>Mixed-mode decoding</td>
+        <td>Combine full, partial, and/or block approaches</td>
+        <td>Trades simplicity against uniqueness/flexibility</td>
+      </tr>
+    </table>
+
+    <h4>Partial Decoding Consequences</h4>
+    <ul class="tight">
+      <li>Undecoded lines become "don't cares".</li>
+      <li>Same physical device appears multiple times in logical address space.</li>
+      <li>Advantage: simpler, cheaper, faster decoder logic.</li>
+      <li>Disadvantage: address aliasing / mirroring can be undesirable.</li>
+    </ul>
+
+    <h4>Design Procedure</h4>
+    <ol class="tight">
+      <li>Write target base address and device size.</li>
+      <li>Determine how many low bits belong to in-device addressing.</li>
+      <li>Mark the remaining high bits that distinguish devices.</li>
+      <li>For full decoding, constrain every necessary distinguishing bit.</li>
+      <li>For partial decoding, intentionally leave some bits as don't-care if aliasing is acceptable.</li>
+      <li>Generate a <span class="mono">CS</span> expression that asserts only for the chosen address pattern.</li>
+    </ol>
+
+    <h4>Rule from the Notes for Partial Decoding</h4>
+    <div class="callout">
+      For any pair of devices, there should be a common address line used to generate
+      their chip selects such that one device sees 0 on that line and the other sees 1.
+    </div>
+
+    <h4>Memory Map Design Considerations</h4>
+    <ul class="tight">
+      <li>Device regions are usually continuous.</li>
+      <li>Regions do not need to be adjacent.</li>
+      <li>Some devices may only map to even or odd addresses depending on width.</li>
+      <li>Decoder logic must be fast because every memory access depends on it.</li>
+      <li>Leave room for future system changes when choosing map layout.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Worked Example: Full vs Partial Decoder Thinking</h3>
+    <pre>Example idea:
+CPU address bus = 24 bits
+ROM size = 64 kB = 2^16 bytes
+Base address = 0x480000
+
+1. Low 16 address bits select location within ROM.
+2. High 8 bits must match 0x48 for full decoding.
+3. So ROM range is 0x480000 to 0x48FFFF.
+4. Full decoder asserts CS when A23:A16 = 0x48.
+
+If you intentionally ignore some high bits, the same ROM would appear at
+multiple mirrored ranges instead of one unique range.</pre>
+  </div>
+
+  <div class="section">
+    <h3>Worked Example: Multi-Device Partial Decoder</h3>
+    <pre>Example idea:
+CPU address bus = 24 bits
+Devices:
+- ROM1 = 32 kB at highest logical addresses
+- ROM2 = 32 kB just below ROM1
+- RAM  = 128 kB at base address 0x000000
+- PER1 = 8 registers
+- PER2 = 8 registers
+
+Step 1: low-order address bits used inside each device
+- 32 kB device -> 15 low bits
+- 128 kB device -> 17 low bits
+- 8 byte registers -> 3 low bits
+
+Step 2: choose a few high bits for chip select
+- RAM near 0x000000 suggests top bits near 0
+- high ROMs suggest top bits near 1
+- peripherals should differ on at least one common decoded address line
+
+Step 3: obey the partial-decoding rule
+For any pair of devices, include at least one decoded address line where one device
+expects 0 and the other expects 1.
+
+Step 4: accept aliasing deliberately
+Any high-order lines not used in the decoder become don't-cares, so each device may
+appear in multiple mirrored logical regions.
+
+What to write on an exam:
+1. State how many low bits each device consumes internally.
+2. Mark which high bits you decode for each chip select.
+3. Use X or don't-care for intentionally ignored bits.
+4. State that multiple logical copies exist for partially decoded devices.</pre>
+
+    <div class="callout">
+      <strong>Mixed-mode decoding idea:</strong>
+      fully decode the devices that must have unique addresses, and partially decode the ones where simpler logic and aliasing are acceptable.
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Part G Exam Traps and Solve Patterns</h3>
+    <ul class="tight">
+      <li><strong>Memory-mapped device:</strong> CPU talks to device by addressing it, not by some magical separate instruction family.</li>
+      <li><strong>Port width vs bus width:</strong> number of transfers changes with port size.</li>
+      <li><strong>Byte enables:</strong> do not forget lane selection when transferring bytes or halfwords on a 32-bit data bus.</li>
+      <li><strong>Misalignment:</strong> if the access starts at the wrong byte offset, count how many aligned bus words it spans.</li>
+      <li><strong>Timing diagrams:</strong> setup and hold are around the clock edge; propagation is after it.</li>
+      <li><strong>DMA:</strong> CPU is not moving every word; DMA controller is bus master during the transfer window.</li>
+      <li><strong>Partial decoding:</strong> aliasing is expected, not an error, if undecoded bits are left as don't-care.</li>
+      <li><strong>Decoder math:</strong> low bits = address within chip, high bits = chip selection.</li>
+    </ul>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h2>Practice Sections</h2>
+
+  <div class="section">
+    <h3>Common Mistakes</h3>
+    <ul class="tight">
+      <li>Using signed branch conditions for unsigned quantities after <span class="mono">CMP</span>.</li>
+      <li>Forgetting that <span class="mono">LDRSB</span> and <span class="mono">LDRSH</span> sign-extend.</li>
+      <li>Treating <span class="mono">ADR</span> like a memory read instead of address formation.</li>
+      <li>Writing stack-frame offsets as if the callee had not pushed its own registers.</li>
+      <li>Returning from a non-leaf subroutine without preserving <span class="mono">LR</span>.</li>
+      <li>Ignoring byte-enable behavior on narrow or offset memory accesses.</li>
+      <li>Designing a partial decoder without checking whether two devices can ever share the same asserted pattern.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Fast Solve Patterns</h3>
+    <table>
+      <tr>
+        <th>Problem Type</th>
+        <th>Fast Method</th>
+      </tr>
+      <tr>
+        <td>Decode branch meaning</td>
+        <td>Identify flags set immediately before it, then interpret signed vs unsigned condition family</td>
+      </tr>
+      <tr>
+        <td>Compute effective address</td>
+        <td>Parse bracket syntax, compute EA, then apply write-back timing</td>
+      </tr>
+      <tr>
+        <td>Wide arithmetic</td>
+        <td>Start from least significant word with <span class="mono">ADDS/SUBS</span>, propagate with <span class="mono">ADCS/SBCS</span></td>
+      </tr>
+      <tr>
+        <td>Stack frame tracing</td>
+        <td>Draw SP after every push/pop, then label offsets from current SP</td>
+      </tr>
+      <tr>
+        <td>AAPCS question</td>
+        <td>Check R0-R3 first, then stack; preserve R4-R11 if callee touches them</td>
+      </tr>
+      <tr>
+        <td>DMA conceptual question</td>
+        <td>Emphasize bus-master transfer without CPU executing per-word moves</td>
+      </tr>
+      <tr>
+        <td>Address decoder</td>
+        <td>Device size determines low bits, base address determines required high bits</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Mini Worked Problems</h3>
+    <h4>1. When should you use <span class="mono">CBZ</span> instead of <span class="mono">CMP</span> + <span class="mono">BEQ</span>?</h4>
+    <p>Use <span class="mono">CBZ</span> when you only need a zero/nonzero decision and you do not want to disturb APSR flags.</p>
+
+    <h4>2. Why is <span class="mono">POP {R4-R6, PC}</span> useful?</h4>
+    <p>It restores callee-saved registers and returns in one instruction, especially useful after <span class="mono">PUSH {R4-R6, LR}</span>.</p>
+
+    <h4>3. What does partial decoding buy you?</h4>
+    <p>Simpler, smaller, often faster decoder logic, at the cost of mirrored address regions.</p>
+
+    <h4>4. Why does <span class="mono">ADC</span> matter after <span class="mono">ADD</span>?</h4>
+    <p>It consumes the carry-out from the low word so you can continue the addition into the next more significant word.</p>
+  </div>
+
+  <div class="section">
+    <h3>Final Review Checklist</h3>
+    <div class="two-col">
+      <ul class="tight">
+        <li>I can distinguish address formation from memory loading.</li>
+        <li>I can compute all common ARM effective addresses.</li>
+        <li>I know which load forms sign-extend and zero-extend.</li>
+        <li>I can use condition codes correctly for signed and unsigned comparisons.</li>
+        <li>I can read and build IT blocks.</li>
+        <li>I can do 64-bit or 96-bit add/sub across 32-bit registers.</li>
+        <li>I know how <span class="mono">BL</span>, <span class="mono">LR</span>, and <span class="mono">BX LR</span> work together.</li>
+        <li>I can save and restore register groups with PUSH/POP or STM/LDM.</li>
+      </ul>
+      <ul class="tight">
+        <li>I know the AAPCS roles of R0-R3, R4-R11, LR, and SP.</li>
+        <li>I can trace SP through a subroutine.</li>
+        <li>I can explain the difference between pass-by-value and pass-by-reference.</li>
+        <li>I can explain active-low, asserted, negated, and tri-state.</li>
+        <li>I can determine number of transfers from data-bus width vs memory-port width.</li>
+        <li>I can read setup, hold, and propagation timing from a diagram.</li>
+        <li>I can explain DMA and its modes.</li>
+        <li>I can design full or partial address decoders from base address and size.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="small muted">
+    Prepared from OCR text in the current folder on 2026-03-31. This is a study aid,
+    not a replacement for the official course notes or ARM documentation.
+  </p>
+</body>
+</html>

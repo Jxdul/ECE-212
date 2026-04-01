@@ -1,0 +1,2789 @@
+===== Page 1 =====
+ECE
+212
+Part E: Assembly language deep dive
+E.1 What's this all about？
+3
+E.2 Learning objectives
+•
+•
+•
+4
+E.3 Data-movement operations .
+7
+E.3.1 Loading a fixed value into a register
+9
+E.3.2 Loading an address into a register .
+•
+•
+1
+4
+E.3.3 MOV （register）..
+1.
+E.3.4 MOV （shifted register）
+16
+E.3.5 LOAD into register from memory
+•
+•
+•
+17
+E.3.6 STORE from register into memory
+•
+••
+•
+E.3.7 Miscellaneous operations
+•
+•
+•
+••
+••
+35
+E.4 Data processing operations I
+•
+•
+••••••
+E.4.1 Basic arithmetic operations
+E.4.2 Basic logical operations
+•
+••
+..
+41
+E.4.3 Comparison and test operations
+ECE 212 Winter 2026 LEC B1 -Course content ©J. C. Sit
+Notes - E （Assembly deep dive）- E-1
+
+===== Page 2 =====
+E.4.4 Shifting and bit manipulation
+E.5 Comparison and sequence control
+•
+•
+E.5.1 Branching..
+E.5.2 Condition codes
+E.5.3 Branching instructions
+E.5.4 Compare and branch
+E.5.5 The conditional IT （if-then） block
+E.6 Data processing operations II
+E.6.1 Multiplication （32-bit result）
+•
+•
+•
+•
+E.6.2 Multiplication （64-bit result）
+•••••
+71
+E.6.3 Division
+•
+•
+•
+•
+E.6.4 Saturating
+•
+E.6.5 Sign/zero-extension
+E.6.6 Bit field operations
+•
+•
+•
+•
+•
+78
+E.6.7 Extended-length arithmetic operations
+•••••
+。
+84
+E.6.8 Boolean operations ...
+••••
+86
+E.6.9 Miscellaneous operations
+•
+•
+•
+••
+•
+•
+•
+••
+91
+E.6.10 What comes next？
+•
+•
+•
+93
+ECE 212 Winter 2026 LEC B1 -Course content ©J. C. Sit
+Notes - E （Assembly deep dive）- E-2
+
+===== Page 3 =====
+E.1 What's this all about?
+• In this section, we embark on a tour of the ARMv7-M assembly language and
+get into the nitty-gritty details.
+• Our tour is organised by instruction category (data movement, arithmetic, ad-
+dress handling, etc.) and presents commonly used operations to allow us to
+implement assembly language programs.
+• The big-picture objective is for you to obtain enough working knowledge that
+will enable you to look up any instruction from suitable reference materials and
+ain an understanding of what the instruction does and how it is encoded.
+• Along the way, we will introduce new concepts that relate to programming
+and some programming examples.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-3
+
+===== Page 4 =====
+E.2 Learning objectives
+By the end of this section of the course, you should be able to:
+• Describe the basic operation of a major subset (the ones reviewed in this section
+of the notes) of the ARMv7-M instruction set.
+• For a given instruction, explain reasons for various restrictions including oper-
+ation size, operand type, or EA mode.
+• Given the ARMv7-M programmer's quick reference (PQR):
+O explain how various instructions work, and how they affect the APSR flags
+• check validity of a given instruction
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-4
+
+===== Page 5 =====
+Programming problem #1
+Write an assembly language program that takes an ASCII text string and cap-
+italises all letters.
+• Input and output strings will be stored in memory.
+• Strings are null-terminated.
+• The addresses of the input and output strings will be provided.
+We need:
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-5
+
+===== Page 6 =====
+Itinerary for our tour
+• data movement operations
+• arithmetic operations
+• logical operations
+• comparison and sequence control operations
+• individual bit operations
+• miscellaneous operations
+Note that this is not an exhaustive list!
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+= AL
+Notes - E (Assembly deep dive) - E-6
+
+===== Page 7 =====
+E.3 Data-movement operations
+• move (MOV) — register ‹ immediate
+— register - register
+• load (LDx) — register < memory
+• store (STx) — register → memory
+• In typical CISC designs (e.g.,
+), the MOV operation also includes mem-
+ory access, so there are no separate load / store-type instructions.
+• In most RISC designs (
+), memory access is exclusive to load and
+store operations.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-7
+
+===== Page 8 =====
+Quick review: Registers, hexadecimal, and binary
+Consider a register, e.g., R5 = 0x 1A2B 3C4D
+MSB
+LSB
+0x
+1A
+2B
+3C
+4D
+0b
+00011010
+00101011
+0011 1100
+01001101
+31
+••.
+24 23
+...
+16 15
+•..
+8
+7
+•..
+0
++ byte
+→
+upper halfword
+→
+• +
+(lower) halfword
+→
+word
+• default operation size is on the whole word
+• halfword-size operations are almost always on the
+halfword only
+— something must be done about
+• byte-size operations are always on the
+portion of the register only
+— something must be done about
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-8
+
+===== Page 9 =====
+E.3.1 Loading a fixed value into a register
+•
+copy or write a
+into a register; e.g., MOV (immediate)
+mnemonic
+S
+<c> <W> operands
+ext description (RTL)
+#
+MOV
+S
+LET imm32 = ZeroExt (imm8)
+T1
+MOV
+cc
+-Rd, #imm8
+Rd - imm32
+MOV
+{S} <c>
+LET imm32 = ThumbExp (i:imm3:imm8)
+W Rd, #immed
+Rd - imm32
+T2
+MOVW
+<c>
+Rd, #imm16
+LET imm32 = ZeroExt(imm4:i:imm3:imm8)
+Rd - imm32
+T3
+• encoding T1
+MOVS
+Rd, #imm8
+- outside IT block
+MOVcc
+- inside IT block
+Rd, #imm8
+• a 16-bit encoding — 0010 Oddd iiii iiii
+• Rd restricted to
+• 8-bit immediate value is placed into
+of Rd; rest of bits
+• more on conditional execution and IT
+blocks later
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-9
+
+===== Page 10 =====
+• encoding T2
+MOV{S) .W Rd, #immed
+• a 32-bit encoding
+• Rd = any register except
+• uses a modified immediate constant
+Modified immediate values
+ThumbExp() pseudocode function - Immediate constants are encoded in 32-bit Thumb instructions using the indicated 12 bits. By expanding and/or
+shifting a 7- or 8-bit pattern, a wide range of useful 32-bit immediate values can be obtained, though not all possible 32-bit values can be encoded this way.
+15 14 13
+12
+11
+10
+9
+8
+7 6 5 4 3
+2
+1
+15 14 13 12 11 10
+8
+7
+6
+5
+4
+3
+2
+1
+0
+i
+imm3
+a
+b
+e f g
+h
+The base pattern to be used is in imm8, seen in the 8-Isb of the second instruction halfword. imm8 here is given as abcdefgh. The pattern abcdefgh or
+1 bcdefgh can be shifted and/or repeated in various ways depending on the 5-bit pattern given in i: imm3:a.
+i:imm3:a
+imm32
+0000x
+0000 0000
+0000 0000
+0000 0000
+abcd efgh
+0001x
+0000 0000
+abcd efgh
+0000 0000
+abcd efgh
+0010x
+abcd efgh
+0000 0000
+abcd efgh 0000 0000
+0011x
+abcd efgh
+abcd efgh
+abcd efgh abod efgh
+01000
+1bcd efgh
+0000 0000
+0000 0000
+0000 0000
+1
+01001
+01bc defg h000 0000
+0000 0000
+0000 0000
+0
+01010
+001b cdef gh00 0000
+0000 0000
+0000 0000
+11101
+0000 0000
+0000 0000
+0000 01bc defg h000
+0
+11110
+0000 0000
+0000 0000
+0000 001b
+cdef ghoo
+0
+11111
+0000 0000
+0000 0000
+0000 0001
+bode fghø
+日
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) -E-10
+
+===== Page 11 =====
+• encoding T3
+MOVW Rd, #imm16
+• a 32-bit encoding
+• Rd = any register except
+• use any 16-bit immediate value; gets put into
+of Rd, while
+• move with bitwise NOT
+MVN{S) Rd, #immed
+• works similarly to MOV encoding T2 above, except that:
+• a bitwise NOT is done on the calculated imm32 value before it gets put into
+Rd
+• move top
+MOVT
+Rd, #imm16
+• similar to MOVW encoding T3 above
+• use any 16-bit immediate value; gets put into
+of Rd, while
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-11
+
+===== Page 12 =====
+Example - put arbitrary 32-bit value into Rd
+This can be done using two instructions:
+Rd, #imm16
+Rd, #imm16
+The order of operations is critical! What would happen if the order were swapped?
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-12
+
+===== Page 13 =====
+Pseudo-instructions for putting constants into Rd
+• MOV32 Rd,#imm32
+• puts an arbitrary 32-bit immediate value into a register
+• assembler translates this into
+• LDR
+Rd, =const
+• assembler generates most efficient way to put the constant into the reg-
+ister
+• may be MOV, MVN, or LDR with constant read from a literal pool
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-13
+
+===== Page 14 =====
+E.3.2 Loading an address into a register
+• ADR
+Rd, < label>
+• calculates a PC-relative address
+• translates to:
+ADD
+Rd, PC, #immed
+Or
+SUB
+Rd, PC, #immed
+• #immed = displacement from current value
+encoding
+APSR
+mnemonic
+S <c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+ADR
+<c>
+Rd, <label>
+imm32 _ ZeroExt(imm8:00
+Rd - Align(PC) + imm32
+1010 Oddd iiii iiii - - - -
+ADR
+<c>
+.W Rd, <label>
+imm32 — ZeroExt(1: 1mm3: imm8)
+Rd - Align(PC) - imm32
+1111 0110 1018 1111
+Biii dddd iiii iiii
+----
+ofset range is -40 0-nt instruction
+UB Rd, PC, #0 — special case for zer
+ADR
+<c> .W Rd, <label>
+ZeroExt(i:imm3 :imm8)
+T3
+lOiii dddd iiii iiii
+1111 0110 0000 1111
+ange is 0 to 409
+or «labe 1> after current instruction. Offs
+Use ADR to form a PC-relative address and put it into a register. Generally used with labels, where assembler calculates the required immediate value to be added to or subtracted from PC.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-14
+
+===== Page 15 =====
+E.3.3
+MOV (register)
+Copy from one register to another.
+encoding
+APSI
+mnemonic
+S <c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210
+NZ C V
+MOV
+<c>
+T1
+out
+ー ー ー I
+Rd, Rm
+Rd - Rm
+last 8188 0118 dmmm mddd
+MOV
+T2 out 0000 0000 00mm mddd
+**--
+MOV
+<c>
+- - - -
+Rd, Rm
+Rd - Rm
+T3
+1110 1010 010S 1111
+MOV
+•W
+out
+0000 dddd 0000 mmmm
+* * -
+• encoding T1
+MOV
+O RI
+— outside of IT block
+MOVc Rd, Rm — last instruction inside a IT block
+• a 16-bit encoding - 0100 0110 dmmm mddd
+• encoding T2
+MOV{S} Rd, Rm — outside of IT block
+• a 16-bit encoding - 0000 0000 00mm mddd
+• Rd and Rm restricted to
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+SAA
+Notes - E (Assembly deep dive) - E-15
+
+===== Page 16 =====
+• encoding T3
+MOV(S).W Rd, Rm
+• a 32-bit encoding - 1118 1018 0105 1111
+0000 dddd 0000 mmmm
+• restrictions on use with R13 (SP) or R15 (PC)
+E.3.4 MOV (shifted register)
+ARM's processor design includes a powerful barrel shifter that can perform a range
+of useful shift/ rotate operations on the value read from the source operand.
+• MOV {S}
+Rd, Rm, < shift>
+where shift is one of:
+• LSL #k — logical shift left
+• LSR #k — logical shift right
+• ASR #K — arithmetic shift right
+• ROR #k — rotate right
+• RRX #k — rotate right with extend
+Note: We'll use standalone instructions LSL, LSR, etc. instead of this MOV with
+shifted register form.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-16
+
+===== Page 17 =====
+E.3.5 LOAD into register from memory
+• LDR
+- load register (word)
+• LDRB
+— load register byte
+• LDRH
+— load register halfword
+• LDRSB
+— load register signed byte
+• LDRSH
+— load register signed halfword
+• LDRD
+— load register dual
+• LDM
+— load multiple
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+• AL
+Notes - E (Assembly deep dive) - E-17
+
+===== Page 18 =====
+LDR = load register (word)
+Consider the LDR instruction. (PQR / Opcode reference / row 97)
+There are three sub-categories:
+• immediate — of the form LDR Rt, [Rn, #immed]
+The immediate value refers to an optional fixed-value offset.
+• literal — of the form LDR Rt, ‹label>
+e.g., named variables defined with directives like DCB, DCD, etc.
+• register — of the form LDR Rt, [Rn, Rm]
+The offset is the value of a second register Rm.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-18
+
+===== Page 19 =====
+LDR (immediate)
+Let's now zoom in further to LDR (immediate). (PQR / Opcode reference / rows
+97-102)
+encoding
+APSR
+mnemonic
+<c> <W>
+operands
+ext description (RTL)
+| # IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+LDR
+<c>
+Rt, [Rn <, #immed)]
+[LET imm32 = ZeroExt(iii:11:00)
+Rt _ [Rn + imm32]
+T1
+0110 liii iinn nttt
+Offset range = 0, 4, 8,
+...,124.
+#immed has form iiiii: 00 (in binary).
+LDR
+<0>
+Rt, [SP {,#immed) |
+Rt _ [SP + imm32]
+LET imm32 = ZeroExt(iiii:iiii:00)
+T2
+1001 Ittt iiii iiii
+ーーーー
+Rt from RO-R7.
+Offset range = 0, 4, 8,
+#immed has form iiiiiiii: 00 (in binar
+, 1020
+LDR
+<c>
+• W
+Rt, [Rn {, #imm12) ]
+LET imm32 = ZeroExt(imm12)
+Rt _ [Rn + imm32]
+T3
+out 1111
+last tttt iiii iiii iiii
+1000 1101 nnnn
+----
+If Rn = PC, see LDR (literal)
+Offset range = 0 to 4095
+Rt, [Rn, #-imm8]
+LET imm32
+= ZeroExt (imm8)
+1111
+Rt _ [Rn - imm32]
+tttt 1100 iiii iiii
+1000 0101 nnnn
+- - -
+If Rn = PC, see LDR (literal).
+Offset range = -255 to 0.
+LET imm32 = ZeroExt (imm8)
+LDR
+<C>
+Rt, [Rn, #+imm8]!
+Rn - Rn ‡ imm32
+Rt -
+T4 out/
+tttt 1101 iiii iiii
+1111 1000 0101 nnnn
+- -
+last
+LET imm32 = ZeroExt(imm8)
+- U = 1 for +ve imm8; 8 for -ve imm8.
+If Rn = PC, see LDR (literal).
+Rt, [Rn], #timm8
+1111 1000 0101 nonr
+Offset range = -255 to +255.
+Rn _ Rn = imm32
+Rt - [Rn]
+tttt 1001 iiii iii:
+ーーーー
+• encoding T1
+LDR
+Rt, [Rn {, #immed}]
+• a 16-bit encoding - 0110 liii iinn nttt
+• Rt and Rn both restricted to
+• & words should be word-aligned in memory (i.e., at addresses that are
+multiples of )
+• :: the five available bits used to encode the offset are not storing binary
+values of the form iiiii, ...but rather of the form
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-19
+
+===== Page 20 =====
+• encoding T2
+LDR
+Rt, [SPí, #immed}] —
+• a 16-bit encoding — 1001 Ittt iiii iiii
+• Rt restricted to
+• uses SP (i.e., R13) as the base register
+• The stack is word-aligned in memory (i.e., its entries are at addresses that
+are multiples of
+• : the eight available bits used to encode the offset are not storing binary
+values of the form iiiiiiii, ...but rather of the form
+• encoding T3
+LDR.W Rt, [Rn{,#immed}]
+• a 32-bit encoding — 1111 1000 1101 nnnn
+tttt iiii iiii iiii
+• no restrictions on the 12-bit immediate value
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-20
+
+===== Page 21 =====
+• encoding T4
+LDR
+Rt, [Rn, #-imm8]
+ー
+LDR
+Rt, [Rn, #timm8]!
+-
+LDR
+Rt, [Rn],#łimm8
+-
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+Notes - E (Assembly deep dive) - E-21
+
+===== Page 22 =====
+Addressing modes (effective address calculation)
+type
+address calculation
+assembler syntax indexed
+write-back
+immediate
+-
+#imm
+implied
+-
+-
+direct
+-
+Rn
+indirect
+EA = Rn
+[Rn]
+indirect with offset addressing
+EA = Rn + offset
+[Rn, offset]
+Y
+N
+indirect with pre-indexed addressing
+Rn + Rn + offset
+EA = Rn
+[Rn, offset]!
+EA = Rn
+[indirect with post-indexed addressing Rn — Rn + offset [Rn], offset
+Rn = base register for offset/indexed modes
+offset type
+example
+immediate constant
+#imm8
+index register
+Rm
+shifted index register
+Rm, LSL #2
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+AST
+Notes - E (Assembly deep dive) - E-22
+
+===== Page 23 =====
+LDR (literal)
+Ref: PQR / Opcode reference / rows 103-105
+• encoding T1
+LDR
+Rt, < Label>
+LDR
+Rt, [PC, #immed]
+• a 16-bit encoding — 0100 Ittt iiii iiii
+• Rt must be
+• Because of word-alignment, offset has form Ob ii iiii ii00, giving us a
+ange of offsets 0, 4, 8,..., 1020.
+• Offset may only be +ve, so < label> must
+• encoding T2
+LDR .W
+Rt, < label>
+LDR
+Rt, [PC, #timm12]
+ー
+• a 32-bit encoding
+• offset range is - 4095 ... + 4095 encoded as 12 bits, with a separate sign bit
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+SAA
+Notes - E (Assembly deep dive) - E-23
+
+===== Page 24 =====
+LDR (register)
+Ref: PQR / Opcode reference / rows 106-107
+• encoding T1
+LDR
+Rt, [Rn, Rm]
+-
+• a 16-bit encoding - 0101 100m mmnn nttt
+• All three registers must be
+• EA =
+• RTL: Rt +
+• encoding T2
+LDR.W Rt, [Rn, Rm {, LSL
+#imm2}]
+-
+• a 32-bit encoding
+• LSL (shift left) of Rm by up to
+bits, equivalent to multiplying
+Rm by
+• • EA =
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-24
+
+===== Page 25 =====
+Example - LDR and addressing modes
+address
+content
+0x11223308
+0x44
+Given the memory map and initial value R6
+0x11223307
+0x55
+= 0x1122 3300, what happens after each of
+0x11223306
+0x66
+the following instructions?
+0x11223305
+0x77
+0x11223304
+0x88
+LDR R1, [R6]
+0x1122 3303
+0x99
+0x11223302
+0XAA
+LDR R2, [R6, #4 ]
+0x11223301
+0xBB
+;
+0x11223300
+0xCC
+LDR
+R3, [ R6, #-6]
+0x112232FF
+0XDD
+;
+0x112232FE
+0xEE
+LDR
+R4, IR6, #-6] !
+0x1122 32FD
+0хAB
+;
+0x1122 32FC
+0хBC
+0x112232FB
+0xCD
+LDR
+R5, [R6], #8
+0x112232FA
+ØxDE
+;
+0x1122 32F9
+0x01
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-25
+
+===== Page 26 =====
+Example - LDx
+address
+content
+0x11223308
+0x44
+Given the memory map and initial value R6
+0x11223307
+0x55
+= 0x 1122 3300, what happens after each of
+0x11223306
+0x66
+the following instructions?
+0x11223305
+0x77
+0x11223304
+0x88
+LDRH R1, [R6]
+0x1122 3303
+0x99
+0x11223302
+0XAA
+LDRSH R2, [R6]
+0x11223301
+0xBB
+;
+0x11223300
+0xCC
+LDRSB R3, [R6, #-7]
+0x112232FF
+0XDD
+0x1122 32FE
+0xEE
+LDRSH R4, [R6, #6]!
+0x112232FD
+0хAB
+;
+0x112232FC
+0хBC
+;
+0x112232FB
+0xCD
+LDRB R5, [R6], #-8
+0x112232FA
+ØxDE
+;
+0x112232F9
+0x01
+;
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-26
+
+===== Page 27 =====
+E.3.6 STORE from register into memory
+• STR
+- store register (word)
+• STRB
+- store register byte
+• STRH
+— store register halfword
+• STRD
+— store register dual
+• STM
+- store multiple
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+O AL
+Notes - E (Assembly deep dive) - E-27
+
+===== Page 28 =====
+STR = store register (word)
+Consider the STR instruction. (PQR / Opcode reference / row 323)
+There are two sub-categories:
+• immediate — of the form
+TR Rt, [Rn, #immed]
+The immediate value refers to an optional, fixed-value offset.
+• register — of the form
+STR Rt, [Rn, Rm]
+The offset is the value of a second register Rm.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-28
+
+===== Page 29 =====
+STR (immediate)
+Let's now zoom in further to STR (immediate). (PQR / Opcode reference / rows
+323-328)
+encoding
+APSR
+mnemonic
+<c> <W> operands
+ext description (RTL)
+| # IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+<c>
+Rt, [Rn {,#immed}]
+ET imm32 = ZeroExt(iii:ii:00
+Rn + imm32] «
+Rt
+T1
+0110 Diii iinn nttt
+Rt and Rn both from RØ-R7.
+orse angs o i (in binary).
+<c>
+Rt, [SP‹, #immed} |
+LET imm32 = ZeroExt(iiii:iiii:00)
+[SP + imm32] - Rt
+T2
+1001 Ottt iiii iiii
+- -
+Rt from RØ-R7.
+#immed has form iiiiiiii: 00 (in binar
+Offset range = 0, 4, 8,
+...,1020.
+<c>
+LET imm32 = ZeroExt(imm12)
+STR
+•W
+Rt, [Rn ,#imm12) ]
+[Rn + imm32] - Rt
+T3
+1111 1000 1100 nnnn
+tttt iiii iiii iiii
+- - Rt and Rn may not be PC.
+Rt, [Rn, #-imm8]
+[Rn - imm32] - Rt
+LET imm32 = ZeroExt (imm8)
+tttt 1100 iiii iiii
+1111 1000 0100 nnnn
+ー ー =
+LET imm32 = ZeroExt (imm8)
+<c>
+Rt, [Rn, #timm8]!
+- Rn ‡ imm32
+T4
+1111 1088 810 man
+tttt 11U1 iiii iiii
+- - - -
+U = 1 for +ve imm8; 0 for -ve imm8.
+Rt, [Rn], #timm8
+LET imm32 = ZeroExt(imm8)
+[Rn] _ Rt
+1111 1000 0100 nnn
+Cannot use Rt = Rn = PC.
+Rn - Rn ‡ imm32
+tttt 10U1 iiii iiii
+- -
+• encoding T1
+STR
+Rt, [Rn {, #immed}]
+• a 16-bit encoding - 0110 Oiii iinn nttt
+• Rt and Rn both restricted to
+• Я words should be word-aligned in memory (i.e., at addresses that are
+multiples of
+• :: the five available bits used to encode the offset are not storing binary
+values of the form iiiii, ...but rather of the form
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-29
+
+===== Page 30 =====
+• encoding T2
+STR
+Rt, [SPí, #immed)] —
+• a 16-bit encoding — 1001 Ottt iiii iiii
+• Rt restricted to
+• uses SP (ie., R13) as the base register
+• The stack is word-aligned in memory (i.e., its entries are at addresses that
+are multiples of
+• : the eight available bits used to encode the offset are not storing binary
+values of the form iiiiiiii, ...but rather of the form
+• encoding T3
+STR.W Rt, [Rn{,#immed}]
+• a 32-bit encoding — 1111 1000 1100 nnnn
+tttt iiii iiii iiii
+• no restrictions on the 12-bit immediate value
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-30
+
+===== Page 31 =====
+• encoding T4
+STR
+Rt, [Rn, #-imm8]
+ー
+STR
+Rt, [Rn, #timm8]!
+-
+STR
+-
+Rt, [Rn], #timm8
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+Notes - E (Assembly deep dive) - E-31
+
+===== Page 32 =====
+STR (register)
+Ref: PQR / Opcode reference / rows 320-330
+• encoding T1
+STR
+Rt, [Rn, Rm]
+• a 16-bit encoding - 0101 000m mmnn nttt
+• All three registers must be
+• EA =
+• RTL:
+- Rt
+• encoding T2
+STRAW
+Rt, [Rn, Rm<, LSL #imm2}]
+-
+• a 32-bit encoding
+• LSL (shift left) of Rm by up to
+bits, equivalent to multiplying
+Rm by
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-32
+
+===== Page 33 =====
+Example - Instruction encoding (disassembling machine code)
+An instruction, known to be some variant of STR, has machine code of 0x636B.
+What is the corresponding assembly instruction?
+There is one instruction halfword 0x636B =Øb
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-33
+
+===== Page 34 =====
+Example - STx + addressing modes
+address
+content
+0x11223308
+0x44
+Given the memory map and:
+0x11223307
+0x55
+R6 = 0x 11223300
+0x11223306
+0x66
+R1 = 0x 1123 58D0
+R2 = 0x ABCD EF01
+0x11223305
+0x77
+R3 = 0x AABB CCDD
+R4 = 0x ABCD EDCB
+0x11223304
+0x88
+what happens after each instruction?
+0x11223303
+0x99
+0x11223302
+0xAA
+STR
+R1, [R6]
+0x11223301
+0хBB
+STRH
+R2, [R6, #4]
+0x11223300
+0xCC
+;
+0x112232FF
+0xDD
+STRH
+R3, [R6, #-6]
+0x112232FE
+0xEE
+,
+0x1122 32FD
+0хAB
+STRB
+R4, [R6, #-6]!
+0x112232FC
+0хBC
+;
+0x112232FB
+0XCD
+LDRSH
+R5, [R6]
+0x112232FA
+0xDE
+;
+0x1122 32F9
+0x01
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-34
+
+===== Page 35 =====
+E.3.7 Miscellaneous operations
+• reverse bits
+RBIT
+Rd, Rm
+Rm
+Rd
+• byte reverse (word)
+REV
+Rd, Rm
+Rm
+Rd
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-35
+
+===== Page 36 =====
+• byte reverse (packed halfword)
+REV16
+Rd, Rm
+Rm
+Rd
+• byte reverse (signed halfword)
+REVSH
+Rd, Rm
+Rm
+Rd
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+O AI
+Notes - E (Assembly deep dive) - E-36
+
+===== Page 37 =====
+E.4 Data processing operations I
+• basic arithmetic
+- ADD, ADC, RSB, SUB, SBC
+• basic logical
+— AND, BIC, EOR, MVN, ORR, ORN
+• comparison and test
+- CMN, CMP, TEQ, TST
+• shifting and bit manipulation
+— ASR, LSL, LSR, ROR, RRX
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-37
+
+===== Page 38 =====
+E.4.1 Basic arithmetic operations
+• ADD —add
+• ADC — add with carry
+takes carry-out from a previous addition (the C flag) as its carry-in, enabling
+extended-range operation
+• SUB — subtract
+e.g., SUB Rd, Rn, Rm
+Rd -
+e.g., SUB Rn, Rm
+• SBC — subtract with carry (a.k.a.
+e.g., SBC Rd, Rn, Rm
+Rd -
+• RSB — reverse subtract
+e.g., RSB Rd, Rn, Rm
+Rd -
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+Notes - E (Assembly deep dive) - E-38
+
+===== Page 39 =====
+All operations on the previous page are defined in a consistent fashion in the ARM
+pseudocode description of the operations. Since the same pseudocode function is
+called, then
+, just with different inputs
+applied!
+R = AddWithCarry(A, B, Cin)
+where R is the result, A is the first addend, B is the second addend, and Cin is the
+carry-in (applied to co in the addition).
+• ADD (regular addition): AddWithCarry(A, B, 0)
+• SUB (regular subtraction): AddWithCarry
+• ADC (addition with carry): AddWithCarry
+• SBC (subtraction with carry):
+AddWithCarry
+• RSB (reverse subtraction): AddWithCarry
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-39
+
+===== Page 40 =====
+Example - Negation
+In ARM assembly language, there is no separate NEG (negation) instruction, so
+how do we do this operation? Use RSB (reverse subtract) with
+RSB
+or
+RSB
+How does this work? Let's compare the RTL descriptions of SUB vs. RSB:
+• RSB { S}
+Rd, Rn, #const means:
+LET imm32 = ThumbExpImm(i:imm3:imm8)
+Rd - imm32 - Rn
+• SUB {S}
+Rd, Rn, #const means:
+LET imm32 = ThumbExpImm(i: imm3: 1mm8)
+Rd - Rn - imm32
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-40
+
+===== Page 41 =====
+E.4.2 Basic logical operations
+• AND
+- bitwise, Boolean AND
+• BIC
+— bit clear = bitwise, Boolean AND with NOT
+• ORR
+— bitwise, Boolean OR
+• ORN
+—bitwise, Boolean OR with NOT
+• EOR
+— bitwise, Boolean XOR
+• MVN
+- move with bitwise NOT
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+S AL
+Notes - E (Assembly deep dive) - E-41
+
+===== Page 42 =====
+E.4.3 Comparison and test operations
+• CMP
+- compare
+subtracts the two operands, updating N/ Z/C/ V flags, but discards the numer-
+ical result
+• (register) - (immediate)
+(register) - (register)
+• CMN
+- compare negative
+adds the two operands, updating N/Z/C/V flags, but discards the numerical
+result
+• (register) + (immediate)
+• (register) + (register)
+• TST
+- test
+(operand 1) AND (operand2), updating N/Z/C flags, but discards the result of
+the operation
+• TEQ
+- test equivalence
+(operand 1) XOR (operand2), updating N/ Z/C flags, but discards the result of
+the operation
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-42
+
+===== Page 43 =====
+E.4.4 Shifting and bit manipulation
+• LSL
+— logical shift left, equivalent to arithmetic shift left
+• move all bits of destination register Rd to the left
+• a O is shifted in from the right
+• bit "falling out" from the left goes to C flag
+• repeat the above k times
+• k specified as an immediate value or in a register
+• LSL by k bits is equivalent to
+Rd by
+...
+/31 |30
+by bo
+Rd
+before
+Rd
+after
+...
+B31 b30
+bI bo
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-43
+
+===== Page 44 =====
+• LSR
+- logical shift right
+• move all bits of destination register Rd to the right
+• a l is shifted in from the
+• bit "falling out" from the right goes to C flag
+• repeat the above k times
+• k specified as an immediate value or in a register
+...
+/31 |30
+bI bo
+Rd
+before
+Rd
+after
+...
+B31 b30
+by bo
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-44
+
+===== Page 45 =====
+• ASR
+- arithmetic shift right
+• move all bits of destination register Rd to the right
+° a
+is shifted in from the
+• bit "falling out" from the right goes to C flag
+• repeat the above k times
+k specified as an immediate value or in a register
+• ASR by k bits is equivalent to
+Rd by
+...
+b31 b30
+bi bo
+Rd
+before
+Rd
+after
+...
+B31 b30
+by bo
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-45
+
+===== Page 46 =====
+• ROR
+- rotate right
+• move all bits of destination register Rd to the right
+• bit "falling out" from the right copied to C flag and re-introduced on the
+left
+• repeat the above k times
+• k specified as an immediate value or in a register
+...
+/31 |30
+bI bo
+Rd
+before
+Rd
+after
+B31 b30
+• ..
+by bo
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-46
+
+===== Page 47 =====
+• RRX
+— rotate right with extend
+• move all bits of destination register Rd to the right
+• bit "falling out" from the right copied to C flag, which in turn is copied
+into msb
+b31 b30
+...
+bI bo
+Rd
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-47
+
+===== Page 48 =====
+What's the next step?
+Recall our programming problem on p. E-5. We now have looked at instructions
+for:
+• data movement
+• basic arithmetic, logical/boolean operations
+• comparison and test
+There are more data-processing operations, but we'll defer those until later. In the
+meantime, we need to learn how assembly language deals with decision-making.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-48
+
+===== Page 49 =====
+E.5 Comparison and sequence control
+Almost any program
+looping (e.g., DO-WHILE and FOR). In assembly language, we have:
+• branching unconditionally
+• branching conditionally, based on APSR flags
+• conditional execution of other instructions
+• comparison and testing
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-49
+
+===== Page 50 =====
+E.5.1 Branching
+Branching (a.k.a. jumping) means that program execution is to continue from a new
+location; i.e., PC - (new value)
+• branching unconditionally
+• branch to target addr:
+B
+< label>
+• call subroutine:
+BL
+< label>
+• branching conditionally
+• branch if (condition):
+Bcc
+<label>
+where cc = condition code
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) -E-50
+
+===== Page 51 =====
+Conditional execution
+• In traditional assembly language ISAs, branching was the only instruction that
+could be made conditional.
+• In ARMV7-M assembly language (Thumb-2 instruction set), most instructions
+can be executed conditionally. This is done using a special IT (if-then) instruc-
+tion block.
+• Some conditional branch instructions do not need the IT, as a condition code
+is included in their instruction encoding.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-51
+
+===== Page 52 =====
+Branching conditionally
+• High-level languages have IF-THEN-ELSE constructs, and therefore GOTO is
+unnecessary and, in fact, discouraged.
+• Assembly, however, usually does not have an ELSE clause. :
+Bcc
+<label>
+means "IF
+THEN GOTO
+The ELSE clause is implied as
+...ELSE
+Consider a high-level language like C:
+void main() {
+•..
+if (condition) {
+I/ do something
+} else {
+I do something else
+}
+I1 do more stuff
+•..
+}
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) -E-52
+
+===== Page 53 =====
+Implementing IF-THEN-ELSE in assembly language
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AR
+Notes - E (Assembly deep dive) -E-53
+
+===== Page 54 =====
+E.5.2
+E.5.2 Condition codes
+Condition codes and definitions
+mnemonic
+- definition -
+condition test
+condition
+integer arithmetic
+encoding
+boolean
+EQ
+equal
+0000
+Z
+NE
+not equal
+0001
+Z'
+CS (HS)
+carry set (unsigned higher or same)
+0010
+C
+CC (LO)
+carry clear (unsigned lower)
+0011
+C'
+MI
+minus (negative)
+0100
+N
+PL
+plus (positive)
+0101
+N'
+VS
+overflow
+0110
+V
+VC
+no overflow
+0111
+HI
+unsigned higher
+1000
+C•Z'
+LS
+unsigned lower or same
+1001
+C' + Z
+GE
+signed greater than or equal
+1010
+N•V + N'•V'
+LT
+signed less than
+1011
+N°V' +N'*V
+GT
+signed greater than
+1100
+Z'• (N•V + N' •V')
+LE
+signed less than or equal
+1101
+Z + N•V' + N' •V
+none (AL) always (unconditional)
+1110
+1
+HS is a synonym for CSLO is a synonym for CC
+AL is an optional mnemonic extension to indicate "always", but is required within an
+IT block.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-54
+
+===== Page 55 =====
+Version with extended information (reference only; not needed for this course)
+Condition codes and definitions
+mnemonic
+—— definition -
+condition test
+condition
+integer arithmetic
+FP arithmetic
+encoding
+C-like
+boolean
+EQ
+equal
+equal
+0000
+Z == 1i
+Z
+NE
+not equal
+not equal or unordered
+0001
+Z ==0
+CS (HS)
+carry set (unsigned higher or same)
+greater than, equal, or unordered
+0010
+C == 1
+C
+CC (LO)
+carry clear (unsigned lower)
+less than
+0011
+C == 0
+MI
+minus (negative)
+less than
+0100
+N == 1
+N
+PL
+plus (positive)
+greater than, equal, or unordered
+0101
+N == Ø
+N'
+VS
+overflow
+unordered
+0110
+V ==1
+V
+VC
+no overflow
+not unordered
+0111
+V
+== 0
+V'
+HI
+unsigned higher
+greater than, or unordered
+1000
+C == 1 and Z ==
+C•Z'
+LS
+unsigned lower or same
+less than or equal
+1001
+C ==
+or Z == 1
+C' + Z
+GE
+signed greater than or equal
+greater than or equal
+1010
+== V
+N•V + N'•V'
+LT
+signed less than
+less than, or unordered
+1011
+N != V
+N・V' + N'・V
+GT
+signed greater than
+greater than
+1100
+Z == 0 and N == V
+Z' • (N•V + N'•V')
+LE
+signed less than or equal
+less than, equal, or unordered
+1101
+Z == 1 or N != V
+Z + N•V' + N'• V
+none (AL) always (unconditional)
+always (unconditional)
+1118
+TRUE
+1
+HS is a synonym for CS
+LO is a synonym for CC
+AL is an optional mnemonic extension to indicate "always", but is required within an
+IT block.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-55
+
+===== Page 56 =====
+E.5.3 Branching instructions
+• branch:
+B {cc}
+< label>
+• branch with link:
+BL {cc}
+< label>
+• branch with exchange:
+BX { cc}
+Rm
+• branch with link and exchange:
+BLX {cc}
+Rm
+where:
+• {cc} = an optional condition code
+• <Iabel> = a named location (PC-relative addressing)
+• Rm = register holding address to branch to
+requires Rm[0] = 1 (details later)
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-56
+
+===== Page 57 =====
+Branch (to label)
+B{cc}
+< label>
+= Branch to a PC-relative label, within range:
+• B
+<label>
+unconditional, - 16 MB to +16 MB
+• Bcc
+< label>
+conditional, not in IT block, - 1 MB to +1 MB
+• Bcc
+<label>
+conditional, within an IT block, -16 MB to +16 MB
+encoding
+APSR
+notes
+mnemonic
+S <c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+If CCCC = 1110, see UDF.
+cc
+<label>
+LET imm32 = SignExt(imm8:0)
+PC - PC + imm32
+T1 out 1101 CCCC iiii iiii
+If CCCC = 1111, see SVC.
+Branch range = -256 to +254 (even values).
+also means AL).
+cc May not be AL (always) or omitted (which
+<c>
+<label>
+LET imm32 = SignExt(imm11:0)
+out
+PC - PC + imm32
+T2 last
+1110 liii iiii iiii
+values).
+Branch range = -2048 to +2046 (even
+If CCCC = 111x, it's an encoding for something
+co W < label>
+LET imm32 = SignExt(S:k:j:imm6:imm11:0)
+PC - PC + imm32
+53 out 1111 0500 0i1 i111
+10j0 kiii iiii iiii
+1- - - -
+- - Branch range = - 1048576 to +1048574 (even
+also means AL AL (always) or omited (which
+LET L = NOT (j XOR S)
+<> .W <label>
+LET M = NOT (k XOR S)
+LET imm32 = SignExtS:L:M:imm10:imm11:0)
+T4 out 1111 Sii iiii ilii
+last 10j1 kiii iiii iiii
+ーーーー
+- - Branch range = - 16777216 to +16777214
+PC - PC + imm32
+(even values).
+block.
+Encodings T1 and T3 are conditional as defined and thus may not be used inside an IT block or for unconditional branching. For the latter, T2 or T4 are needed. T2 and T4 can be made conditional using an IT
+Assembler calculates the offset from PC value of this B instruction to the given label, then selects the appropriate encoding.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-57
+
+===== Page 58 =====
+Branch with link (to label)
+BL{cc} «label>
+= Branch to a PC-relative label:
+• within range - 16 MB to + 16 MB
+• also writes the address of the subsequent instruction to link register LR ().
+Note:
+LR - PC|31:1]:1
+• Used to call a subroutine, saving the return address. (More in Part F)
+encoding
+APSR
+mnemonic
+S <c> «W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+BL
+<c>
+‹label>
+LET L = NOT (j XOR S)
+LR - PC[31:1]:1
+LET M = NOT (k XOR S)
+out 1111 @Sii iiii iiii
+LET imm32 = SignExt(S:L:M:imm10:imm11:0)
+T1
+last 11j1 kiii iiii iiii
+ーーーー
+- -
+i dealing broutine using a relative
+PC - PC + imm32
+(even values) = - 16777216 t0 +16777214
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-58
+
+===== Page 59 =====
+Branch with exchange
+BX { cc}
+Rm
+= Branch to an address held in register Rm
+Allows for change of instruction set, but not in ARMv7-M (since M profile sup-
+orts Thumb instruction set only).
+• Typical use is returning from a subroutine:
+• Can also be used for returning from an exception. (Part H of course.)
+encoding
+APSR
+mnemonic
+S <c> <W> operands
+ext description (RTL)
+# IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+IF ( (processor mode = handler) AND
+(Rm[31:28] = 1111)
+BX
+<c>
+Rm
+EPSRITE Return (Rm 27:01)
+- Rm [0]
+X LR) an
+1 last 0188 0111 emmmmee - -__
+- - Four from ex subroutine (og. B
+PC - Rm[31:1]:0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-59
+
+===== Page 60 =====
+Branch with link and exchange
+BLX{cc} Rm
+= Branch to an address held in register Rm, return address saved in LR
+• Like BX, allows for change of instruction set, but not in ARMv7-M (since M
+profile supports Thumb instruction set only).
+• Like BL, also writes the address of the subsequent instruction to LR.
+mnemonic
+encoding
+APSR
+S <c> <W> operands
+ext description (RTL)
+| # IT FEDC BA98 7654 3210 N Z C V Q GE
+notes
+BLX
+<c>
+Rm
+T1 last 0188 0111 1mmmmeee
+- - - -
+Rm cannot be PC.
+PC - Rm[31:1]:0
+UsageFault
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-60
+
+===== Page 61 =====
+Example - Branching
+• B
+1oopA
+- GOTO
+• BLE
+1oopA
+—conditionally
+• B.W
+target
+-
+• BL
+fnC
+• BX
+LR
+-
+• BXNE
+RO
+— conditionally
+• BLX
+R1
+-
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+Notes - E (Assembly deep dive) - E-61
+
+===== Page 62 =====
+E.5.4 Compare and branch
+CBZ
+Rn, ‹label>
+CBNZ
+Rn, < label>
+Compares Rn (
+) with zero and branches accordingly.
+• Similar to:
+CMP
+Rn, #0
+BEQ
+< label> or BNE
+< label>
+ut in a single instruction, and without affecting the APSR N/Z/C / V flags.
+• PC-relative branch destination <label> must come
+this instruction (offset
+range
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) -E-62
+
+===== Page 63 =====
+E.5.5 The conditional IT (if-then) block
+IT{x{y{z}}}
+CC
+Makes the (1 to 4) following instructions conditional, based on the specified cc. The
+conditions may all be the same, or some may be the logical inverse of cc.
+• X, y, z specify conditions for the 2nd /3rd / 4th instructions in the IT block; each
+is:
+• T (then) = the base condition is applied
+• E (else) = the inverse of the base condition is applied
+e.g., ITTE GT
+• The IT block gives us a way to implement simple IF-THEN-ELSE structures
+without requiring as many conditional and unconditional branching instruc-
+tions.
+• A BKPT (breakpoint) in an IT block always executes regardless of its condition.
+• Exceptions can occur within the IT block.
+• Can use AL (always) as base condition, but then may not use any E (else) con-
+ditions.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-63
+
+===== Page 64 =====
+• IT blocks may not contain:
+• a nested IT block
+• CBZ/ CBNZ
+• branch or other instructions that modify PC; these must be either outside
+of IT blocks, or must be the last instruction within an IT block:
+B BL
+BX BLX
+ADD PC, PC, Rm
+MOV PC, Rm
+LDM/LDR/POP, if writing to PC
+TBBR
+TBHI
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-64
+
+===== Page 65 =====
+ITSTATE register (conditional execution in IT blocks)
+7
+6
+5
+4
+3
+2
+1
+IT[7:0]
+T
+encodes size of IT block and Isb of cond code
+cond base
+for each instr in the IT block
+The 3-msb of the condition code specified by the IT instruction.
+cond_base
+P1| P2 P3 P4|
+P3
+" P4
+next 4 instructions are in IT block
+cond_base
+P1
+P2
+P3
+1
+next 3 instructions are in IT block
+cond_base
+P1
+P2
+1
+next 2 instructions are in IT block
+cond_base
+P1
+1
+0
+0
+next instruction is in IT block
+0
+0
+0
+0
+0
+0
+normal execution; not in IT block
+After each instruction within the IT block is executed conditionally based on IT[7:4],
+IT[4:0] is left-shifted by one bit. If IT[2:0] = 000, there are no more instructions left
+in the IT block, and IT| 7:0] is cleared.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-65
+
+===== Page 66 =====
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit |
+O AR
+Notes - E (Assembly deep dive) - E-66
+
+===== Page 67 =====
+Encoding of IT instruction
+• low order byte of the instruction word corresponds exactly to initial state of ITSTATE:
+7
+6
+5
+4
+3
+2
+1
+0
+IT[7:0]
+C
+C
+C
+M
+M
+M
+M
+T
+base condition
+condition of the 1st instr in the IT block
+Let D = the Isb of this condition code
+1 instruction in IT block
+IT
+1
+0
+For the 2nd, 3rd, and 4th
+ITT
+D
+1
+0
+instructions in the IT block,
+2 instructions in IT block
+• a T (then) means that D is
+ITE
+D'
+1
+placed in the corresponding
+ITTT
+D
+D
+1
+position in the mask field
+ITET
+D'
+D
+1
+• an E (else) means that D' is
+3 instructions in IT block
+ITTER
+D
+D'
+1
+placed in the corresponding
+position in the mask field.
+ITEE
+D'
+D'
+1
+ITTTT
+D
+D
+D
+1
+Following the D or D' entries,
+the rest of the mask field is a 1
+ITETT
+D'
+D
+D
+1
+and then all Øs.
+ITTET
+D
+D'
+D
+1
+D'
+D
+1
+Notes - E (Assembly deep dive) -E-67
+
+===== Page 68 =====
+Example - IT block
+ITTE
+NE
+; next 3 instr are conditional
+ANDNE
+RO, RO, R1
+; (T) doesn't update flags
+ADDSNE
+R2, R2, #1
+; (T) does update flags
+MOVEQ
+R2, R3
+; (E) conditional move
+CMP
+RO, #9
+; Sets up N/Z/C/ V flags
+ITE
+GT
+; next 2 instr are conditional
+ANDGT
+RO, RO, R1
+; (T) doesn't update flags
+MOVLE
+R2, R3
+; (E) conditional move
+ITT
+AL
+; The instructions below do not set flags
+ADDAL
+RO, RO, R1
+; (T) 16-bit encoding for ADD, not ADDS
+SUBAL
+R2, R2, #1
+; (T) 16-bit encoding for SUB, not SUBS
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-68
+
+===== Page 69 =====
+E.6 Data processing operations II
+These include additional arithmetic operations (multiplication, division, sign/ zero-
+extension) and bit-field operations.
+E.6.1 Multiplication (32-bit result)
+MUL — multiply
+• (32-bit) × (32-bit) = (32-bit)
+• A only lower 32 bits of product retained
+• does not depend on signed/unsigned
+• encoding T1: MULS
+Rd, Rn, Rd
+- outside of IT
+MULcc
+Rd, Rn, Rd
+— within an IT block
+Rd - (Rn × Rd) [31:0]
+• encoding T2: MUL
+Rd, Rn, Rm
+Rd = (Rn × Rm) [31:0]
+-
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-69
+
+===== Page 70 =====
+MLA — multiply and accumulate
+• (32-bit) + (32-bit) × (32-bit) = (32-bit)
+• ! only lower 32 bits of product retained
+• does not depend on signed/unsigned
+• MLA Rd, Rn, Rm, Ra
+Rd = (Ra + Rn × Rm) [31:0]
+MLS — multiply and subtract
+• (32-bit) - (32-bit) × (32-bit) = (32-bit)
+• 1 only lower 32 bits of product retained
+• does not depend on signed/unsigned
+• MLS Rd, Rn, Rm, Ra
+Rd = (Ra - Rn x Rm) [31: 0]
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-70
+
+===== Page 71 =====
+E.6.2 Multiplication (64-bit result)
+SMULL — signed multiply long
+• (32-bit) x (32-bit) = (64-bit)
+• SMULL Rd_lo, Rd_hi, Rn, Rm
+LET result = Rn x Rm
+(64-bit result)
+Rd_hi < result[63:32]
+d_10 + result [31:0]
+UMULL — unsigned multiply long
+• UMULL Rd_1o, Rd_hi, Rn, Rm
+• Same as SMULL but for multiplication of unsigned integers.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-71
+
+===== Page 72 =====
+SMLAL — signed multiply accumulate long
+• (64-bit) + (32-bit) × (32-bit) = (64-bit)
+• Conceptually, this is the 64-bit version of MLA for signed integers
+• SMLAL Rd_1o, Ra_hi, Rn, Rm
+ET result = Rd_hi:Rd_1o + Rn x Rm
+(64-bit result)
+Rd_hi - result[63:32]
+Rd_ 10 ‹ result[31:0]
+UMLAL — unsigned multiply accumulate long
+• (64-bit) + (32-bit) x (32-bit) = (64-bit)
+• Conceptually, this is the 64-bit version of MLA for unsigned integers
+• UMLAL Rd_1o, Rd_hi, Rn, Rm
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-72
+
+===== Page 73 =====
+E.6.3 Division
+SDIV — signed division
+• This is an integer division and the result rounds toward zero.
+• For floating-point division, require
+•
+SDIV
+Rd, Rn, Rm
+Rn
+Rd +
+Rm
+(integer division)
+UDIV — unsigned division
+• Same as the above, but for unsigned integers.
+• UDIV
+Rd, Rn, Rm
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-73
+
+===== Page 74 =====
+E.6.4 Saturating
+SSAT — signed saturate
+•
+SSAT
+Rd, #imm5, Rn ‹ , ‹shift>}
+• Operation:
+• letx = Rn with optional LSL or ASR
+• let s = #imm5
+• Case 1: x > 25 - 1
+Rd - 25-1 and set APSRIQ] flag
+• Case 2: x < -25
+Rd < -25 and set APSR[Q] flag
+• Case 3: otherwise
+Rd = x
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-74
+
+===== Page 75 =====
+USAT — unsigned saturate
+• USAT Rd, #imm5, Rn{, <shift>}
+• Operation:
+• let x = Rn with optional LS or ASR
+• let s = #imm5
+• Case 1: x > 25 - 1
+Rd < 25 - 1 and set APSR[Q] flag
+• Case 2: x < 0
+Rd - O and set APSRIQ] flag
+• Case 3: otherwise
+Rd + x
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-75
+
+===== Page 76 =====
+E.6.5 Sign/zero-extension
+UXTB - unsigned extend byte
+• UXTB Rd, Rmí, ‹rotate>}
+• Operation:
+• let x = Rm with optional ROR by 8/16/24 bits
+• Rd - x, zero-extended from 8 to 32 bits
+UXTH — unsigned extend halfword
+• UXTH
+Rd, Rm<, «rotate>)
+• Operation:
+• let x = Rm with optional ROR by 8/16/24 bits
+• Rd - x, zero-extended from 16 to 32 bits
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-76
+
+===== Page 77 =====
+SXTB — signed extend byte
+SXTB Rd, Rmí, ‹rotate>›
+• Operation:
+• let x = Rm with optional ROR by 8/16 / 24 bits
+• Rd « x, sign-extended from 8 to 32 bits
+SXTH — signed extend halfword
+• UXTH Rd, Rm {, ‹rotate>}
+• Operation:
+• let x = Rm with optional ROR by 8/16/24 bits
+• Rd - x, sign-extended from 16 to 32 bits
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+A
+Notes - E (Assembly deep dive) - E-77
+
+===== Page 78 =====
+E.6.6 Bit field operations
+BFC — bit field clear
+•
+BFC
+Rd, #Isb, #width
+• Clears a portion of Rd of given width and position. Other bits of Rd are not
+changed.
+e.g.,
+BFC
+R6, #7,#3
+BFI — bit field insert
+•
+BFI
+Rd, Rn, #Isb, #width
+• Copies the #width least-significant bits of Rn at position #Isb of Rd. Other bits
+of Rd are not changed.
+CLZ — count leading zeroes
+•
+CLZ
+Rd, Rm
+• Rd - number of leading binary Os in Rm before first binary 1 is seen
+ECE 212 Winter 2026 LEC B1 - Course content O1. C. Sit @ AT
+Notes - E (Assembly deep dive) - E-78
+
+===== Page 79 =====
+SBFX — signed bit field extract
+•
+SBFX
+Rd, Rn, #Isb, #width
+• Extracts from Rn any number of adjacent bits at any position, puts these into
+least-significant bits of Rd, then sign-extends.
+UBFX — unsigned bit field extract
+• UBFX Rd, Rn, #Isb, #width
+• Extracts from Rn any number of adjacent bits at any position, puts these into
+least-significant bits of Rd, then zero-extends.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+@ AI
+Notes - E (Assembly deep dive) - E-79
+
+===== Page 80 =====
+Review of memory maps - Quiz #2
+0x0000
+MAP
+0X07458
+0x0000
+half1
+DCW
+0xEE33
+0x0000
+half2
+DCW
+0x255
+0x0000
+huge
+DCD
+0x87654321
+0x0000
+smo1
+DCB
+0x12, 0x23,9
+0x0000
+middle DCB
+0x34, "howdy"
+// code
+0x0000
+begin
+LDR
+R1, half2
+0x0000
+LDRSB R2, half1
+0x0000
+LDR
+R3, half1
+0x0000
+LDRH
+R4, huge
+0x0000
+LDR
+R5, smol
+0x0000
+BKPT
+\#0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-80
+
+===== Page 81 =====
+Programming problem #1- Solution
+Write an assembly language program that takes an ASCII text string and capi-
+talises all letters.
+ASCII character set (7-bit)
+most-significant hex digit
+0
+1
+2
+3
+4
+5
+6
+7
+NUL
+DLE
+SP
+@
+P
+•
+1
+SOH DC1
+!
+1
+A
+Q
+2 STX
+DC2
+2
+B
+R
+b
+3
+ETX
+DC3
+#
+3
+C
+S
+C
+S
+4
+EOT
+DC4
+$
+4
+D
+T
+d
+t
+5
+ENQ
+NAK
+%
+5
+E
+e
+6
+ACK
+SYN
+&
+6
+F
+V
+f
+V
+7
+BEL
+JETB
+7
+G
+W
+g
+W
+8
+BS
+CAN
+(
+8
+H
+X
+h
+X
+9
+HT
+EM
+)
+9
+I
+Y
+A
+LF
+SUB
+*
+J
+Z
+j
+Z
+VT
+ESC
++
+K
+[
+C
+FF
+FS
+L
+D
+CR
+GS
+=
+M
+]
+}
+E
+SO
+RS
+>
+N
+n
+F
+SI
+US
+/
+?
+DEL
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-81
+
+===== Page 82 =====
+Pseudocode solution
+; need pointers to input and output strings
+set up pointers
+loop: get a byte from input string, incr. ptr
+if byte is 0, goto done
+if byte < 0x61 goto skip
+if byte > 0x goto skip
+byte = byte - 0x
+skip: store byte to output string, incr. ptr
+goto loop
+done:
+store the last byte to output
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-82
+
+===== Page 83 =====
+2 - One possible implementation
+; data here
+; assume these addresses are given/setup ahead of time
+str_ptr_in DCD 0x0000AA00
+str_ptr_out DCD 0x0000BB00
+begin
+ADR
+R0, str_ptr_in ;R0 ptr to i/p
+ADR R1, str_ptr_out ;R1 ptr to o/p
+; main loop, get a byte into R2, process it
+1oop
+LDR
+CBZ
+R2, done
+CMP
+R2, #0x61
+BLO
+skip
+CMP
+R2,#0x
+BHI
+SUBS R2,
+skip
+STR
+;
+B
+100p
+done
+STR
+:
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-83
+
+===== Page 84 =====
+E.6.7 Extended-length arithmetic operations
+The CPU registers are 32 bits wide. How do we, say, add two 64-bit integers?
+• The APSR[C] flag is used to indicate a carry-out from one operation and can
+be used as carry-in for next operation.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-84
+
+===== Page 85 =====
+Example - Extended-length arithmetic operations
+Given two 96-bit integers, how to add or subtract them? Assume the two inte-
+gers are given by A = R4:5:6 and B = R1 :R2: R3. We want to find the sum
+(A + B) and the difference (A - B). The result should be stored in three registers
+R4: R5: R6.
+Addition A + B
+sum
+Subtraction A - B
+difference
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-85
+
+===== Page 86 =====
+E.6.8 Boolean operations
+AND — bitwise, Boolean AND
+mnemonic
+S
+<c> <W> operands
+ext description (RTL)
+IT
+AND
+{S)
+<C>
+Rd, Rn, #immed
+imm32 _ ThumbExpC (i :imm3: imm8)
+Rd - Rn AND imm32
+T1
+AND
+S
+out
+Rn - Rn AND Rm
+AND
+cc
+Rn, Rm
+in
+AND
+{S}
+<c>
+Rd, Rn, Rm<, < shift>}
+Rd - Rn AND Rm(shifted)
+• W
+T2
+Rn, Rm {, ‹shift>}
+Rn - Rn AND Rm(shifted)
+• Given:
+× AND 1 =
+x AND O =
+• To clear selected bits in a register:
+AND {S) Rd, Rn, #bitmask
+• Think of bitmask as a 32-bit binary pattern, where:
+• any 1s in bitmask →
+• any 0s in bitmask →
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-86
+
+===== Page 87 =====
+ORR — bitwise, Boolean OR
+mnemonic
+S
+<c> <W> operands
+ext description (RTL)
+#
+IT
+ORR
+{S} <c>
+|LET imm32 = ThumbExpImm(i :imm3:1mm8)
+Rd, Rn, #immed
+Rd - Rn OR imm32
+ORR
+{S}
+Rd - Rd OR Rm
+<c>
+Rd, Rm
+T1 out
+in
+ORR
+{S} <c>
+• W
+Rd, Rn, Rm{, < shift>}
+Rd - Rn OR Rm(shifted)
+T2
+• Given:
+x OR 1 =
+X OR 0 =
+• To set selected bits in a register:
+ORR{S}
+Rd, Rn, #bitmask
+• any 1s in bitmask →
+• any Øs in bitmask →
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit • AI
+Notes - E (Assembly deep dive) - E-87
+
+===== Page 88 =====
+EOR — bitwise, Boolean XOR
+mnemonic
+S
+<> <W> operands
+ext description (RTL)
+#
+IT
+EOR
+{S} <c>
+LET 1mm32 = ThumbExpC (1:1mm3:1mm8)
+Rd, Rn, #immed
+T1
+Rd - Rn XOR imm32
+EOR
+S
+EOR
+Rn - Rn XOR Rm
+T1 out
+cc
+Rn, Rm
+EOR
+Rd, Rn, Rm{, < shift >}
+Rd - Rn XOR Rm(shifted)
+{S} <c>
+•W
+T2
+EOR
+Rn, Rm{, < shift>}
+Rn - Rn XOR Rm(shifted)
+• Given:
+× XOR 1 =
+× XOR 0 =
+• To toggle selected bits in a register:
+EOR(S} Rd, Rn, #bitmask
+• any 1s in bitmask →
+• any Os in bitmask →
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-88
+
+===== Page 89 =====
+Example - Bitwise NOT
+ARM (at least the Thumb-2 instruction set) does not include a bit-wise NOT in-
+struction to toggle all bits of a register. Let's take source register = R11 and desti-
+nation register = R3. How do we do this and what is the binary encoding of this
+instruction? Assume set flags (S).
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+® AI
+Notes - E (Assembly deep dive) - E-89
+
+===== Page 90 =====
+Example - Bitwise NOT (cont'd)
+Modified immediate values
+ThumbExp() pseudocode function — Immediate constants are encoded in 32-bit Thumb instructions using the indicated 12 bits. By expanding and/or
+shifting a 7- or 8-bit pattern, a wide range of useful 32-bit immediate values can be obtained, though not all possible 32-bit values can be encoded this way.
+15 14
+13
+12
+11
+10
+9
+8 7 6 5 4 3
+2
+1
+15
+14
+13 12
+11
+109
+8
+7
+6
+5 4 3 2 1
+i
+imm3
+a
+b
+d
+f
+g
+h
+The base pattern to be used is in imm8, seen in the 8-Isb of the second instruction halfword. imm8 here is given as abcdefgh. The pattern abcdefgh or
+1bcdefgh can be shifted and/or repeated in various ways depending on the 5-bit pattern given in i : imm3: a.
+i: imm3: a
+imm32
+0000x
+0000 0000
+0000 0000
+0000 0000 abcd efgh
+0001x
+0000 0000
+abcd efgh
+0000 0000
+abcd efgh
+0010x
+abad efgh
+0000 0000
+abcd efgh
+0000 0000
+0011x
+abcd efgh
+abcd efgh
+abcd efgh
+abcd efgh
+01000
+1bcd efgh
+0000 0000
+0000 0000
+0000 0000
+1
+01001
+01bc defg
+h000 0000
+0000 0000
+0000 0000
+01010
+001b cdef gh00 0000
+0000 0000
+0000 0000
+11101
+0000 0000 0000 0000 0000 01bc
+defg hood
+11110
+0000 0000
+0000 0000
+0000 001b
+cdef ghø0
+0
+11111
+0000 0000
+0000 0000
+0000 0001
+bode fghø
+0
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-90
+
+===== Page 91 =====
+E.6.9 Miscellaneous operations
+ВКРТ — breakpoint
+• BKPT
+#imm8
+• causes CPU to enter debug state, so we can use debug tools
+• immediate value doesn't do anything, but does get encoded into instruction
+halfword
+• works inside IT blocks, but executes unconditionally
+MRS — move from special register
+• MRS Rd, < spec_reg›
+• a way to read from status /control registers into a general-purpose register
+• a system-level instruction except when reading from APSR or CONTROL regis-
+ters
+• e.g., MRS
+R3, APSR
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+•A
+Notes - E (Assembly deep dive) - E-91
+
+===== Page 92 =====
+program status register = application program status register (flags) + interrupt program status register + execution program status register (execution state bits)
+31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10
+87 65
+APSR
+N Z C V
+GE [3:0]
+B EPSR
+• or exception number
+EPSR
+ICI/IT T
+ICI/IT
+Thumb state; always 1 for ARMv7-M
+PRIMASK
+BASEPRI
+FAULTMASK
+CONTROL
+MSR — move to special register
+• MSR <spec_reg>, Rn
+• a way to write to status/ control registers from a general-purpose register
+• a system-level instruction except when writing to APSR
+• e.g., MSR APSR, R6
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-92
+
+===== Page 93 =====
+E.6.10 What comes next?
+We have surveyed much of the application-level instruction set for the ARMv7-M
+architecture, giving us a working vocabulary that enabled us to tackle some basic
+programming.
+See also Chp. A7 in ARM Architecture Reference Manual (eClass)
+We next look at the stack as a special type of data structure used for temporary
+program storage and extend our programming repertoire to subroutines.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-93
+
+===== Page 94 =====
+Course content © 2026 J. C. Sit, Electrical and Computer Engineering, University of
+Alberta (Canada). All rights reserved. Resale or re-distribution is prohibited.
+Course content, digital or otherwise, created and / or used within the context of the
+course is to be used solely for personal study for students in ECE 212 LEC B1 in
+Winter 2026.
+ECE 212 Winter 2026 LEC B1 - Course content © J. C. Sit
+Notes - E (Assembly deep dive) - E-94
+
