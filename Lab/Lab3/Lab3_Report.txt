@@ -133,21 +133,17 @@ I could not re-run the embedded build in this environment because the local ARM 
 
 Questions
 
-Q1. How are parameters passed between the subroutines in this lab?
+Q1. Is it always necessary to implement either callee or caller preservation of registers when calling a subroutine? Why?
 
-A1. The lab uses both registers and the stack. Welcomeprompt receives the array base address in r0. Sort receives the array base address in r0 and the entry count from the stack. Display receives both the entry count and the array base address from the stack. This shows two common ARM parameter-passing methods in the same program.
+A1. No, it is not necessary to preserve every register every time a subroutine is called. What matters is that any register value that still needs to be used after the call must be preserved according to the calling convention. If the called routine may overwrite a register that the caller still needs, then that value must be saved either by the caller before the call or by the callee if that register is supposed to be preserved. In this lab, preservation matters because helper routines such as `printf`, `cr`, `value`, and `getstring` can overwrite registers, so we had to protect the values we still needed after those calls.
 
-Q2. Why is it necessary to preserve lr and other registers on the stack?
+Q2. Is it always necessary to clean up the stack? Why?
 
-A2. Every `bl` instruction overwrites lr with a new return address. Since our routines call helper functions such as `printf`, `cr`, `value`, and `getstring`, failing to preserve lr would cause the program to return to the wrong location. The assignment also notes that the provided helper routines overwrite r0-r3, so values that need to stay alive should be kept in higher registers and preserved when necessary.
+A2. The stack must always be left in the expected state before control returns to the caller. If a subroutine pushes registers, allocates local storage, or adds temporary values to the stack, then those changes must be cleaned up properly. Otherwise the stack pointer will be wrong, return addresses may no longer line up correctly, and later subroutine calls can fail. The only exception is when the calling design intentionally leaves something on the stack for another routine to use, like passing a parameter or result. Even then, the stack still has to be restored correctly at the proper point in the program.
 
-Q3. Why should the base address of the array not be hardcoded inside Sort or Display?
+Q3. If a proper check for the getstring function was not provided and you have access to the buffer, how would you check to see if a valid number was entered?
 
-A3. The assignment and test harness are designed to check whether the code is general. If a routine assumes the array always begins at 0x20001000, it may fail when the tester changes the address. Passing the base address as a parameter makes the routine reusable and follows proper subroutine design.
-
-Q4. What sorting method was used and why is it appropriate here?
-
-A4. The implemented algorithm is bubble sort. Bubble sort is appropriate for this lab because the maximum number of entries is small, the compare-and-swap logic is easy to express in assembly language, and it clearly demonstrates indexed memory access, loop control, and conditional branching.
+A3. We could validate the number by scanning the input buffer one character at a time before converting it. First, we would check for an optional leading `+` or `-`. After that, every remaining character should be a digit from `0` to `9` until we reach the end of the string, a newline, or a null terminator. If the buffer is empty, contains only a sign, or contains any non-digit character such as a letter, space, or symbol in the middle of the number, then the input should be rejected as invalid. A full check could also include overflow detection while converting the digits into an integer. In simple terms, the idea is to make sure the buffer matches the pattern of a valid signed decimal number before accepting it.
 
 Conclusion
 
